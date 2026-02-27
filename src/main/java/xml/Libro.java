@@ -40,4 +40,13 @@ public class Libro {
     public void setExistencias(int existencias) {
         this.existencias = existencias;
     }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "titulo='" + titulo + '\'' +
+                ", precio=" + precio +
+                ", existencias=" + existencias +
+                '}';
+    }
 }
