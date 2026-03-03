@@ -1,4 +1,4 @@
-package xml;
+package xml5y6;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;

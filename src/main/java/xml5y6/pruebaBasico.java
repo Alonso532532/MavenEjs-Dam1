@@ -1,4 +1,4 @@
-package xml;
+package xml5y6;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,14 +23,14 @@ public class pruebaBasico {
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            marshaller.marshal(biblioteca, new File("src/main/java/xml/Registros.xml"));
+            marshaller.marshal(biblioteca, new File("src/main/java/xml5y6/Registros.xml"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Serializado en json
-        try (BufferedWriter escribir = new BufferedWriter(new FileWriter("src/main/java/xml/Registro.json"))){
+        try (BufferedWriter escribir = new BufferedWriter(new FileWriter("src/main/java/xml5y6/Registro.json"))){
             ObjectMapper objectMapper = new ObjectMapper();
             for (Libro i: biblioteca.getBiblioteca()){
                 escribir.write(objectMapper.writeValueAsString(i)+"\n");
@@ -39,7 +39,7 @@ public class pruebaBasico {
             e.printStackTrace();
         }
 
-        try (BufferedReader leer = new BufferedReader(new FileReader("src/main/java/xml/Registro.json"))) {
+        try (BufferedReader leer = new BufferedReader(new FileReader("src/main/java/xml5y6/Registro.json"))) {
             String linea;
             while ((linea = leer.readLine()) != null) {
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -54,7 +54,7 @@ public class pruebaBasico {
             JAXBContext context = JAXBContext.newInstance(Biblioteca.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
-            Biblioteca result = (Biblioteca) unmarshaller.unmarshal(new File("src/main/java/xml/Registros.xml"));
+            Biblioteca result = (Biblioteca) unmarshaller.unmarshal(new File("src/main/java/xml5y6/Registros.xml"));
             System.out.println(result.getBiblioteca().get(0).getTitulo());
 
         } catch (Exception e){
