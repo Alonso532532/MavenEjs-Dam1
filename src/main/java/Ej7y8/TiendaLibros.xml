@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TiendaLibros>
+    <Autor>
+        <LibrosEscritos>
+            <author>Pascual</author>
+            <title>Ya vale</title>
+            <yearPublished>2007</yearPublished>
+        </LibrosEscritos>
+        <LibrosEscritos>
+            <author>Pascual</author>
+            <title>IKEEER</title>
+            <yearPublished>2008</yearPublished>
+        </LibrosEscritos>
+        <nombre>Pascual</nombre>
+    </Autor>
+    <Autor>
+        <LibrosEscritos>
+            <author>Juanma</author>
+            <title>Packet tracer</title>
+            <yearPublished>2004</yearPublished>
+        </LibrosEscritos>
+        <LibrosEscritos>
+            <author>Juanma</author>
+            <title>Grajes y pulpos</title>
+            <yearPublished>2009</yearPublished>
+        </LibrosEscritos>
+        <nombre>Juanma</nombre>
+    </Autor>
+    <LibroTienda>
+        <author>Juanma</author>
+        <title>Grajes y pulpos</title>
+        <yearPublished>2009</yearPublished>
+    </LibroTienda>
+    <LibroTienda>
+        <author>Juanma</author>
+        <title>Packet tracer</title>
+        <yearPublished>2004</yearPublished>
+    </LibroTienda>
+    <LibroTienda>
+        <author>Pascual</author>
+        <title>Ya vale</title>
+        <yearPublished>2007</yearPublished>
+    </LibroTienda>
+    <LibroTienda>
+        <author>Pascual</author>
+        <title>IKEEER</title>
+        <yearPublished>2008</yearPublished>
+    </LibroTienda>
+</TiendaLibros>
