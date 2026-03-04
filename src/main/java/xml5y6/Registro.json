@@ -1,3 +1,15 @@
-{"titulo":"cuento1","precio":20.3,"existencias":4}
-{"titulo":"cuento2","precio":26.0,"existencias":2}
-{"titulo":"cuento3","precio":21.3,"existencias":16}
+{
+  "biblioteca" : [ {
+    "titulo" : "cuento1",
+    "precio" : 20.3,
+    "existencias" : 4
+  }, {
+    "titulo" : "cuento2",
+    "precio" : 26.0,
+    "existencias" : 2
+  }, {
+    "titulo" : "cuento3",
+    "precio" : 21.3,
+    "existencias" : 16
+  } ]
+}

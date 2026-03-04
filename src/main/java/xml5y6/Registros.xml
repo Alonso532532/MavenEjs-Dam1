@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Biblioteca>
-    <biblioteca>
+    <Libro>
         <existencias>4</existencias>
         <precio>20.3</precio>
         <titulo>cuento1</titulo>
-    </biblioteca>
-    <biblioteca>
+    </Libro>
+    <Libro>
         <existencias>2</existencias>
         <precio>26.0</precio>
         <titulo>cuento2</titulo>
-    </biblioteca>
-    <biblioteca>
+    </Libro>
+    <Libro>
         <existencias>16</existencias>
         <precio>21.3</precio>
         <titulo>cuento3</titulo>
-    </biblioteca>
+    </Libro>
 </Biblioteca>

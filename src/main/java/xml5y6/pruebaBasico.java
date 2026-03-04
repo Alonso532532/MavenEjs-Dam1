@@ -17,40 +17,22 @@ public class pruebaBasico {
         Libro libro3 = new Libro("cuento3", 21.3, 16);
         ArrayList<Libro> libros = new ArrayList<>(Arrays.asList(libro1, libro2, libro3));
         Biblioteca biblioteca = new Biblioteca(libros);
-        // Serializo en xml
+
+        // Serializo en xml y deserializo
         try {
+
             JAXBContext context = JAXBContext.newInstance(Biblioteca.class);
             Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(biblioteca, new File("src/main/java/xml5y6/Registros.xml"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Serializado en json
-        try (BufferedWriter escribir = new BufferedWriter(new FileWriter("src/main/java/xml5y6/Registro.json"))){
-            ObjectMapper objectMapper = new ObjectMapper();
-            for (Libro i: biblioteca.getBiblioteca()){
-                escribir.write(objectMapper.writeValueAsString(i)+"\n");
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try (BufferedReader leer = new BufferedReader(new FileReader("src/main/java/xml5y6/Registro.json"))) {
-            String linea;
-            while ((linea = leer.readLine()) != null) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                Libro libro = objectMapper.readValue(linea, Libro.class);
-                System.out.println(libro);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        // Deserializado en xml
         try {
+
             JAXBContext context = JAXBContext.newInstance(Biblioteca.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -61,5 +43,25 @@ public class pruebaBasico {
             e.printStackTrace();
         }
 
+        // Serializado en json y deserializo
+        try{
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            //writerWithDefaultPrettyPrinter es meramente estético
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue( new File("src/main/java/xml5y6/Registro.json"), biblioteca);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        try {
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                Biblioteca recuperada = objectMapper.readValue(new File("src/main/java/xml5y6/Registro.json"), Biblioteca.class);
+                recuperada.getBiblioteca().forEach(System.out::println);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

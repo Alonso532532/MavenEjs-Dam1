@@ -1,5 +1,6 @@
 package xml5y6;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class Biblioteca {
         this.biblioteca = biblioteca;
     }
 
+    @XmlElement(name = "Libro")
     public ArrayList<Libro> getBiblioteca() {
         return biblioteca;
     }
