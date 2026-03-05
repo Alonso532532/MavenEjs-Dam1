@@ -37,8 +37,8 @@ public class Demo {
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(tienda, new File("src/main/java/Ej7y8/TiendaLibros.xml"));
-            // Deserializo
 
+            // Deserializo
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             TiendaLibros resultado = (TiendaLibros) unmarshaller.unmarshal(new File("src/main/java/Ej7y8/TiendaLibros.xml"));

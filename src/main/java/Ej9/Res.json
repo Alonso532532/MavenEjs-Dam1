@@ -1,0 +1,11 @@
+{
+  "nombre" : "Brevas",
+  "direccion" : "Brevintong street nº67",
+  "libros" : [ {
+    "title" : "Libro1"
+  }, {
+    "title" : "Libro2"
+  }, {
+    "title" : "Libro3"
+  } ]
+}
