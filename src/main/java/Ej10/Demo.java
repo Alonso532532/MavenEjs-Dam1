@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class Demo {
 
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/Ej10/Res.json"), catalog);
+            //DES
+
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -33,6 +36,12 @@ public class Demo {
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(catalog, new File("src/main/java/Ej10/Res.xml"));
+
+            //DES
+
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            LibraryCatalog resp = (LibraryCatalog) unmarshaller.unmarshal(new File("src/main/java/Ej10/Res.xml"));
+            System.out.println(resp.getCatalogo().get(new Author("Juanma", null)));
 
         } catch (Exception e){
             e.printStackTrace();

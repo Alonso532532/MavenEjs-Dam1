@@ -33,15 +33,13 @@ public class Demo {
         try {
             JAXBContext context = JAXBContext.newInstance(publisher.getClass());
             Marshaller marshaller = context.createMarshaller();
-
-            marshaller.setProperty(marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(publisher, new File("src/main/java/Ej9/Res.xml"));
 
             //DES
-
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            Publisher resul = (Publisher) unmarshaller.unmarshal(new File("src/main/java/Ej9/Res.xml"));
-            System.out.println(resul.getNombre());
+            Publisher resp = (Publisher) unmarshaller.unmarshal(new File("src/main/java/Ej9/Res.xml"));
+            System.out.println(resp.getDireccion());
         } catch (Exception e){
             e.printStackTrace();
         }

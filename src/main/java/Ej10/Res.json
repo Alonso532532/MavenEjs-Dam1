@@ -1,12 +1,12 @@
 {
   "catalogo" : {
-    "Ej10.Author@b1bc7ed" : {
+    "Author{nombre='Hecproll'}" : {
       "title" : "Java"
     },
-    "Ej10.Author@133314b" : {
+    "Author{nombre='Pablo'}" : {
       "title" : "Shortcut"
     },
-    "Ej10.Author@1ddc4ec2" : {
+    "Author{nombre='Juanma'}" : {
       "title" : "Breva"
     }
   }

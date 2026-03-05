@@ -1,10 +1,11 @@
 package Ej10;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Map;
 
-@XmlRootElement(name = "Catálogo")
+@XmlRootElement(name = "Catalogos")
 public class LibraryCatalog {
     private HashMap<Author, Libro> catalogo;
 
@@ -16,6 +17,7 @@ public class LibraryCatalog {
         this.catalogo = catalogo;
     }
 
+    @XmlElement
     public Map<Author, Libro> getCatalogo() {
         return catalogo;
     }

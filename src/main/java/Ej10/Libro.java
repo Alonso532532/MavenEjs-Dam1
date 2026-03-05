@@ -2,7 +2,9 @@ package Ej10;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 
 public class Libro {
     private String title;

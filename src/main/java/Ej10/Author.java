@@ -2,6 +2,7 @@ package Ej10;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
@@ -34,5 +35,12 @@ public class Author {
 
     public void setLibrosEscritos(ArrayList<Libro> librosEscritos) {
         this.librosEscritos = librosEscritos;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "nombre='" + nombre + "\'}";
+
     }
 }

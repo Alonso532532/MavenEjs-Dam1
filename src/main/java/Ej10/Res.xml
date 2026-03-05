@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Catálogo/>
+<Catalogos>
+    <catalogo>
+        <entry>
+            <key>
+                <nombre>Hecproll</nombre>
+            </key>
+            <value>
+                <title>Java</title>
+            </value>
+        </entry>
+        <entry>
+            <key>
+                <nombre>Pablo</nombre>
+            </key>
+            <value>
+                <title>Shortcut</title>
+            </value>
+        </entry>
+        <entry>
+            <key>
+                <nombre>Juanma</nombre>
+            </key>
+            <value>
+                <title>Breva</title>
+            </value>
+        </entry>
+    </catalogo>
+</Catalogos>
