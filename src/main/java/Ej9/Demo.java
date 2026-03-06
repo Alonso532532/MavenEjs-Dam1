@@ -23,23 +23,24 @@ public class Demo {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/Ej9/Res.json"), publisher);
             // DES
             Publisher resul = objectMapper.readValue(new File("src/main/java/Ej9/Res.json"), publisher.getClass());
-            System.out.println(resul.getNombre());
+            System.out.println(resul);
         } catch (Exception e){
             e.printStackTrace();
         }
 
+        Publisher publisher2 = new Publisher("Brevas", "Brevintong street nº67", new ArrayList<>(Arrays.asList(libro1, libro3, libro3)));
         //XML
 
         try {
-            JAXBContext context = JAXBContext.newInstance(publisher.getClass());
+            JAXBContext context = JAXBContext.newInstance(publisher2.getClass());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(publisher, new File("src/main/java/Ej9/Res.xml"));
+            marshaller.marshal(publisher2, new File("src/main/java/Ej9/Res.xml"));
 
             //DES
             Unmarshaller unmarshaller = context.createUnmarshaller();
             Publisher resp = (Publisher) unmarshaller.unmarshal(new File("src/main/java/Ej9/Res.xml"));
-            System.out.println(resp.getDireccion());
+            System.out.println(resp);
         } catch (Exception e){
             e.printStackTrace();
         }

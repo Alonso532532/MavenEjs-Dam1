@@ -41,7 +41,7 @@ public class Demo {
 
             Unmarshaller unmarshaller = context.createUnmarshaller();
             LibraryCatalog resp = (LibraryCatalog) unmarshaller.unmarshal(new File("src/main/java/Ej10/Res.xml"));
-            System.out.println(resp.getCatalogo().get(new Author("Juanma", null)));
+            System.out.println(resp);
 
         } catch (Exception e){
             e.printStackTrace();

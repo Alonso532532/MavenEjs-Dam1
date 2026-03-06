@@ -25,4 +25,11 @@ public class LibraryCatalog {
     public void setCatalogo(HashMap<Author, Libro> catalogo) {
         this.catalogo = catalogo;
     }
+
+    @Override
+    public String toString() {
+        return "LibraryCatalog{" +
+                "catalogo=" + catalogo +
+                '}';
+    }
 }

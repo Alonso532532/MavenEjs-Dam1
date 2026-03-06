@@ -43,4 +43,13 @@ public class Publisher {
     public void setLibros(ArrayList<Libro> libros) {
         this.libros = libros;
     }
+
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", libros=" + libros +
+                '}';
+    }
 }
