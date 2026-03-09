@@ -1,0 +1,18 @@
+{
+  "jugadores" : [ [ {
+    "nombre" : "Eker",
+    "valor" : 5,
+    "tiradas" : 16,
+    "turno" : 46
+  }, {
+    "nombre" : "Hecproll",
+    "valor" : 4,
+    "tiradas" : 16,
+    "turno" : 47
+  }, {
+    "nombre" : "Lozzan",
+    "valor" : 5,
+    "tiradas" : 16,
+    "turno" : 48
+  } ] ]
+}
