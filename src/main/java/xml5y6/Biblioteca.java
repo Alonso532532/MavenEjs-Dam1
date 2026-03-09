@@ -24,4 +24,11 @@ public class Biblioteca {
     public void setBiblioteca(ArrayList<Libro> biblioteca) {
         this.biblioteca = biblioteca;
     }
+
+    @Override
+    public String toString() {
+        return "Biblioteca{" +
+                "biblioteca=" + biblioteca +
+                '}';
+    }
 }

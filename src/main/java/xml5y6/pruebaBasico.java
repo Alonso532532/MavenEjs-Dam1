@@ -3,6 +3,7 @@ package xml5y6;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
@@ -19,13 +20,15 @@ public class pruebaBasico {
         Biblioteca biblioteca = new Biblioteca(libros);
 
         // Serializo en xml y deserializo
+
+
         try {
 
             JAXBContext context = JAXBContext.newInstance(Biblioteca.class);
             Marshaller marshaller = context.createMarshaller();
-
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(biblioteca, new File("src/main/java/xml5y6/Registros.xml"));
+
+            marshaller.marshal( biblioteca, new File("src/main/java/xml5y6/Registros.xml"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,20 +38,19 @@ public class pruebaBasico {
 
             JAXBContext context = JAXBContext.newInstance(Biblioteca.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-
-            Biblioteca result = (Biblioteca) unmarshaller.unmarshal(new File("src/main/java/xml5y6/Registros.xml"));
-            System.out.println(result.getBiblioteca().get(0).getTitulo());
+            Biblioteca resul = (Biblioteca) unmarshaller.unmarshal(new File("src/main/java/xml5y6/Registros.xml"));
+            System.out.println(resul);
 
         } catch (Exception e){
             e.printStackTrace();
         }
 
         // Serializado en json y deserializo
-        try{
+        ObjectMapper objectMapper = new ObjectMapper();
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            //writerWithDefaultPrettyPrinter es meramente estético
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue( new File("src/main/java/xml5y6/Registro.json"), biblioteca);
+        try {
+
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/xml5y6/Registro.json"), biblioteca);
 
         } catch (IOException e){
             e.printStackTrace();
@@ -56,11 +58,10 @@ public class pruebaBasico {
 
         try {
 
-                ObjectMapper objectMapper = new ObjectMapper();
-                Biblioteca recuperada = objectMapper.readValue(new File("src/main/java/xml5y6/Registro.json"), Biblioteca.class);
-                recuperada.getBiblioteca().forEach(System.out::println);
+            Biblioteca resul = objectMapper.readValue(new File("src/main/java/xml5y6/Registro.json"), biblioteca.getClass());
+            System.out.println(resul);
 
-        } catch (Exception e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
