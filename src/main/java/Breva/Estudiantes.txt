@@ -1,0 +1,10 @@
+[ID: 101] Nombre: Juan, Edad: 20, Password: pwd123
+[ID: 102] Nombre: Maria, Edad: 22, Password: secure456
+[ID: 103] Nombre: Carlos, Edad: 19, Password: admin89
+[ID: 104] Nombre: Lucia, Edad: 21, Password: qwerty
+[ID: 105] Nombre: Pedro, Edad: 23, Password: superpass1
+[ID: 106] Nombre: Elena, Edad: 20, Password: password
+[ID: 107] Nombre: Miguel, Edad: 24, Password: mig88
+[ID: 108] Nombre: Sofia, Edad: 19, Password: sofia123
+[ID: 109] Nombre: Javier, Edad: 21, Password: javi99x
+[ID: 110] Nombre: Laura, Edad: 22, Password: l4ur4pwd

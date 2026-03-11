@@ -1,0 +1,32 @@
+{
+  "107" : {
+    "id" : 107,
+    "nombre" : "Miguel",
+    "edad" : 24
+  },
+  "105" : {
+    "id" : 105,
+    "nombre" : "Pedro",
+    "edad" : 23
+  },
+  "102" : {
+    "id" : 102,
+    "nombre" : "Maria",
+    "edad" : 22
+  },
+  "110" : {
+    "id" : 110,
+    "nombre" : "Laura",
+    "edad" : 22
+  },
+  "104" : {
+    "id" : 104,
+    "nombre" : "Lucia",
+    "edad" : 21
+  },
+  "109" : {
+    "id" : 109,
+    "nombre" : "Javier",
+    "edad" : 21
+  }
+}
