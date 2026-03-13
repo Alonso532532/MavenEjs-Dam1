@@ -20,7 +20,7 @@ public class Demo {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             // Serializo
-            objectMapper.writeValue(new File("src/main/java/Ej7y8/Autores.json"), tienda);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/Ej7y8/Autores.json"), tienda);
             // Des serializo
             TiendaLibros resultado = objectMapper.readValue(new File("src/main/java/Ej7y8/Autores.json"), TiendaLibros.class);
             resultado.getAutores().stream().map(Author::getNombre).forEach(System.out::println);

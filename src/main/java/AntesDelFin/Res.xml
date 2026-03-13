@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pedidos>
+    <pedidos>
+        <entry>
+            <key>1</key>
+            <value>
+                <comprador>Eker</comprador>
+                <cosas>MC.Pollo</cosas>
+                <cosas>Patatas</cosas>
+                <cosas>MC.Flurry M</cosas>
+                <precio>12</precio>
+            </value>
+        </entry>
+        <entry>
+            <key>2</key>
+            <value>
+                <comprador>Alons</comprador>
+                <cosas>MC.Extreme</cosas>
+                <cosas>Patatas deluxe</cosas>
+                <cosas>MC.Flurry L</cosas>
+                <precio>14</precio>
+            </value>
+        </entry>
+        <entry>
+            <key>3</key>
+            <value>
+                <comprador>Hecproll</comprador>
+                <cosas>MC.Aitana</cosas>
+                <cosas>Patatas XL</cosas>
+                <cosas>MC.Flurry XL</cosas>
+                <precio>16</precio>
+            </value>
+        </entry>
+    </pedidos>
+</pedidos>

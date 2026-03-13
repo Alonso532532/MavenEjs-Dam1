@@ -1,0 +1,19 @@
+{
+  "pedidos" : {
+    "1" : {
+      "cosas" : [ "MC.Pollo", "Patatas", "MC.Flurry M" ],
+      "precio" : 12,
+      "comprador" : "Eker"
+    },
+    "2" : {
+      "cosas" : [ "MC.Extreme", "Patatas deluxe", "MC.Flurry L" ],
+      "precio" : 14,
+      "comprador" : "Alons"
+    },
+    "3" : {
+      "cosas" : [ "MC.Aitana", "Patatas XL", "MC.Flurry XL" ],
+      "precio" : 16,
+      "comprador" : "Hecproll"
+    }
+  }
+}

@@ -38,4 +38,12 @@ public class TiendaLibros {
     public void setLibros(ArrayList<Book> libros) {
         this.libros = libros;
     }
+
+    @Override
+    public String toString() {
+        return "TiendaLibros{" +
+                "autores=" + autores +
+                ", libros=" + libros +
+                '}';
+    }
 }
