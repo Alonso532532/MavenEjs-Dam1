@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS tienda_libros;
 CREATE DATABASE tienda_libros;
 USE tienda_libros;
 -- Tabla autores

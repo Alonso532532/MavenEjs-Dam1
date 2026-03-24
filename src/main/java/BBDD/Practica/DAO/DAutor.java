@@ -22,7 +22,7 @@ public class DAutor {
         return false;
     }
 
-    public static ArrayList<Autor> mostrarAutores(){
+    public static ArrayList<Autor> selectAutores(){
         try {
             Connection conexion = Conexion.conectar();
             Statement statement = conexion.createStatement();
@@ -33,8 +33,33 @@ public class DAutor {
             }
             return autores;
         } catch (SQLException e){
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
+
+    public static boolean cambiarPais(int id, String nuevo){
+        try {
+            Connection conexion = Conexion.conectar();
+            Statement statement = conexion.createStatement();
+            return statement.executeUpdate("update autores set pais= \""+nuevo+"\" where id= "+id)>0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int idMax(){
+        try {
+            Connection conexion = Conexion.conectar();
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery("select MAX(id) as max from autores");
+
+            rs.next();
+            return rs.getInt("max");
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package BBDD.Practica;
 
 import BBDD.Practica.Controlador.CAutor;
+import BBDD.Practica.Controlador.CLibro;
 import BBDD.Practica.DAO.DAutor;
 import BBDD.Practica.Util.Conexion;
 
@@ -21,8 +22,9 @@ public class AlonsoPractica {
 
         }
 
-        DAutor.mostrarAutores().forEach(System.out::println);
+        System.out.println(DAutor.idMax());
 
+        CLibro.eliminarLibrosDeAutor();
 
     }
 
