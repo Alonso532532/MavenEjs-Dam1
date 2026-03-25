@@ -16,6 +16,10 @@ public class Autor {
         this.pais = pais;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getNombre() {
         return nombre;
     }

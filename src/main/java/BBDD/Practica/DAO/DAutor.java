@@ -48,18 +48,6 @@ public class DAutor {
         }
     }
 
-    public static int idMax(){
-        try {
-            Connection conexion = Conexion.conectar();
-            Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("select MAX(id) as max from autores");
-
-            rs.next();
-            return rs.getInt("max");
-        } catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
 
     public static boolean eliminarAutor(String id){
         try {
