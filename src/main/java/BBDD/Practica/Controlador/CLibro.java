@@ -40,7 +40,7 @@ public class CLibro {
                 System.out.println("Operación fallida");
             }
 
-            System.out.println("¿Quieres repetir esta acción? s/n");
+            System.out.print("¿Quieres repetir esta acción? s/n: ");
             repetir = sc.nextLine();
         }
         mostrarLibros();

@@ -24,7 +24,7 @@ public class AlonsoPractica {
 
         System.out.println(DAutor.idMax());
 
-        CLibro.eliminarLibrosDeAutor();
+        CAutor.eliminarAutor();
 
     }
 

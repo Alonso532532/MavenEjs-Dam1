@@ -1,6 +1,7 @@
 package BBDD.Practica.Controlador;
 
 import BBDD.Practica.DAO.DAutor;
+import BBDD.Practica.DAO.DLibro;
 import BBDD.Practica.Modelo.Autor;
 
 import java.sql.SQLException;
@@ -71,5 +72,49 @@ public class CAutor {
         mostrarAutores();
     }
 
-
+    public static void eliminarAutor(){
+        System.out.println("-- Eliminar autor --");
+        Scanner sc = new Scanner(System.in);
+        String repetir = "s";
+        int idMax = DAutor.idMax();
+        while (repetir.equalsIgnoreCase("s")){
+            int id;
+            while (true) {
+                System.out.print("ID de autor: ");
+                try {
+                    id = Integer.parseInt(sc.nextLine());
+                    if (id > idMax || id < 1){
+                        System.out.println("El id no existe");
+                    } else break;
+                }catch (IllegalArgumentException e){
+                    System.out.println("Formato inválido");
+                }
+            }
+            int cantLibros = DLibro.selectLibrosDeAutor(String.valueOf(id)).size();
+            boolean tiene = false;
+            if (cantLibros>0){
+                tiene=true;
+                System.out.print("El autor tiene "+cantLibros+" libros, ¿quieres eliminarlos? s/n: ");
+                String op = sc.nextLine();
+                if (op.equalsIgnoreCase("s")) {
+                    if (DLibro.eliminarLibrosDeAutor(String.valueOf(id))) {
+                        System.out.println("Libros del autor " + id + " eliminados con éxito");
+                        tiene = false;
+                    } else {
+                        System.out.println("No se han podido eliminar los libros");
+                    }
+                }
+            }
+            if (!tiene){
+                if (DAutor.eliminarAutor(String.valueOf(id))){
+                    System.out.println("Autor eliminado con éxito");
+                }else {
+                    System.out.println("No se ha podido eliminar el autor");
+                }
+            }
+            System.out.print("¿Quieres repetir esta acción? s/n:");
+            repetir = sc.nextLine();
+        }
+        mostrarAutores();
+    }
 }

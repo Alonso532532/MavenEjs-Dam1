@@ -61,5 +61,13 @@ public class DAutor {
         }
     }
 
-
+    public static boolean eliminarAutor(String id){
+        try {
+            Connection conexion = Conexion.conectar();
+            Statement statement = conexion.createStatement();
+            return statement.executeUpdate("delete from autores where id= "+id)>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

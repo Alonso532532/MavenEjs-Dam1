@@ -59,4 +59,20 @@ public class DLibro {
             throw new RuntimeException(e);
         }
     }
+
+    public static ArrayList<Libro> selectLibrosDeAutor(String id){
+        try {
+            Connection conexion = Conexion.conectar();
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery("select * from libros where id_autor = "+id);
+            ArrayList<Libro> resultado = new ArrayList<>();
+            while (rs.next()){
+                resultado.add(new Libro(rs.getInt("id"), rs.getString("titulo"), rs.getDouble("precio"), rs.getInt("id_autor")));
+            }
+            return resultado;
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }
