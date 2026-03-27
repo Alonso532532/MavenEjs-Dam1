@@ -74,6 +74,7 @@ public class CAutor {
                 repetir = sc.nextLine();
             } else {
                 System.out.println("No hay autores en la tabla autroes");
+                break;
             }
         }
         mostrarAutores();
@@ -124,6 +125,7 @@ public class CAutor {
                 repetir = sc.nextLine();
             } else {
                 System.out.println("No hay autores en la tabla autroes");
+                break;
             }
         }
         mostrarAutores();

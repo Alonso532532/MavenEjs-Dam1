@@ -15,7 +15,7 @@ public class CLibro {
         String repetir = "s";
         while (repetir.equalsIgnoreCase("s")){
 
-            System.out.print("Nombre del autor: ");
+            System.out.print("Titulo: ");
             String titulo= sc.nextLine();
 
             Double precio;
@@ -108,6 +108,7 @@ public class CLibro {
                 mostrarLibros();
             } else {
                 System.out.println("No hay libros en la tabla libros");
+                break;
             }
         }
 
@@ -144,6 +145,7 @@ public class CLibro {
                 repetir = sc.nextLine();
             } else {
                 System.out.println("No hay libros en la tabla libros");
+                break;
             }
         }
     }
@@ -196,6 +198,7 @@ public class CLibro {
                 repetir = sc.nextLine();
             } else {
                 System.out.println("No hay libros en la tabla libros");
+                break;
             }
         }
     }
@@ -243,6 +246,7 @@ public class CLibro {
                 repetir = sc.nextLine();
             } else {
                 System.out.println("No hay libros en la tabla libros");
+                break;
             }
         }
     }
