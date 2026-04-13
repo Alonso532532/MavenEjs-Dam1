@@ -7,19 +7,19 @@ public class Entrada {
     private int numeroDeEntrada;
     private String tipo;
     private double precio = 0;
-    private int dni;
+    private String dni;
 
-    public Entrada(int numeroDeEntrada, String tipo, double precio, int dni) {
+    public Entrada(int numeroDeEntrada, String tipo, double precio, String dni) {
         this.numeroDeEntrada = numeroDeEntrada;
         this.tipo = tipo;
         this.precio = precio;
         this.dni = dni;
     }
 
-    public Entrada(String tipo, double precio, int dni) {
+    public Entrada(String tipo, double precio, String dni) {
         String error = "";
-        if (setTipo(tipo)) error = "Tipo de entrada incorrecto\n";
-        if (setPrecio(precio)) error = error+"Precio incorrecto";
+        if (!setTipo(tipo)) error = "Tipo de entrada incorrecto\n";
+        if (!setPrecio(precio)) error = error+"Precio incorrecto\n";
         this.dni = dni;
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
@@ -53,11 +53,11 @@ public class Entrada {
         return false;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -67,7 +67,7 @@ public class Entrada {
                 "numeroDeEntrada=" + numeroDeEntrada +
                 ", tipo='" + tipo + '\'' +
                 ", precio=" + precio +
-                ", dni=" + dni +
+                ", dni='" + dni + '\'' +
                 '}';
     }
 }

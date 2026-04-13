@@ -16,7 +16,7 @@ public class Atracciones {
 
     public Atracciones(String nombre, int numeroDeZona) {
         String error = "";
-        if (setNombre(nombre)) error = "Nombre invalido";
+        if (!setNombre(nombre)) error = "Nombre invalido\n";
         this.numeroDeZona = numeroDeZona;
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
@@ -30,7 +30,7 @@ public class Atracciones {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("\\w{1,50}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[\\w ]{1,50}").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;

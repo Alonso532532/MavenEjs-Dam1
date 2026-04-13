@@ -8,14 +8,14 @@ public class Zonas {
     private String nombre;
 
     public Zonas(int numeroDeZona, String nombre) {
-        String error = "";
         this.numeroDeZona = numeroDeZona;
-        if (setNombre(nombre)) error = "Nombre invalido";
-        if (!error.isEmpty()) throw new IllegalArgumentException(error);
+        this.nombre = nombre;
     }
 
     public Zonas(String nombre) {
-        this.nombre = nombre;
+        String error = "";
+        if (!setNombre(nombre)) error = "Nombre invalido\n";
+        if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
     public int getNumeroDeZona() {
@@ -27,7 +27,7 @@ public class Zonas {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("\\w{1,50}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[\\w ]{1,50}").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;

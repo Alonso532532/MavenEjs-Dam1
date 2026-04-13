@@ -1,19 +1,19 @@
 package Proyecto.Modelo;
 
 public class Visita {
-    private int dni;
+    private String dni;
     private int numeroDeZona;
 
-    public Visita(int dni, int numeroDeZona) {
+    public Visita(String dni, int numeroDeZona) {
         this.dni = dni;
         this.numeroDeZona = numeroDeZona;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -28,7 +28,7 @@ public class Visita {
     @Override
     public String toString() {
         return "Visita{" +
-                "dni=" + dni +
+                "dni='" + dni + '\'' +
                 ", numeroDeZona=" + numeroDeZona +
                 '}';
     }

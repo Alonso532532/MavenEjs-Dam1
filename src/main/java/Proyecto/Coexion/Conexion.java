@@ -1,4 +1,4 @@
-package Proyecto.Coexión;
+package Proyecto.Coexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

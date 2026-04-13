@@ -12,7 +12,7 @@ public class Clientes {
         String error = "";
         if (!setDni(dni)) error="El dni es incorrecto\n";
         if (!setEdad(edad)) error=error+"La edad es incorrecta\n";
-        if (!setNombre(nombre)) error=error+"El nombre es demasiado largo o contiene carácteres no permitidos";
+        if (!setNombre(nombre)) error=error+"El nombre es demasiado largo o contiene carácteres no permitidos\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -46,7 +46,7 @@ public class Clientes {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("\\w{1,50}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[A-Za-zñáéíóúÁÉÍÓÚ ]{1,50}").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;
