@@ -1,5 +1,7 @@
 package Proyecto.Modelo;
 
+import Proyecto.DAO.DClientes;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +22,7 @@ public class Entrada {
         String error = "";
         if (!setTipo(tipo)) error = "Tipo de entrada incorrecto\n";
         if (!setPrecio(precio)) error = error+"Precio incorrecto\n";
-        this.dni = dni;
+        if (!setDni(dni)) error = error+"DNI incorrecto\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -57,8 +59,12 @@ public class Entrada {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public boolean setDni(String dni) {
+        if (DClientes.comprobarPorDni(dni)){
+            this.dni = dni;
+            return true;
+        }
+        return false;
     }
 
     @Override
