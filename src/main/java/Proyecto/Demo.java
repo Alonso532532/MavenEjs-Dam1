@@ -56,6 +56,7 @@ public class Demo {
         }
 
         DClientes.seleccionarClientes().forEach(System.out::println);
+        System.out.println(DClientes.seleccionarPorDni("12321223S"));
 
     }
 
