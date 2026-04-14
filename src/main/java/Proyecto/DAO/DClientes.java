@@ -2,7 +2,6 @@ package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Clientes;
-import com.sun.xml.bind.api.impl.NameConverter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -47,6 +46,7 @@ public final class DClientes {
             preparedStatement.setString(1, DNI);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
             return new Clientes(resultSet.getString("DNI"), resultSet.getInt("edad"), resultSet.getString("nombre"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
