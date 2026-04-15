@@ -1,6 +1,7 @@
 package Proyecto;
 
 import Proyecto.Coexion.Conexion;
+import Proyecto.DAO.DClientes;
 import Proyecto.DAO.DEntrada;
 import Proyecto.Modelo.*;
 
@@ -17,19 +18,19 @@ public class Demo {
 
 //        System.out.println("Clientes");
 //        try{
-//            Clientes hecproll = new Clientes("12321232S", 20, "Hecproll Villanueva");
+//            Clientes hecproll = new Clientes("12321232231S", 20, "Hecproll Villanueva");
 //            System.out.println(hecproll);
 //        } catch (IllegalArgumentException e){
 //            System.out.println(e.getMessage());
 //        }
 
-        DEntrada.seleccionarTodo().forEach(System.out::println);
-        if (DEntrada.cambiarDni(10, "29232320G")){
+        DClientes.seleccionarTodo().forEach(System.out::println);
+        if (DClientes.cambiarDni("87878787S", "87878787H")){
             System.out.println("BIEN");
         } else {
             System.out.println("MAL");
         }
-        DEntrada.seleccionarTodo().forEach(System.out::println);
+        DClientes.seleccionarTodo().forEach(System.out::println);
 
     }
 

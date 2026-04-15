@@ -53,7 +53,7 @@ public final class DEntrada {
         }
     }
 
-    // En estas modifico todos los atributos que no sean la clave primaria
+    // En estas modifico todos los atributos
     public static boolean cambiarTipo(int numeroDeEntrada, String tipo){
         try {
             Connection connection = Conexion.conectar();
@@ -89,6 +89,20 @@ public final class DEntrada {
 
             preparedStatement.setString(1, dni);
             preparedStatement.setInt(2, numeroDeEntrada);
+
+            return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean cambiarNumero(int numeroDeEntradaAntiguo, int numeroDeEntradaNuevo){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set DNI = ? where numeroDeEntrada = ?");
+
+            preparedStatement.setInt(1, numeroDeEntradaNuevo);
+            preparedStatement.setInt(2, numeroDeEntradaAntiguo);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {

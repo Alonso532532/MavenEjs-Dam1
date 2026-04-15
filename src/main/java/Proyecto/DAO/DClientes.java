@@ -25,9 +25,6 @@ public final class DClientes {
 
     // Esta añade un cliente mediante un objeto "Cliente"
     public static boolean anadir(Clientes cliente){
-        if (comprobarPorDni(cliente.getDni())){
-            return false;
-        }
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("insert into Clientes () values (?, ?, ?)");
@@ -40,7 +37,6 @@ public final class DClientes {
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     // Esta se encarga de comprobar si el DNI está en la tabla, lo que es util para comprobaciones
@@ -74,7 +70,7 @@ public final class DClientes {
         }
     }
 
-    // Estas dos modifican el nombre y la edad según el DNI
+    // En estas modifico todos los atributos
     public static boolean cambiarEdad(String DNI, int edad){
         try {
             Connection connection = Conexion.conectar();
@@ -96,6 +92,20 @@ public final class DClientes {
 
             preparedStatement.setString(1, nombre);
             preparedStatement.setString(2, DNI);
+
+            return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean cambiarDni(String DNIAntiguo, String DNINuevo){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("update Clientes set DNI = ? where DNI = ?");
+
+            preparedStatement.setString(1, DNINuevo);
+            preparedStatement.setString(2, DNIAntiguo);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {
