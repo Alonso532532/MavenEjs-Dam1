@@ -28,10 +28,9 @@ public final class DZonas {
     public static boolean anadir(Zonas zona){
         try {
             Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into zonas () values (?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into zonas (nombre) values (?)");
 
-            preparedStatement.setInt(1, zona.getNumeroDeZona());
-            preparedStatement.setString(2, zona.getNombre());
+            preparedStatement.setString(1, zona.getNombre());
 
             return preparedStatement.executeUpdate()==1;
         }catch (SQLException e) {
@@ -54,7 +53,7 @@ public final class DZonas {
     }
 
     // En estas modifico todos los atributos
-    public static boolean cambiarNumero(int numeroDeZonaAntiguo, int numeroDeZonaNuevo){
+    public static boolean cambiarNumeroDeZona(int numeroDeZonaAntiguo, int numeroDeZonaNuevo){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("update Zona set numeroDeZona = ? where numeroDeZona = ?");

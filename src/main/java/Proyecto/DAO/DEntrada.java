@@ -96,7 +96,7 @@ public final class DEntrada {
         }
     }
 
-    public static boolean cambiarNumero(int numeroDeEntradaAntiguo, int numeroDeEntradaNuevo){
+    public static boolean cambiarNumeroDeEntrada(int numeroDeEntradaAntiguo, int numeroDeEntradaNuevo){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set DNI = ? where numeroDeEntrada = ?");

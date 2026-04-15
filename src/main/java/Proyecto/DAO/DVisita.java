@@ -41,7 +41,7 @@ public final class DVisita {
     }
 
     // Esta elimina una visita mediante un objeto "Visita"
-    public static boolean eliminarPorDniYNumero(Visita visita){
+    public static boolean eliminarPorDniYNumeroDeZona(Visita visita){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("delete from Clientes where DNI = ? and numeroDeZona = ?");
@@ -56,7 +56,7 @@ public final class DVisita {
     }
 
     // En estas modifico todos los atributos
-    public static boolean cambiarNumero(Visita visita, int numeroDeZonaNuevo){
+    public static boolean cambiarNumeroDeZona(Visita visita, int numeroDeZonaNuevo){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set numeroDeZona = ? where numeroDeZona = ? and dni = ?");
