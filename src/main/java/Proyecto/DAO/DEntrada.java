@@ -1,7 +1,6 @@
 package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
-import Proyecto.Modelo.Clientes;
 import Proyecto.Modelo.Entrada;
 
 import java.sql.*;
@@ -38,7 +37,62 @@ public final class DEntrada {
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    // Esta elimina una entrada por su número de entrada
+    public static boolean eliminarPorNumero(int numeroDeEntrada){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from Entrada where numeroDeEntrada = ?");
 
+            preparedStatement.setInt(1, numeroDeEntrada);
+
+            return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // En estas modifico todos los atributos que no sean la clave primaria
+    public static boolean cambiarTipo(int numeroDeEntrada, String tipo){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set tipo = ? where numeroDeEntrada = ?");
+
+            preparedStatement.setString(1, tipo);
+            preparedStatement.setInt(2, numeroDeEntrada);
+
+            return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean cambiarPrecio(int numeroDeEntrada, double precio){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set precio = ? where numeroDeEntrada = ?");
+
+            preparedStatement.setDouble(1, precio);
+            preparedStatement.setInt(2, numeroDeEntrada);
+
+            return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean cambiarDni(int numeroDeEntrada, String dni){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set DNI = ? where numeroDeEntrada = ?");
+
+            preparedStatement.setString(1, dni);
+            preparedStatement.setInt(2, numeroDeEntrada);
+
+            return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

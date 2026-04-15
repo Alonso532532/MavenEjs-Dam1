@@ -24,7 +24,7 @@ public class Demo {
 //        }
 
         DEntrada.seleccionarTodo().forEach(System.out::println);
-        if (DEntrada.anadir(new Entrada("Normal", 12, "19232120D"))){
+        if (DEntrada.cambiarDni(10, "29232320G")){
             System.out.println("BIEN");
         } else {
             System.out.println("MAL");
