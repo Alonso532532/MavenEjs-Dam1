@@ -1,0 +1,53 @@
+package Proyecto.Controlador;
+
+import Proyecto.DAO.DAtracciones;
+import Proyecto.Modelo.Atracciones;
+
+
+import java.util.ArrayList;
+
+public final class CAtracciones {
+    public static ArrayList<Atracciones> seleccionarTodo(){
+        return DAtracciones.seleccionarTodo();
+    }
+
+    // Mediante los datos necesarios para hacer una atracción añado la atracción comprobando los posibles fallos
+    public static String anadir(String nombre, int numeroDeZona){
+        try {
+
+            Atracciones atraccion = new Atracciones(nombre, numeroDeZona);
+            DAtracciones.anadir(atraccion);
+            return "Atracción introducida con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            // Cuento la cantidad de fallos
+            int errores = e.getMessage().split("\n").length;
+            if (errores==1){
+                return "Ha ocurrido un error con los datos de la atracción, causa:\n"+e.getMessage();
+            } else {
+                return "Han ocurrido "+errores+" errores con los datos de la atracción, causas:\n"+e.getMessage();
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la atracción, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Mediante el número de atracción elimino una atracción comprobando los posibles fallos
+    public static String eliminarPorNumeroDeAtraccion(int numeroDeAtraccion){
+        try {
+
+            if (DAtracciones.eliminarPorNumero(numeroDeAtraccion)) {
+                return "Atracción eliminada con éxito";
+            } else {
+                return "Ha ocurrido un error con los datos de la atracción, causa:\nEl numero de atracción no existe\n";
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la atracción, causa:\n"+e.getMessage();
+        }
+    }
+}

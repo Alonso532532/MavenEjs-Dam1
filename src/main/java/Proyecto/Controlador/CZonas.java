@@ -1,0 +1,56 @@
+package Proyecto.Controlador;
+
+import Proyecto.DAO.DClientes;
+import Proyecto.DAO.DZonas;
+import Proyecto.Modelo.Clientes;
+import Proyecto.Modelo.Zonas;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+
+public final class CZonas {
+    public static ArrayList<Zonas> seleccionarTodo(){
+        return DZonas.seleccionarTodo();
+    }
+
+    // Mediante los datos necesarios para hacer una zona añado la zona comprobando los posibles fallos
+    public static String anadir(String nombre){
+        try {
+
+            Zonas zona = new Zonas(nombre);
+            DZonas.anadir(zona);
+            return "Zona introducida con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            // Cuento la cantidad de fallos
+            int errores = e.getMessage().split("\n").length;
+            if (errores==1){
+                return "Ha ocurrido un error con los datos de la zona, causa:\n"+e.getMessage();
+            } else {
+                return "Han ocurrido "+errores+" errores con los datos de la zona, causas:\n"+e.getMessage();
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la zona, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Mediante el número de zona elimino una zona comprobando los posibles fallos
+    public static String eliminarPorNumeroDeZona(int numeroDeZona){
+        try {
+
+            if (DZonas.eliminarPorNumero(numeroDeZona)) {
+                return "Zona eliminada con éxito";
+            } else {
+                return "Ha ocurrido un error con los datos de la zona, causa:\nEl número de zona no existe\n";
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la zona, causa:\n"+e.getMessage();
+        }
+    }
+}

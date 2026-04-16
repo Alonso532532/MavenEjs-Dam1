@@ -6,7 +6,7 @@ import Proyecto.Modelo.Clientes;
 import java.util.ArrayList;
 
 public final class CClientes {
-    public ArrayList<Clientes> seleccionarTodo(){
+    public static ArrayList<Clientes> seleccionarTodo(){
         return DClientes.seleccionarTodo();
     }
 
@@ -38,11 +38,10 @@ public final class CClientes {
     public static String eliminarPorDni(String dni){
         try {
 
-            if (DClientes.comprobarPorDni(dni)) {
-                DClientes.eliminarPorDni(dni);
+            if (DClientes.eliminarPorDni(dni)) {
                 return "Cliente eliminado con éxito";
             } else {
-                return "Ha ocurrido un error con los datos del cliente, causa:\n El dni no existe\n";
+                return "Ha ocurrido un error con los datos del cliente, causa:\nEl dni no existe\n";
             }
 
         }catch (RuntimeException e){

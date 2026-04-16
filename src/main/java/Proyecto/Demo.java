@@ -2,10 +2,13 @@ package Proyecto;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CZonas;
 import Proyecto.DAO.DClientes;
+import Proyecto.DAO.DZonas;
 import Proyecto.Modelo.*;
 
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 
 public class Demo {
     public static void main(String[] args) {
@@ -34,9 +37,10 @@ public class Demo {
 //            System.out.println("MAL");
 //        }
 //        DClientes.seleccionarTodo().forEach(System.out::println);
-        DClientes.seleccionarTodo().forEach(System.out::println);
-        System.out.println(CClientes.anadir("18231212S", 23, "Alfredico"));
-        DClientes.seleccionarTodo().forEach(System.out::println);
+
+        CZonas.seleccionarTodo().forEach(System.out::println);
+        System.out.println(CZonas.eliminarPorNumeroDeZona(2));
+        CZonas.seleccionarTodo().forEach(System.out::println);
     }
 
 }

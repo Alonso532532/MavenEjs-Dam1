@@ -6,8 +6,6 @@ import Proyecto.Modelo.Visita;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static Proyecto.DAO.DClientes.comprobarPorDni;
-
 public final class DVisita {
     // Esta función seleccióna todas las visitas
     public static ArrayList<Visita> seleccionarTodo(){
@@ -41,13 +39,13 @@ public final class DVisita {
     }
 
     // Esta elimina una visita mediante un objeto "Visita"
-    public static boolean eliminarPorDniYNumeroDeZona(Visita visita){
+    public static boolean eliminarPorDniYNumeroDeZona(String dni, int numeroDeZona){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("delete from Clientes where DNI = ? and numeroDeZona = ?");
 
-            preparedStatement.setString(1, visita.getDni());
-            preparedStatement.setInt(2, visita.getNumeroDeZona());
+            preparedStatement.setString(1, dni);
+            preparedStatement.setInt(2, numeroDeZona);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {
