@@ -15,7 +15,7 @@ public final class DClientes {
             ResultSet resultSet = statement.executeQuery("select * from Clientes");
             ArrayList<Clientes> clientes = new ArrayList<>();
             while (resultSet.next()){
-                clientes.add(new Clientes(resultSet.getString("DNI"), resultSet.getInt("edad"), resultSet.getString("nombre")));
+                clientes.add(new Clientes(resultSet.getString("DNI"), resultSet.getInt("edad"), resultSet.getString("nombre"), false));
             }
             return clientes;
         }catch (SQLException e){

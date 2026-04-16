@@ -1,6 +1,7 @@
 package Proyecto.Modelo;
 
 import Proyecto.DAO.DClientes;
+import Proyecto.DAO.DEntrada;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,9 +21,9 @@ public class Entrada {
 
     public Entrada(String tipo, double precio, String dni) {
         String error = "";
-        if (!setTipo(tipo)) error = "Tipo de entrada incorrecto\n";
-        if (!setPrecio(precio)) error = error+"Precio incorrecto\n";
-        if (!setDni(dni)) error = error+"DNI incorrecto\n";
+        if (!setTipo(tipo)) error+="Tipo de entrada incorrecto\n";
+        if (!setPrecio(precio)) error+="Precio incorrecto\n";
+        if (!setDni(dni)) error+="DNI incorrecto\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 

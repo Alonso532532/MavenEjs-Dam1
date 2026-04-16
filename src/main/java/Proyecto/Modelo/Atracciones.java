@@ -1,5 +1,7 @@
 package Proyecto.Modelo;
 
+import Proyecto.DAO.DZonas;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,8 +18,8 @@ public class Atracciones {
 
     public Atracciones(String nombre, int numeroDeZona) {
         String error = "";
-        if (!setNombre(nombre)) error = "Nombre invalido\n";
-        this.numeroDeZona = numeroDeZona;
+        if (!setNombre(nombre)) error+="Nombre invalido\n";
+        if (!setNumeroDeZona(numeroDeZona)) error+="Numero de zona inexistente\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -42,8 +44,12 @@ public class Atracciones {
         return numeroDeZona;
     }
 
-    public void setNumeroDeZona(int numeroDeZona) {
-        this.numeroDeZona = numeroDeZona;
+    public boolean setNumeroDeZona(int numeroDeZona) {
+        if (DZonas.comprobarNumeroDeZona(numeroDeZona)){
+            this.numeroDeZona = numeroDeZona;
+            return true;
+        }
+        return false;
     }
 
     @Override

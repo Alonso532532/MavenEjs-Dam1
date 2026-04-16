@@ -17,7 +17,7 @@ public final class DVisita {
             ResultSet resultSet = statement.executeQuery("select * from Visita");
             ArrayList<Visita> visitas = new ArrayList<>();
             while (resultSet.next()){
-                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona")));
+                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona"), false));
             }
             return visitas;
         }catch (SQLException e){

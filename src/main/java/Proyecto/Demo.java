@@ -1,8 +1,8 @@
 package Proyecto;
 
 import Proyecto.Coexion.Conexion;
+import Proyecto.Controlador.CClientes;
 import Proyecto.DAO.DClientes;
-import Proyecto.DAO.DEntrada;
 import Proyecto.Modelo.*;
 
 import java.sql.SQLException;
@@ -16,22 +16,27 @@ public class Demo {
             e.printStackTrace();
         }
 
+//        System.out.println("Zonas");
+//        DZonas.seleccionarTodo().forEach(System.out::println);
 //        System.out.println("Clientes");
+//        DClientes.seleccionarTodo().forEach(System.out::println);
 //        try{
-//            Clientes hecproll = new Clientes("12321232231S", 20, "Hecproll Villanueva");
-//            System.out.println(hecproll);
+//            Visita visita = new Visita("17352120H", 6);
+//            System.out.println(visita);
 //        } catch (IllegalArgumentException e){
 //            System.out.println(e.getMessage());
 //        }
 
+//        DClientes.seleccionarTodo().forEach(System.out::println);
+//        if (DClientes.cambiarDni("87878787S", "87878787H")){
+//            System.out.println("BIEN");
+//        } else {
+//            System.out.println("MAL");
+//        }
+//        DClientes.seleccionarTodo().forEach(System.out::println);
         DClientes.seleccionarTodo().forEach(System.out::println);
-        if (DClientes.cambiarDni("87878787S", "87878787H")){
-            System.out.println("BIEN");
-        } else {
-            System.out.println("MAL");
-        }
+        System.out.println(CClientes.anadir("18231212S", 23, "Alfredico"));
         DClientes.seleccionarTodo().forEach(System.out::println);
-
     }
 
 }

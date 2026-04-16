@@ -14,7 +14,7 @@ public class Zonas {
 
     public Zonas(String nombre) {
         String error = "";
-        if (!setNombre(nombre)) error = "Nombre invalido\n";
+        if (!setNombre(nombre)) error+="Nombre invalido\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 

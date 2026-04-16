@@ -42,7 +42,7 @@ public final class DZonas {
     public static boolean eliminarPorNumero(int numeroDeZona){
         try {
             Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from Zona where numeroDeZona = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from zonas where numeroDeZona = ?");
 
             preparedStatement.setInt(1, numeroDeZona);
 
@@ -51,12 +51,27 @@ public final class DZonas {
             throw new RuntimeException(e);
         }
     }
+    // Esta comprueba si una zona existe mediante su numero de zona
+    public static boolean comprobarNumeroDeZona(int numeroDeZona){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from zonas where numeroDeZona = ?");
+
+            preparedStatement.setInt(1, numeroDeZona);
+
+            // Si ".next" funciona significa que ha encontrado una zona con ese numero de zona y devolverá true, sino false
+            return preparedStatement.executeQuery().next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     // En estas modifico todos los atributos
     public static boolean cambiarNumeroDeZona(int numeroDeZonaAntiguo, int numeroDeZonaNuevo){
         try {
             Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("update Zona set numeroDeZona = ? where numeroDeZona = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update zonas set numeroDeZona = ? where numeroDeZona = ?");
 
             preparedStatement.setInt(1, numeroDeZonaNuevo);
             preparedStatement.setInt(2, numeroDeZonaAntiguo);
@@ -70,7 +85,7 @@ public final class DZonas {
     public static boolean cambiarNombre(int numeroDeZona, String nombre){
         try {
             Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("update Zona set nombre = ? where numeroDeZona = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update zonas set nombre = ? where numeroDeZona = ?");
 
             preparedStatement.setString(1, nombre);
             preparedStatement.setInt(2, numeroDeZona);
