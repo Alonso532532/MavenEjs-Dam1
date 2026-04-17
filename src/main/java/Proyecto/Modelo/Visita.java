@@ -1,22 +1,30 @@
 package Proyecto.Modelo;
 
 import Proyecto.DAO.DClientes;
+import Proyecto.DAO.DVisita;
 import Proyecto.DAO.DZonas;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class Visita {
     private String dni;
     private int numeroDeZona;
+    private LocalDateTime fecha;
+    private String fechaBonita;
 
-    public Visita(String dni, int numeroDeZona, boolean comprobarConcurrencia) {
+    public Visita(String dni, int numeroDeZona, String fecha, boolean comprobarConcurrencia) {
         String error = "";
         // Para evitar el problema de claves primarias duplicadas permito que al llamar al constructor tenga la opción de comprobar o no,
         // porque si compruebo siempre no puedo crear un objeto al seleccionar datos de la tabla, ya que siempre que seleccione una fila
         // esa clave primaria ya va a existir impidiéndome crear un objeto a raíz de esos datos
         if (comprobarConcurrencia){
-            if (DClientes.comprobarPorDni(dni) && DZonas.comprobarNumeroDeZona(numeroDeZona)) error+="La visita ya existe\n";
+            if (DVisita.comprobarPorClave(dni, numeroDeZona, fecha)) error+="La visita ya existe\n";
         }
         if (!setDni(dni)) error+="El DNI es inexistente\n";
         if (!setNumeroDeZona(numeroDeZona)) error+="El numero de zona es inexistente\n";
+        if (!setFecha(fecha)) error+="El formato de la fecha es inválido\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -44,11 +52,32 @@ public class Visita {
         return false;
     }
 
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public boolean setFecha(String fecha) {
+        this.fechaBonita=fecha;
+        fecha = fecha.replace(" ", "T");
+        try {
+            LocalDateTime parseada = LocalDateTime.parse(fecha);
+            this.fecha = parseada;
+            return true;
+        } catch (DateTimeParseException e){
+            return false;
+        }
+    }
+
+    public String getFechaBonita() {
+        return fechaBonita;
+    }
+
     @Override
     public String toString() {
         return "Visita{" +
                 "dni='" + dni + '\'' +
                 ", numeroDeZona=" + numeroDeZona +
+                ", fecha=" + fechaBonita +
                 '}';
     }
 }

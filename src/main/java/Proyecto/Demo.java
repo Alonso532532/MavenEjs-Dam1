@@ -2,10 +2,12 @@ package Proyecto;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CVisita;
 import Proyecto.Controlador.CZonas;
 import Proyecto.DAO.DClientes;
 import Proyecto.DAO.DZonas;
 import Proyecto.Modelo.*;
+import Proyecto.Vista.VClientes;
 
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -38,9 +40,13 @@ public class Demo {
 //        }
 //        DClientes.seleccionarTodo().forEach(System.out::println);
 
-        CZonas.seleccionarTodo().forEach(System.out::println);
-        System.out.println(CZonas.eliminarPorNumeroDeZona(2));
-        CZonas.seleccionarTodo().forEach(System.out::println);
+//        CZonas.seleccionarTodo().forEach(System.out::println);
+//        System.out.println(CZonas.eliminarPorNumeroDeZona(2));
+//        CZonas.seleccionarTodo().forEach(System.out::println);
+
+        System.out.println(CVisita.anadir("29232320G", 1, "2026-04-11 18:52:33"));
+        CVisita.seleccionarTodo().forEach(System.out::println);
+
     }
 
 }

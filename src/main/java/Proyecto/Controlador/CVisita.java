@@ -12,12 +12,12 @@ public final class CVisita {
     }
 
     // Mediante los datos necesarios para hacer una visita añado la visita comprobando los posibles fallos
-    public static String anadir(String dni, int numeroDeZona){
+    public static String anadir(String dni, int numeroDeZona, String fecha){
         try {
 
-            Visita visita = new Visita(dni, numeroDeZona, true);
+            Visita visita = new Visita(dni, numeroDeZona, fecha, true);
             DVisita.anadir(visita);
-            return "Visita introducido con éxito";
+            return "Visita introducida con éxito";
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos
@@ -31,15 +31,16 @@ public final class CVisita {
 
         }catch (RuntimeException e){
             // Fallos de SQL
+            e.printStackTrace();
             return "Ha ocurrido un error en la introducción de la visita, causa:\n"+e.getMessage();
         }
     }
 
     // Mediante el conjunto de dni y número de zona elimino una visita comprobando los posibles fallos
-    public static String eliminarPorDni(String dni, int numeroDeZona){
+    public static String eliminarPorClave(String dni, int numeroDeZona, String fecha){
         try {
 
-            if (DVisita.eliminarPorDniYNumeroDeZona(dni, numeroDeZona)) {
+            if (DVisita.eliminarPorClave(dni, numeroDeZona, fecha)) {
                 return "Visita eliminada con éxito";
             } else {
                 return "Ha ocurrido un error con los datos de la visita, causa:\nEl conjunto de dni y número de zona no existen\n";

@@ -1,7 +1,9 @@
 package Proyecto.Vista;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Inicio {
     public static void main(String[] args) {
@@ -11,38 +13,82 @@ public class Inicio {
         base.setSize(1000, 700);
         base.setLayout(new GridLayout(3, 1));
 
+        // La parte de arriba
         JPanel arriba = new JPanel();
+
         JLabel texto = new JLabel("Inicio de sesión");
+        texto.setFont(new Font("Times new roman", 3, 50));
         arriba.add(texto);
-        SpringLayout layout = new SpringLayout();
-        layout.putConstraint(SpringLayout.SOUTH, texto, 0, SpringLayout.SOUTH, arriba);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, texto, 0, SpringLayout.HORIZONTAL_CENTER, arriba);
-        arriba.setLayout(layout);
+        SpringLayout layoutN = new SpringLayout();
+        layoutN.putConstraint(SpringLayout.SOUTH, texto, 0, SpringLayout.SOUTH, arriba);
+        layoutN.putConstraint(SpringLayout.HORIZONTAL_CENTER, texto, 0, SpringLayout.HORIZONTAL_CENTER, arriba);
+        arriba.setLayout(layoutN);
 
-
-
-
+        // La parte del centro
         JPanel medio = new JPanel(new GridLayout(1, 2));
 
+        // Parte izquierda (usuario)
         JPanel usuario = new JPanel(new GridLayout(2, 1));
-        JLabel labelU = new JLabel("Usuario");
-        JTextField campoU = new JTextField();
-        usuario.add(labelU);
-        usuario.add(campoU);
+        usuario.setBorder(new EmptyBorder(15, 15, 15, 15));
 
+        JLabel labelU = new JLabel("Usuario");
+        labelU.setFont(new Font("", 0, 25));
+        JTextField campoU = new JTextField();
+        campoU.setFont(new Font("", 0, 20));
+
+        JPanel labelPU = new JPanel(new BorderLayout());
+        labelPU.add(labelU, BorderLayout.SOUTH);
+
+        JPanel campoPU = new JPanel(new BorderLayout());
+        campoPU.add(campoU, BorderLayout.NORTH);
+
+        usuario.add(labelPU);
+        usuario.add(campoPU);
+
+        // Parte derecha (contraseña)
         JPanel contrasena = new JPanel(new GridLayout(2, 1));
+        contrasena.setBorder(new EmptyBorder(15, 15, 15, 15));
+
         JTextField campoC = new JTextField();
+        campoC.setFont(new Font("", 0, 20));
         JLabel labelC = new JLabel("Contraseña");
-        contrasena.add(labelC);
-        contrasena.add(campoC);
+        labelC.setFont(new Font("", 0, 25));
+
+        JPanel labelPC = new JPanel(new BorderLayout());
+        labelPC.add(labelC, BorderLayout.SOUTH);
+
+        JPanel campoPC = new JPanel(new BorderLayout());
+        campoPC.add(campoC, BorderLayout.NORTH);
+
+        contrasena.add(labelPC);
+        contrasena.add(campoPC);
+
         medio.add(usuario, BorderLayout.NORTH);
         medio.add(contrasena, BorderLayout.CENTER);
 
+        // La parte de abajo
+        JPanel abajo = new JPanel();
+
         JButton boton = new JButton("Entrar");
+        boton.setMargin(new Insets(10,25,10,25));
+        abajo.add(boton);
+
+        SpringLayout layoutS = new SpringLayout();
+        layoutS.putConstraint(SpringLayout.NORTH, boton, 0, SpringLayout.NORTH, abajo);
+        layoutS.putConstraint(SpringLayout.HORIZONTAL_CENTER, boton, 0, SpringLayout.HORIZONTAL_CENTER, abajo);
+        abajo.setLayout(layoutS);
+
 
         base.add(arriba);
         base.add(medio);
-        base.add(boton);
+        base.add(abajo);
+
+        AtomicInteger cont = new AtomicInteger();
+
+        boton.addActionListener(a->{
+            base.dispose();
+            VClientes.ejecutar(true);
+        });
 
         base.setVisible(true);
     }
