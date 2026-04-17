@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
-public class VClientes {
+public class VAtracciones {
     public static void ejecutar(boolean admin) {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -104,7 +104,7 @@ public class VClientes {
         });
 
         botonN5.addActionListener(a->{
-            VClientes.ejecutar(true);
+            VAtracciones.ejecutar(true);
             base.dispose();
         });
 

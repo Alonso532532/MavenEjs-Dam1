@@ -20,7 +20,7 @@ public class Clientes {
         }
         if (!setDni(dni)) error+="El dni es incorrecto\n";
         if (!setEdad(edad)) error+="La edad es incorrecta\n";
-        if (!setNombre(nombre)) error+="El nombre es demasiado largo o contiene carácteres no permitidos\n";
+        if (!setNombre(nombre)) error+="El nombre es demasiado largo/corto o contiene carácteres no permitidos\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 

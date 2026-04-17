@@ -1,12 +1,14 @@
 package Proyecto.Vista;
 
+import Proyecto.DAO.DUsuarios;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Inicio {
-    public static void main(String[] args) {
+    public static void ejecutar() {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Inicio");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,11 +85,16 @@ public class Inicio {
         base.add(medio);
         base.add(abajo);
 
+        campoU.setText("Admin");
+        campoC.setText("Sor2425$");
+
         AtomicInteger cont = new AtomicInteger();
 
         boton.addActionListener(a->{
-            base.dispose();
-            VClientes.ejecutar(true);
+            if (DUsuarios.buscarPorNombreYContrasena(campoU.getText(),campoC.getText())){
+                VClientes.ejecutar(true);
+                base.dispose();
+            }
         });
 
         base.setVisible(true);

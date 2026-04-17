@@ -1,16 +1,13 @@
 package Proyecto;
 
 import Proyecto.Coexion.Conexion;
-import Proyecto.Controlador.CClientes;
-import Proyecto.Controlador.CVisita;
-import Proyecto.Controlador.CZonas;
 import Proyecto.DAO.DClientes;
-import Proyecto.DAO.DZonas;
-import Proyecto.Modelo.*;
-import Proyecto.Vista.VClientes;
+import Proyecto.DAO.DUsuarios;
+import Proyecto.Modelo.Usuario;
+import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VVisitas;
 
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 
 public class Demo {
     public static void main(String[] args) {
@@ -20,17 +17,6 @@ public class Demo {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        System.out.println("Zonas");
-//        DZonas.seleccionarTodo().forEach(System.out::println);
-//        System.out.println("Clientes");
-//        DClientes.seleccionarTodo().forEach(System.out::println);
-//        try{
-//            Visita visita = new Visita("17352120H", 6);
-//            System.out.println(visita);
-//        } catch (IllegalArgumentException e){
-//            System.out.println(e.getMessage());
-//        }
 
 //        DClientes.seleccionarTodo().forEach(System.out::println);
 //        if (DClientes.cambiarDni("87878787S", "87878787H")){
@@ -44,9 +30,13 @@ public class Demo {
 //        System.out.println(CZonas.eliminarPorNumeroDeZona(2));
 //        CZonas.seleccionarTodo().forEach(System.out::println);
 
-        System.out.println(CVisita.anadir("29232320G", 1, "2026-04-11 18:52:33"));
-        CVisita.seleccionarTodo().forEach(System.out::println);
+//        System.out.println(CVisita.anadir("29232320G", 1, "2026-04-11 18:52:33"));
+//        CVisita.seleccionarTodo().forEach(System.out::println);
 
+//        Usuario hola = new Usuario("Admin", "Sor2425$", true);
+//        System.out.println(hola);
+//        if (DUsuarios.buscarPorNombreYContrasena("Admin", "Sor2425$")) System.out.println("Correcto");
+        Inicio.ejecutar();
     }
 
 }

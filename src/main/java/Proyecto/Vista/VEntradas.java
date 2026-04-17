@@ -1,14 +1,16 @@
 package Proyecto.Vista;
 
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CEntrada;
 import Proyecto.Modelo.Clientes;
+import Proyecto.Modelo.Entrada;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
-public class VClientes {
+public class VEntradas {
     public static void ejecutar(boolean admin) {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -27,7 +29,7 @@ public class VClientes {
         JButton botonN6 = new JButton("Entradas");
 
         botonN1.setBackground(new Color(255, 91, 91));
-        botonN5.setBackground(new Color(189, 189, 189));
+        botonN6.setBackground(new Color(189, 189, 189));
 
         arriba.add(botonN1);
         arriba.add(botonN2);
@@ -42,14 +44,15 @@ public class VClientes {
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"DNI", "Edad", "Nombre"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
+        String[] cabecea = {"Numero de entrada", "Tipo", "Precio", "DNI"};
+        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][4];
         int cont = 0;
         // Inicializo la matríz
-        for (Clientes i: CClientes.seleccionarTodo()){
-            datos[cont][0] = i.getDni();
-            datos[cont][1] = i.getEdad();
-            datos[cont][2] = i.getNombre();
+        for (Entrada i: CEntrada.seleccionarTodo()){
+            datos[cont][0] = i.getNumeroDeEntrada();
+            datos[cont][1] = i.getTipo();
+            datos[cont][2] = i.getPrecio();
+            datos[cont][3] = i.getDni();
             cont++;
         }
 
@@ -104,12 +107,7 @@ public class VClientes {
         });
 
         botonN5.addActionListener(a->{
-            VClientes.ejecutar(true);
-            base.dispose();
-        });
-
-        botonN6.addActionListener(a->{
-            VEntradas.ejecutar(true);
+            VAtracciones.ejecutar(true);
             base.dispose();
         });
     }

@@ -1,17 +1,19 @@
 package Proyecto.Vista;
 
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CVisita;
 import Proyecto.Modelo.Clientes;
+import Proyecto.Modelo.Visita;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
-public class VClientes {
+public class VVisitas {
     public static void ejecutar(boolean admin) {
         // Creo el frame y lo configuro
-        JFrame base = new JFrame("Clientes");
+        JFrame base = new JFrame("Visitas");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
@@ -27,7 +29,7 @@ public class VClientes {
         JButton botonN6 = new JButton("Entradas");
 
         botonN1.setBackground(new Color(255, 91, 91));
-        botonN5.setBackground(new Color(189, 189, 189));
+        botonN4.setBackground(new Color(189, 189, 189));
 
         arriba.add(botonN1);
         arriba.add(botonN2);
@@ -42,14 +44,14 @@ public class VClientes {
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"DNI", "Edad", "Nombre"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
+        String[] cabecea = {"DNI", "Numero de zona", "Fecha"};
+        Object[][] datos = new Object[CVisita.seleccionarTodo().size()][3];
         int cont = 0;
         // Inicializo la matríz
-        for (Clientes i: CClientes.seleccionarTodo()){
+        for (Visita i: CVisita.seleccionarTodo()){
             datos[cont][0] = i.getDni();
-            datos[cont][1] = i.getEdad();
-            datos[cont][2] = i.getNombre();
+            datos[cont][1] = i.getNumeroDeZona();
+            datos[cont][2] = i.getFechaBonita();
             cont++;
         }
 
@@ -83,6 +85,7 @@ public class VClientes {
 
         base.setVisible(true);
 
+
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
@@ -95,11 +98,6 @@ public class VClientes {
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(true);
-            base.dispose();
-        });
-
-        botonN4.addActionListener(a->{
-            VVisitas.ejecutar(true);
             base.dispose();
         });
 
