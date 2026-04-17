@@ -45,7 +45,7 @@ public class VEntradas {
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
         String[] cabecea = {"Numero de entrada", "Tipo", "Precio", "DNI"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][4];
+        Object[][] datos = new Object[CEntrada.seleccionarTodo().size()][4];
         int cont = 0;
         // Inicializo la matríz
         for (Entrada i: CEntrada.seleccionarTodo()){
@@ -107,7 +107,7 @@ public class VEntradas {
         });
 
         botonN5.addActionListener(a->{
-            VAtracciones.ejecutar(true);
+            VClientes.ejecutar(true);
             base.dispose();
         });
     }

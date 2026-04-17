@@ -1,6 +1,7 @@
 package Proyecto.Vista;
 
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CZonas;
 import Proyecto.Modelo.Clientes;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ public class VZonas {
         JButton botonN6 = new JButton("Entradas");
 
         botonN1.setBackground(new Color(255, 91, 91));
-        botonN5.setBackground(new Color(189, 189, 189));
+        botonN3.setBackground(new Color(189, 189, 189));
 
         arriba.add(botonN1);
         arriba.add(botonN2);
@@ -42,14 +43,13 @@ public class VZonas {
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"DNI", "Edad", "Nombre"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
+        String[] cabecea = {"Numero de zona", "Nombre"};
+        Object[][] datos = new Object[CZonas.seleccionarTodo().size()][2];
         int cont = 0;
         // Inicializo la matríz
         for (Clientes i: CClientes.seleccionarTodo()){
             datos[cont][0] = i.getDni();
             datos[cont][1] = i.getEdad();
-            datos[cont][2] = i.getNombre();
             cont++;
         }
 
@@ -93,18 +93,13 @@ public class VZonas {
             base.dispose();
         });
 
-        botonN3.addActionListener(a->{
-            VZonas.ejecutar(true);
-            base.dispose();
-        });
-
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true);
             base.dispose();
         });
 
         botonN5.addActionListener(a->{
-            VZonas.ejecutar(true);
+            VClientes.ejecutar(true);
             base.dispose();
         });
 

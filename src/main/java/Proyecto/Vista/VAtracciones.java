@@ -1,6 +1,8 @@
 package Proyecto.Vista;
 
+import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
+import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Clientes;
 
 import javax.swing.*;
@@ -27,7 +29,7 @@ public class VAtracciones {
         JButton botonN6 = new JButton("Entradas");
 
         botonN1.setBackground(new Color(255, 91, 91));
-        botonN5.setBackground(new Color(189, 189, 189));
+        botonN2.setBackground(new Color(189, 189, 189));
 
         arriba.add(botonN1);
         arriba.add(botonN2);
@@ -42,14 +44,14 @@ public class VAtracciones {
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"DNI", "Edad", "Nombre"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
+        String[] cabecea = {"Numero de atraccion", "Nombre", "Numero de zona"};
+        Object[][] datos = new Object[CAtracciones.seleccionarTodo().size()][3];
         int cont = 0;
         // Inicializo la matríz
-        for (Clientes i: CClientes.seleccionarTodo()){
-            datos[cont][0] = i.getDni();
-            datos[cont][1] = i.getEdad();
-            datos[cont][2] = i.getNombre();
+        for (Atracciones i: CAtracciones.seleccionarTodo()){
+            datos[cont][0] = i.getNumeroDeAtraccion();
+            datos[cont][1] = i.getNombre();
+            datos[cont][2] = i.getNumeroDeZona();
             cont++;
         }
 
@@ -88,11 +90,6 @@ public class VAtracciones {
             base.dispose();
         });
 
-        botonN2.addActionListener(a->{
-            VAtracciones.ejecutar(true);
-            base.dispose();
-        });
-
         botonN3.addActionListener(a->{
             VZonas.ejecutar(true);
             base.dispose();
@@ -104,7 +101,7 @@ public class VAtracciones {
         });
 
         botonN5.addActionListener(a->{
-            VAtracciones.ejecutar(true);
+            VClientes.ejecutar(true);
             base.dispose();
         });
 

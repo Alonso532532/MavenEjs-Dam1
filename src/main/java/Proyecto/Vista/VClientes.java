@@ -103,11 +103,6 @@ public class VClientes {
             base.dispose();
         });
 
-        botonN5.addActionListener(a->{
-            VClientes.ejecutar(true);
-            base.dispose();
-        });
-
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true);
             base.dispose();
