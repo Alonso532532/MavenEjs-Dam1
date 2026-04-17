@@ -1,87 +1,48 @@
 package Proyecto.Vista;
 
-import Proyecto.Controlador.CClientes;
-import Proyecto.Modelo.Clientes;
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.util.Arrays;
 
 public class Inicio {
     public static void main(String[] args) {
         // Creo el frame y lo configuro
-        JFrame base = new JFrame("Tablas");
+        JFrame base = new JFrame("Inicio");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
-        base.setLayout(new BorderLayout());
+        base.setLayout(new GridLayout(3, 1));
 
-        // Creo el menú de arriba y los botones
         JPanel arriba = new JPanel();
-        arriba.setLayout(new GridLayout(1, 10));
-        JButton botonN1 = new JButton("Hola");
-        JButton botonN2 = new JButton("Hola");
-        JButton botonN3 = new JButton("Hola");
-        botonN1.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        botonN2.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        botonN3.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        arriba.add(botonN1);
-        arriba.add(botonN2);
-        arriba.add(botonN3);
+        JLabel texto = new JLabel("Inicio de sesión");
+        arriba.add(texto);
+        SpringLayout layout = new SpringLayout();
+        layout.putConstraint(SpringLayout.SOUTH, texto, 0, SpringLayout.SOUTH, arriba);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, texto, 0, SpringLayout.HORIZONTAL_CENTER, arriba);
+        arriba.setLayout(layout);
 
 
-        // Creo la zona del medio
-        JPanel medio = new JPanel();
-        medio.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        medio.setLayout(new BorderLayout());
 
-        // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"DNI", "Edad", "Nombre"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
-        int cont = 0;
-        // Inicializo la matríz
-        for (Clientes i: CClientes.seleccionarTodo()){
-            datos[cont][0] = i.getDni();
-            datos[cont][1] = i.getEdad();
-            datos[cont][2] = i.getNombre();
-            cont++;
-        }
 
-        // Para evitar que se puedan modificar datos en la tabla, creo un objeto "DefaultTableModel" y sobreescribo uno de sus métodos para hacer que sea imposible editar los campos
-        DefaultTableModel modelo = new DefaultTableModel(datos, cabecea) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        JTable tabla = new JTable(modelo);
+        JPanel medio = new JPanel(new GridLayout(1, 2));
 
-        // Hago que la tabla tenga una barra "scroll" cuando haga falta
-        JScrollPane scroll = new JScrollPane(tabla);
+        JPanel usuario = new JPanel(new GridLayout(2, 1));
+        JLabel labelU = new JLabel("Usuario");
+        JTextField campoU = new JTextField();
+        usuario.add(labelU);
+        usuario.add(campoU);
 
-        medio.add(scroll);
+        JPanel contrasena = new JPanel(new GridLayout(2, 1));
+        JTextField campoC = new JTextField();
+        JLabel labelC = new JLabel("Contraseña");
+        contrasena.add(labelC);
+        contrasena.add(campoC);
+        medio.add(usuario, BorderLayout.NORTH);
+        medio.add(contrasena, BorderLayout.CENTER);
 
-        // Creo la parte de abajo y sus botónes
-        JPanel abajo = new JPanel();
-        abajo.setLayout(new GridLayout(1, 10));
-        JButton botonS1 = new JButton("Hola");
-        JButton botonS2 = new JButton("Hola");
-        JButton botonS3 = new JButton("Hola");
-        botonS1.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        botonS2.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        botonS3.setBorder(new LineBorder(new Color(138, 138, 138), 3));
-        abajo.add(botonS1);
-        abajo.add(botonS2);
-        abajo.add(botonS3);
+        JButton boton = new JButton("Entrar");
 
-        // Finalmente, añado todas las partes y muestro el frame
-        base.add(arriba, BorderLayout.NORTH);
-        base.add(medio, BorderLayout.CENTER);
-        base.add(abajo, BorderLayout.SOUTH);
+        base.add(arriba);
+        base.add(medio);
+        base.add(boton);
 
         base.setVisible(true);
     }
