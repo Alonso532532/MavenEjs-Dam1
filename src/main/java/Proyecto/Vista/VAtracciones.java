@@ -72,7 +72,7 @@ public class VAtracciones {
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
         JButton botonS1 = new JButton("Añadir");
-        JButton botonS2 = new JButton("Borrar");
+        JButton botonS2 = new JButton("Borrar selección");
         JButton botonS3 = new JButton("Modificar");
         abajo.add(botonS1);
         abajo.add(botonS2);
@@ -108,6 +108,22 @@ public class VAtracciones {
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true);
             base.dispose();
+        });
+
+        botonS2.addActionListener(a->{
+            Object[] seleccionada = datos[tabla.getSelectedRow()];
+            JFrame mensaje = new JFrame("Operación de eliminación");
+            String resp;
+            JOptionPane.showMessageDialog(
+                    mensaje,
+                    resp = CAtracciones.eliminarPorNumeroDeAtraccion((Integer) seleccionada[0]),
+                    "Información sobre la operación",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            if (resp.equals("Atracción eliminada con éxito")){
+                base.dispose();
+                VAtracciones.ejecutar(true);
+            }
         });
     }
 }

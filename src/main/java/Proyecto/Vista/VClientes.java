@@ -46,7 +46,7 @@ public class VClientes {
         Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
         int cont = 0;
         // Inicializo la matríz
-        for (Clientes i: CClientes.seleccionarTodo()){
+        for (Clientes i : CClientes.seleccionarTodo()) {
             datos[cont][0] = i.getDni();
             datos[cont][1] = i.getEdad();
             datos[cont][2] = i.getNombre();
@@ -72,6 +72,7 @@ public class VClientes {
         JButton botonS1 = new JButton("Añadir");
         JButton botonS2 = new JButton("Borrar");
         JButton botonS3 = new JButton("Modificar");
+
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
@@ -83,29 +84,30 @@ public class VClientes {
 
         base.setVisible(true);
 
-        botonN1.addActionListener(a->{
+        botonN1.addActionListener(a -> {
             Inicio.ejecutar();
             base.dispose();
         });
 
-        botonN2.addActionListener(a->{
+        botonN2.addActionListener(a -> {
             VAtracciones.ejecutar(true);
             base.dispose();
         });
 
-        botonN3.addActionListener(a->{
+        botonN3.addActionListener(a -> {
             VZonas.ejecutar(true);
             base.dispose();
         });
 
-        botonN4.addActionListener(a->{
+        botonN4.addActionListener(a -> {
             VVisitas.ejecutar(true);
             base.dispose();
         });
 
-        botonN6.addActionListener(a->{
+        botonN6.addActionListener(a -> {
             VEntradas.ejecutar(true);
             base.dispose();
         });
+
     }
 }

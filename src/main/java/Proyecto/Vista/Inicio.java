@@ -92,7 +92,7 @@ public class Inicio {
 
         boton.addActionListener(a->{
             if (DUsuarios.buscarPorNombreYContrasena(campoU.getText(),campoC.getText())){
-                VClientes.ejecutar(true);
+                VAtracciones.ejecutar(true);
                 base.dispose();
             }
         });
