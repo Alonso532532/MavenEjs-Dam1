@@ -38,7 +38,7 @@ public class Demo {
 //        System.out.println(hola);
 //        if (DUsuarios.buscarPorNombreYContrasena("Admin", "Sor2425$")) System.out.println("Correcto");
         Inicio.ejecutar();
-        String[] campos = {"hola", "Pascual", "Y HECPROOLLL"};
+        String[] campos = {"hola", "Pascual", "Y HECPROOLLL", "Iker"};
         VAnadir.ejecutar(campos, 1);
 
     }

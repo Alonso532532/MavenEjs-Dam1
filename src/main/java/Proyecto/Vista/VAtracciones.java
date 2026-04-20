@@ -14,7 +14,6 @@ public class VAtracciones {
         // Creo el frame y lo configuro
        JFrame base = new JFrame("Clientes");
 
-
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
@@ -142,6 +141,10 @@ public class VAtracciones {
         botonS4.addActionListener(a->{
             base.dispose();
             VAtracciones.ejecutar(true);
+        });
+
+        botonS1.addActionListener(a->{
+            VAnadir.ejecutar(cabecea, 1);
         });
     }
 }

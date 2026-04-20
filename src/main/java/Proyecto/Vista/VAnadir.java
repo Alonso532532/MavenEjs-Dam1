@@ -1,6 +1,7 @@
 package Proyecto.Vista;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Arrays;
 
@@ -29,25 +30,57 @@ public class VAnadir {
             campos = Arrays.copyOfRange(campos, 1, campos.length);
         }
 
-        JFrame Fanadir = new JFrame("Anadir "+nombre);
-        Fanadir.setLayout(new BorderLayout());
+        JFrame fAnadir = new JFrame("Anadir "+nombre);
+        fAnadir.setSize(500, 170);
+        fAnadir.setLayout(new BorderLayout());
 
-        JPanel panelC = new JPanel(new GridLayout(2, campos.length));
+        JPanel panelC = new JPanel(new GridLayout(2, campos.length, 10, 5));
 
-        JPanel panelS = new JPanel();
+        TextField tFC1 = new TextField();
+        TextField tFC2 = new TextField();
+        TextField tFC3 = new TextField();
 
-        JButton botonVolver = new JButton("Volver");
+        JLabel labelC1 = new JLabel();
+        JLabel labelC2 = new JLabel();
+        JLabel labelC3 = new JLabel();
+
+        if (campos.length==2){
+            labelC1.setText(campos[0]);
+            labelC2.setText(campos[1]);
+
+            panelC.add(labelC1);
+            panelC.add(labelC2);
+            panelC.add(tFC1);
+            panelC.add(tFC2);
+        }else {
+
+            labelC1.setText(campos[0]);
+            labelC2.setText(campos[1]);
+            labelC3.setText(campos[2]);
+
+            panelC.add(labelC1);
+            panelC.add(labelC2);
+            panelC.add(labelC3);
+
+            panelC.add(tFC1);
+            panelC.add(tFC2);
+            panelC.add(tFC3);
+        }
+
+
+
+        JPanel panelS = new JPanel(new FlowLayout());
+
         JButton botonAnadir = new JButton("Anadir");
 
-        SpringLayout sLayoutS = new SpringLayout();
-        sLayoutS.putConstraint(SpringLayout.SOUTH, botonVolver, 0, SpringLayout.SOUTH, panelS);
-        sLayoutS.putConstraint(SpringLayout.WEST, botonVolver, 0, SpringLayout.WEST, panelS);
-        sLayoutS.putConstraint(SpringLayout.SOUTH, botonAnadir, 0, SpringLayout.SOUTH, panelS);
-        sLayoutS.putConstraint(SpringLayout.HORIZONTAL_CENTER, botonAnadir, 0, SpringLayout.HORIZONTAL_CENTER, panelS);
-
-        panelS.add(botonVolver);
         panelS.add(botonAnadir);
 
+        panelC.setBorder(new EmptyBorder(15, 15, 0, 15));
+        panelS.setBorder(new EmptyBorder(15, 15, 15, 15));
+        fAnadir.add(panelC, BorderLayout.CENTER);
+        fAnadir.add(panelS, BorderLayout.SOUTH);
+
+        fAnadir.setVisible(true);
         return modificacion;
     }
 }
