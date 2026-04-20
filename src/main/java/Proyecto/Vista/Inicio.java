@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Inicio {
+public final class Inicio {
     public static void ejecutar() {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Inicio");

@@ -1,9 +1,7 @@
 package Proyecto.Vista;
 
 import Proyecto.Controlador.CAtracciones;
-import Proyecto.Controlador.CClientes;
 import Proyecto.Modelo.Atracciones;
-import Proyecto.Modelo.Clientes;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,9 +9,12 @@ import java.awt.*;
 
 
 public class VAtracciones {
+
     public static void ejecutar(boolean admin) {
         // Creo el frame y lo configuro
-        JFrame base = new JFrame("Clientes");
+       JFrame base = new JFrame("Clientes");
+
+
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
@@ -74,9 +75,11 @@ public class VAtracciones {
         JButton botonS1 = new JButton("Añadir");
         JButton botonS2 = new JButton("Borrar selección");
         JButton botonS3 = new JButton("Modificar");
+        JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
+        abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
         base.add(arriba, BorderLayout.NORTH);
@@ -111,19 +114,34 @@ public class VAtracciones {
         });
 
         botonS2.addActionListener(a->{
-            Object[] seleccionada = datos[tabla.getSelectedRow()];
             JFrame mensaje = new JFrame("Operación de eliminación");
-            String resp;
-            JOptionPane.showMessageDialog(
-                    mensaje,
-                    resp = CAtracciones.eliminarPorNumeroDeAtraccion((Integer) seleccionada[0]),
-                    "Información sobre la operación",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-            if (resp.equals("Atracción eliminada con éxito")){
-                base.dispose();
-                VAtracciones.ejecutar(true);
+            if  (tabla.getSelectedRow() != -1) {
+                Object[] seleccionada = datos[tabla.getSelectedRow()];
+                String resp;
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CAtracciones.eliminarPorNumeroDeAtraccion((Integer) seleccionada[0]),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Atracción eliminada con éxito")) {
+                    base.dispose();
+                    VAtracciones.ejecutar(true);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             }
+        });
+
+        botonS4.addActionListener(a->{
+            base.dispose();
+            VAtracciones.ejecutar(true);
         });
     }
 }

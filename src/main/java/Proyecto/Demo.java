@@ -5,6 +5,7 @@ import Proyecto.DAO.DClientes;
 import Proyecto.DAO.DUsuarios;
 import Proyecto.Modelo.Usuario;
 import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VAnadir;
 import Proyecto.Vista.VVisitas;
 
 import java.sql.SQLException;
@@ -37,6 +38,8 @@ public class Demo {
 //        System.out.println(hola);
 //        if (DUsuarios.buscarPorNombreYContrasena("Admin", "Sor2425$")) System.out.println("Correcto");
         Inicio.ejecutar();
-    }
+        String[] campos = {"hola", "Pascual", "Y HECPROOLLL"};
+        VAnadir.ejecutar(campos, 1);
 
+    }
 }

@@ -1,8 +1,6 @@
 package Proyecto.Vista;
 
-import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CEntrada;
-import Proyecto.Modelo.Clientes;
 import Proyecto.Modelo.Entrada;
 
 import javax.swing.*;
