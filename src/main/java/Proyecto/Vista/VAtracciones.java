@@ -4,15 +4,18 @@ import Proyecto.Controlador.CAtracciones;
 import Proyecto.Modelo.Atracciones;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
 public class VAtracciones {
+    static VAnadir vAnadir = new VAnadir();
 
     public static void ejecutar(boolean admin) {
+
         // Creo el frame y lo configuro
-       JFrame base = new JFrame("Clientes");
+        JFrame base = new JFrame("Clientes");
 
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
@@ -81,6 +84,9 @@ public class VAtracciones {
         abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
+        arriba.setBorder(new EmptyBorder(10, 10, 10, 10));
+        medio.setBorder(new EmptyBorder(0, 10, 0, 10));
+        abajo.setBorder(new EmptyBorder(10, 10, 10, 10));
         base.add(arriba, BorderLayout.NORTH);
         base.add(medio, BorderLayout.CENTER);
         base.add(abajo, BorderLayout.SOUTH);
@@ -90,26 +96,31 @@ public class VAtracciones {
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
+            vAnadir.ocultar();
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
         });
 
         botonS2.addActionListener(a->{
@@ -144,7 +155,9 @@ public class VAtracciones {
         });
 
         botonS1.addActionListener(a->{
-            VAnadir.ejecutar(cabecea, 1);
+            vAnadir.mostrar();
         });
+
+        vAnadir.construir(cabecea, 1);
     }
 }

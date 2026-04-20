@@ -1,12 +1,17 @@
 package Proyecto.Vista;
 
+import Proyecto.Controlador.*;
+import Proyecto.Modelo.Atracciones;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Arrays;
 
 public class VAnadir {
-    public static boolean ejecutar(String[] campos, int tabla){
+    private static JFrame fAnadir = new JFrame();
+    public void construir(String[] campos, int tabla){
+        fAnadir.setResizable(false);
         boolean modificacion = false;
         String nombre = "";
         switch (tabla){
@@ -30,7 +35,7 @@ public class VAnadir {
             campos = Arrays.copyOfRange(campos, 1, campos.length);
         }
 
-        JFrame fAnadir = new JFrame("Anadir "+nombre);
+        fAnadir.setTitle("Anadir "+nombre);
         fAnadir.setSize(500, 170);
         fAnadir.setLayout(new BorderLayout());
 
@@ -52,6 +57,7 @@ public class VAnadir {
             panelC.add(labelC2);
             panelC.add(tFC1);
             panelC.add(tFC2);
+
         }else {
 
             labelC1.setText(campos[0]);
@@ -67,12 +73,14 @@ public class VAnadir {
             panelC.add(tFC3);
         }
 
-
-
         JPanel panelS = new JPanel(new FlowLayout());
 
         JButton botonAnadir = new JButton("Anadir");
 
+        if(tabla==4){
+            JLabel pista = new JLabel("La fecha sigue el siguiente formato YYYY-MM-DD hh:mm:ss");
+            panelS.add(pista);
+        }
         panelS.add(botonAnadir);
 
         panelC.setBorder(new EmptyBorder(15, 15, 0, 15));
@@ -80,7 +88,127 @@ public class VAnadir {
         fAnadir.add(panelC, BorderLayout.CENTER);
         fAnadir.add(panelS, BorderLayout.SOUTH);
 
+
+        String[] finalCampos = campos;
+        botonAnadir.addActionListener(a->{
+
+            if (tFC1.getText().isEmpty()||tFC2.getText().isEmpty()){
+            JFrame mensaje = new JFrame("Error de formato");
+            JOptionPane.showMessageDialog(
+                    mensaje,
+                    "Error, uno o varios vampos están vacíos",
+                    "Información sobre la operación",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            } else {
+                switch (tabla) {
+                    case 1:
+                        try {
+                            JFrame mensaje = new JFrame("Operación para añadir atracciones");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    CAtracciones.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText())),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                            tFC1.setText("");
+                            tFC2.setText("");
+                        } catch (NumberFormatException e) {
+                            JFrame mensaje = new JFrame("Error de formato");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    "Error, el formato del numero de Zona es inválido",
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+                        break;
+                    case 2:
+                        try {
+                            JFrame mensaje = new JFrame("Operación para añadir clientes");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    CClientes.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                            tFC1.setText("");
+                            tFC2.setText("");
+                            tFC3.setText("");
+                        } catch (NumberFormatException e) {
+                            JFrame mensaje = new JFrame("Error de formato");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    "Error, el formato de la edad es inválido",
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+                        break;
+                    case 3:
+                        try {
+                            JFrame mensaje = new JFrame("Operación para añadir entradas");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    CEntrada.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                            tFC1.setText("");
+                            tFC2.setText("");
+                            tFC3.setText("");
+                        } catch (NumberFormatException e) {
+                            JFrame mensaje = new JFrame("Error de formato");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    "Error, el formato del precio es inválido",
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+                        break;
+                    case 4:
+                        try {
+                            JFrame mensaje = new JFrame("Operación para añadir visitas");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    CVisita.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                            tFC1.setText("");
+                            tFC2.setText("");
+                            tFC3.setText("");
+                        } catch (NumberFormatException e) {
+                            JFrame mensaje = new JFrame("Error de formato");
+                            JOptionPane.showMessageDialog(
+                                    mensaje,
+                                    "Error, el formato del número de zona es inválido",
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+                        break;
+                    case 5:
+                        JFrame mensaje = new JFrame("Operación para añadir zonas");
+                        JOptionPane.showMessageDialog(
+                                mensaje,
+                                CZonas.anadir(tFC1.getText()),
+                                "Información sobre la operación",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        tFC1.setText("");
+                        break;
+                }
+            }
+        });
+    }
+
+    public void mostrar(){
         fAnadir.setVisible(true);
-        return modificacion;
+    }
+
+    public void ocultar(){
+        fAnadir.dispose();
     }
 }

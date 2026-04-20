@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+import static Proyecto.Vista.VAtracciones.vAnadir;
+
 
 public class VClientes {
     public static void ejecutar(boolean admin) {
@@ -108,6 +110,12 @@ public class VClientes {
             VEntradas.ejecutar(true);
             base.dispose();
         });
+
+        botonS1.addActionListener(a->{
+            vAnadir.mostrar();
+        });
+
+        vAnadir.construir(cabecea, 2);
 
     }
 }
