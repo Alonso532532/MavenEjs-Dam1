@@ -1,20 +1,27 @@
 package Proyecto.Vista.VEntradas;
 
+import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CEntrada;
 import Proyecto.Modelo.Entrada;
 import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VAtracciones.VAanadir;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VVisitas.VVisitas;
 import Proyecto.Vista.VZonas.VZonas;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
 public class VEntradas {
+    static VAanadir vAanadir = new VAanadir();
+
     public static void ejecutar(boolean admin) {
+        vAanadir.construir();
+
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,13 +83,18 @@ public class VEntradas {
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
         JButton botonS1 = new JButton("Añadir");
-        JButton botonS2 = new JButton("Borrar");
+        JButton botonS2 = new JButton("Borrar selección");
         JButton botonS3 = new JButton("Modificar");
+        JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
+        abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
+        arriba.setBorder(new EmptyBorder(10, 10, 10, 10));
+        medio.setBorder(new EmptyBorder(0, 10, 0, 10));
+        abajo.setBorder(new EmptyBorder(10, 10, 10, 10));
         base.add(arriba, BorderLayout.NORTH);
         base.add(medio, BorderLayout.CENTER);
         base.add(abajo, BorderLayout.SOUTH);
@@ -92,26 +104,67 @@ public class VEntradas {
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN2.addActionListener(a->{
             VAtracciones.ejecutar(true);
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(true);
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true);
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(true);
             base.dispose();
+            vAanadir.ocultar();
+        });
+
+
+        botonS2.addActionListener(a->{
+            JFrame mensaje = new JFrame("Operación de eliminación");
+            if  (tabla.getSelectedRow() != -1) {
+                Object[] seleccionada = datos[tabla.getSelectedRow()];
+                String resp;
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CEntrada.eliminarPorNumeroDeEntrada((Integer) seleccionada[0]),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Entrada eliminada con éxito")) {
+                    base.dispose();
+                    VEntradas.ejecutar(true);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS4.addActionListener(a->{
+            base.dispose();
+            VEntradas.ejecutar(true);
+        });
+
+        botonS1.addActionListener(a->{
+            vAanadir.mostrar();
         });
     }
 }

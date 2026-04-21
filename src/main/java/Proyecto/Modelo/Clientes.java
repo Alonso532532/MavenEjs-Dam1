@@ -29,7 +29,7 @@ public class Clientes {
     }
 
     public boolean setDni(String dni) {
-        Matcher matcher = Pattern.compile("\\d{8}\\w").matcher(dni);
+        Matcher matcher = Pattern.compile("\\d{8}[A-Za-zñ]").matcher(dni);
         if (matcher.matches()){
             this.dni = dni;
             return true;

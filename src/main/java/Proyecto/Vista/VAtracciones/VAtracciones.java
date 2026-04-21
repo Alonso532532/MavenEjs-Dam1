@@ -22,7 +22,6 @@ public class VAtracciones {
         vAanadir.construir();
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
-
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
