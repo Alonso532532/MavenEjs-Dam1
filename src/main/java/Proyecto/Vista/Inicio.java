@@ -1,6 +1,7 @@
 package Proyecto.Vista;
 
 import Proyecto.DAO.DUsuarios;
+import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

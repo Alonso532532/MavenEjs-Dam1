@@ -1,10 +1,4 @@
-Hay que comprobar si se puede detectar si quiere cambiar o no los datos al hacer un update, no parece mala
-
-La idea es dejarle varios campos con los atributos de la tabla, ¿la clave del seleccionado está a mi disposición?, si lo está si introduce
-algo en alguno de los campos se usará esa info para cambiar el valor de estos en la tabla, sino no
-
-
-En algunas operaciónes de eliminación es necesario eliminar primero filas de otras tablas, ¿esto lo tengo que hacer en la vista?
+Se podría cambiar el formato en el que pide la fecha de una visita el controlador para que no se tenga que comprobar en la vista
 
 Hecho
 - Todos los modelos controlan las entradas en los setters, incluso las de las relaciones con otras tablas (solo se pueden introducir valores validos o respondera una excepción con los problemas como mensaje)

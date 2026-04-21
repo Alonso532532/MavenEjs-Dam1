@@ -1,7 +1,12 @@
-package Proyecto.Vista;
+package Proyecto.Vista.VVisitas;
 
 import Proyecto.Controlador.CVisita;
 import Proyecto.Modelo.Visita;
+import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VClientes;
+import Proyecto.Vista.VEntradas.VEntradas;
+import Proyecto.Vista.VZonas.VZonas;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

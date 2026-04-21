@@ -1,7 +1,6 @@
 package Proyecto.Vista;
 
 import Proyecto.Controlador.*;
-import Proyecto.Modelo.Atracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -92,27 +91,30 @@ public class VAnadir {
         String[] finalCampos = campos;
         botonAnadir.addActionListener(a->{
 
-            if (tFC1.getText().isEmpty()||tFC2.getText().isEmpty()){
-            JFrame mensaje = new JFrame("Error de formato");
-            JOptionPane.showMessageDialog(
-                    mensaje,
-                    "Error, uno o varios vampos están vacíos",
-                    "Información sobre la operación",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
+            if (finalCampos.length==2&&(tFC1.getText().isEmpty()||tFC2.getText().isEmpty())||finalCampos.length==3&&(tFC1.getText().isEmpty()||tFC2.getText().isEmpty()||tFC3.getText().isEmpty())){
+                JFrame mensaje = new JFrame("Error de formato");
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "Error, uno o varios vampos están vacíos",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             } else {
                 switch (tabla) {
                     case 1:
                         try {
                             JFrame mensaje = new JFrame("Operación para añadir atracciones");
+                            String resp = "";
                             JOptionPane.showMessageDialog(
                                     mensaje,
-                                    CAtracciones.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText())),
+                                    resp = CAtracciones.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText())),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
-                            tFC1.setText("");
-                            tFC2.setText("");
+                            if (resp.equals("Atracción introducida con éxito")) {
+                                tFC1.setText("");
+                                tFC2.setText("");
+                            }
                         } catch (NumberFormatException e) {
                             JFrame mensaje = new JFrame("Error de formato");
                             JOptionPane.showMessageDialog(
@@ -126,15 +128,18 @@ public class VAnadir {
                     case 2:
                         try {
                             JFrame mensaje = new JFrame("Operación para añadir clientes");
+                            String resp = "";
                             JOptionPane.showMessageDialog(
                                     mensaje,
-                                    CClientes.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                                    resp = CClientes.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
-                            tFC1.setText("");
-                            tFC2.setText("");
-                            tFC3.setText("");
+                            if (resp.equals("Cliente introducido con éxito")) {
+                                tFC1.setText("");
+                                tFC2.setText("");
+                                tFC3.setText("");
+                            }
                         } catch (NumberFormatException e) {
                             JFrame mensaje = new JFrame("Error de formato");
                             JOptionPane.showMessageDialog(
@@ -148,15 +153,18 @@ public class VAnadir {
                     case 3:
                         try {
                             JFrame mensaje = new JFrame("Operación para añadir entradas");
+                            String resp = "";
                             JOptionPane.showMessageDialog(
                                     mensaje,
-                                    CEntrada.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                                    resp = CEntrada.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
-                            tFC1.setText("");
-                            tFC2.setText("");
-                            tFC3.setText("");
+                            if (resp.equals("Entrada introducida con éxito")) {
+                                tFC1.setText("");
+                                tFC2.setText("");
+                                tFC3.setText("");
+                            }
                         } catch (NumberFormatException e) {
                             JFrame mensaje = new JFrame("Error de formato");
                             JOptionPane.showMessageDialog(
@@ -170,15 +178,18 @@ public class VAnadir {
                     case 4:
                         try {
                             JFrame mensaje = new JFrame("Operación para añadir visitas");
+                            String resp = "";
                             JOptionPane.showMessageDialog(
                                     mensaje,
-                                    CVisita.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                                    resp = CVisita.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
-                            tFC1.setText("");
-                            tFC2.setText("");
-                            tFC3.setText("");
+                            if (resp.equals("Visita introducida con éxito")) {
+                                tFC1.setText("");
+                                tFC2.setText("");
+                                tFC3.setText("");
+                            }
                         } catch (NumberFormatException e) {
                             JFrame mensaje = new JFrame("Error de formato");
                             JOptionPane.showMessageDialog(
@@ -191,17 +202,20 @@ public class VAnadir {
                         break;
                     case 5:
                         JFrame mensaje = new JFrame("Operación para añadir zonas");
+                        String resp = "";
                         JOptionPane.showMessageDialog(
                                 mensaje,
-                                CZonas.anadir(tFC1.getText()),
+                                resp = CZonas.anadir(tFC1.getText()),
                                 "Información sobre la operación",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
-                        tFC1.setText("");
+                        if (resp.equals("Zona introducida con éxito")) tFC1.setText("");
+
                         break;
                 }
             }
         });
+        fAnadir.setVisible(true);
     }
 
     public void mostrar(){

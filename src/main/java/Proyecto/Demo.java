@@ -1,12 +1,7 @@
 package Proyecto;
 
 import Proyecto.Coexion.Conexion;
-import Proyecto.DAO.DClientes;
-import Proyecto.DAO.DUsuarios;
-import Proyecto.Modelo.Usuario;
 import Proyecto.Vista.Inicio;
-import Proyecto.Vista.VAnadir;
-import Proyecto.Vista.VVisitas;
 
 import java.sql.SQLException;
 

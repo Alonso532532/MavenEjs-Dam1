@@ -1,16 +1,25 @@
-package Proyecto.Vista;
+package Proyecto.Vista.VClientes;
 
+import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
-import Proyecto.Controlador.CZonas;
 import Proyecto.Modelo.Clientes;
+import Proyecto.Vista.*;
+import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VEntradas.VEntradas;
+import Proyecto.Vista.VVisitas.VVisitas;
+import Proyecto.Vista.VZonas.VZonas;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+public class VClientes {
+    static VCanadir vAnadir = new VCanadir();
 
-public class VZonas {
     public static void ejecutar(boolean admin) {
+
+        vAnadir.construir();
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +37,7 @@ public class VZonas {
         JButton botonN6 = new JButton("Entradas");
 
         botonN1.setBackground(new Color(255, 91, 91));
-        botonN3.setBackground(new Color(189, 189, 189));
+        botonN5.setBackground(new Color(189, 189, 189));
 
         arriba.add(botonN1);
         arriba.add(botonN2);
@@ -43,13 +52,14 @@ public class VZonas {
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"Numero de zona", "Nombre"};
-        Object[][] datos = new Object[CZonas.seleccionarTodo().size()][2];
+        String[] cabecea = {"DNI", "Edad", "Nombre"};
+        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
         int cont = 0;
         // Inicializo la matríz
-        for (Clientes i: CClientes.seleccionarTodo()){
+        for (Clientes i : CClientes.seleccionarTodo()) {
             datos[cont][0] = i.getDni();
             datos[cont][1] = i.getEdad();
+            datos[cont][2] = i.getNombre();
             cont++;
         }
 
@@ -72,40 +82,85 @@ public class VZonas {
         JButton botonS1 = new JButton("Añadir");
         JButton botonS2 = new JButton("Borrar");
         JButton botonS3 = new JButton("Modificar");
+        JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
+        abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
+        arriba.setBorder(new EmptyBorder(10, 10, 10, 10));
+        medio.setBorder(new EmptyBorder(0, 10, 0, 10));
+        abajo.setBorder(new EmptyBorder(10, 10, 10, 10));
         base.add(arriba, BorderLayout.NORTH);
         base.add(medio, BorderLayout.CENTER);
         base.add(abajo, BorderLayout.SOUTH);
 
         base.setVisible(true);
 
-        botonN1.addActionListener(a->{
+        botonN1.addActionListener(a -> {
             Inicio.ejecutar();
             base.dispose();
+            vAnadir.ocultar();
         });
 
-        botonN2.addActionListener(a->{
+        botonN2.addActionListener(a -> {
             VAtracciones.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
         });
 
-        botonN4.addActionListener(a->{
+        botonN3.addActionListener(a -> {
+            VZonas.ejecutar(true);
+            base.dispose();
+            vAnadir.ocultar();
+        });
+
+        botonN4.addActionListener(a -> {
             VVisitas.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
         });
 
-        botonN5.addActionListener(a->{
-            VClientes.ejecutar(true);
-            base.dispose();
-        });
-
-        botonN6.addActionListener(a->{
+        botonN6.addActionListener(a -> {
             VEntradas.ejecutar(true);
             base.dispose();
+            vAnadir.ocultar();
+        });
+
+        botonS2.addActionListener(a->{
+            JFrame mensaje = new JFrame("Operación de eliminación");
+            if  (tabla.getSelectedRow() != -1) {
+                Object[] seleccionada = datos[tabla.getSelectedRow()];
+                String resp;
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CClientes.eliminarPorDni(String.valueOf(seleccionada[0])),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Cliente eliminado con éxito")) {
+                    base.dispose();
+                    VClientes.ejecutar(true);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS4.addActionListener(a->{
+            base.dispose();
+            VClientes.ejecutar(true);
+        });
+
+        botonS1.addActionListener(a->{
+            vAnadir.mostrar();
         });
     }
 }

@@ -1,16 +1,20 @@
-package Proyecto.Vista;
+package Proyecto.Vista.VZonas;
 
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CZonas;
 import Proyecto.Modelo.Clientes;
+import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VClientes;
+import Proyecto.Vista.VEntradas.VEntradas;
+import Proyecto.Vista.VVisitas.VVisitas;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-import static Proyecto.Vista.VAtracciones.vAnadir;
 
-
-public class VClientes {
+public class VZonas {
     public static void ejecutar(boolean admin) {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -29,7 +33,7 @@ public class VClientes {
         JButton botonN6 = new JButton("Entradas");
 
         botonN1.setBackground(new Color(255, 91, 91));
-        botonN5.setBackground(new Color(189, 189, 189));
+        botonN3.setBackground(new Color(189, 189, 189));
 
         arriba.add(botonN1);
         arriba.add(botonN2);
@@ -44,14 +48,13 @@ public class VClientes {
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
-        String[] cabecea = {"DNI", "Edad", "Nombre"};
-        Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
+        String[] cabecea = {"Numero de zona", "Nombre"};
+        Object[][] datos = new Object[CZonas.seleccionarTodo().size()][2];
         int cont = 0;
         // Inicializo la matríz
-        for (Clientes i : CClientes.seleccionarTodo()) {
+        for (Clientes i: CClientes.seleccionarTodo()){
             datos[cont][0] = i.getDni();
             datos[cont][1] = i.getEdad();
-            datos[cont][2] = i.getNombre();
             cont++;
         }
 
@@ -74,7 +77,6 @@ public class VClientes {
         JButton botonS1 = new JButton("Añadir");
         JButton botonS2 = new JButton("Borrar");
         JButton botonS3 = new JButton("Modificar");
-
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
@@ -86,36 +88,29 @@ public class VClientes {
 
         base.setVisible(true);
 
-        botonN1.addActionListener(a -> {
+        botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
         });
 
-        botonN2.addActionListener(a -> {
+        botonN2.addActionListener(a->{
             VAtracciones.ejecutar(true);
             base.dispose();
         });
 
-        botonN3.addActionListener(a -> {
-            VZonas.ejecutar(true);
-            base.dispose();
-        });
-
-        botonN4.addActionListener(a -> {
+        botonN4.addActionListener(a->{
             VVisitas.ejecutar(true);
             base.dispose();
         });
 
-        botonN6.addActionListener(a -> {
-            VEntradas.ejecutar(true);
+        botonN5.addActionListener(a->{
+            VClientes.ejecutar(true);
             base.dispose();
         });
 
-        botonS1.addActionListener(a->{
-            vAnadir.mostrar();
+        botonN6.addActionListener(a->{
+            VEntradas.ejecutar(true);
+            base.dispose();
         });
-
-        vAnadir.construir(cabecea, 2);
-
     }
 }
