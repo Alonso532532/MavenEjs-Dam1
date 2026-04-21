@@ -12,6 +12,8 @@ public final class Inicio {
     public static void ejecutar() {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Inicio");
+        base.setLocationRelativeTo(null);
+        base.setLocation((int) base.getLocation().getX()-500, (int) base.getLocation().getY()-350);
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new GridLayout(3, 1));
@@ -93,7 +95,7 @@ public final class Inicio {
 
         boton.addActionListener(a->{
             if (DUsuarios.buscarPorNombreYContrasena(campoU.getText(),campoC.getText())){
-                VAtracciones.ejecutar(true);
+                VAtracciones.ejecutar(true, base.getLocation());
                 base.dispose();
             }
         });

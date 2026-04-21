@@ -1,25 +1,35 @@
 package Proyecto.Vista.VVisitas;
 
+import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CVisita;
 import Proyecto.Modelo.Visita;
 import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VAtracciones.VAanadir;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VZonas.VZonas;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 
 public class VVisitas {
-    public static void ejecutar(boolean admin) {
+    static VVanadir vAanadir = new VVanadir();
+
+    public static void ejecutar(boolean admin, Point posicion) {
+        vAanadir.construir();
+
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Visitas");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
+
+        // Lo situo
+        base.setLocation((int) posicion.getX(), (int) posicion.getY());
 
         // Creo el menú de arriba y los botones
         JPanel arriba = new JPanel();
@@ -77,11 +87,16 @@ public class VVisitas {
         JButton botonS1 = new JButton("Añadir");
         JButton botonS2 = new JButton("Borrar");
         JButton botonS3 = new JButton("Modificar");
+        JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
+        abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
+        arriba.setBorder(new EmptyBorder(10, 10, 10, 10));
+        medio.setBorder(new EmptyBorder(0, 10, 0, 10));
+        abajo.setBorder(new EmptyBorder(10, 10, 10, 10));
         base.add(arriba, BorderLayout.NORTH);
         base.add(medio, BorderLayout.CENTER);
         base.add(abajo, BorderLayout.SOUTH);
@@ -95,23 +110,58 @@ public class VVisitas {
         });
 
         botonN2.addActionListener(a->{
-            VAtracciones.ejecutar(true);
+            VAtracciones.ejecutar(true, base.getLocation());
             base.dispose();
         });
 
         botonN3.addActionListener(a->{
-            VZonas.ejecutar(true);
+            VZonas.ejecutar(true, base.getLocation());
             base.dispose();
         });
 
         botonN5.addActionListener(a->{
-            VClientes.ejecutar(true);
+            VClientes.ejecutar(true, base.getLocation());
             base.dispose();
         });
 
         botonN6.addActionListener(a->{
-            VEntradas.ejecutar(true);
+            VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
+        });
+
+        botonS2.addActionListener(a->{
+            JFrame mensaje = new JFrame("Operación de eliminación");
+            if  (tabla.getSelectedRow() != -1) {
+                Object[] seleccionada = datos[tabla.getSelectedRow()];
+                String resp;
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CVisita.eliminarPorClave(String.valueOf(seleccionada[0]), (Integer) seleccionada[1], String.valueOf(seleccionada[2])),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Visita eliminada con éxito")) {
+                    base.dispose();
+                    VVisitas.ejecutar(true, base.getLocation());
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS4.addActionListener(a->{
+            base.dispose();
+            VVisitas.ejecutar(true, base.getLocation());
+        });
+
+        botonS1.addActionListener(a->{
+            vAanadir.mostrar();
         });
     }
 }

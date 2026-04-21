@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class VAnadir {
     private static JFrame fAnadir = new JFrame();
+
     public void construir(String[] campos, int tabla){
         fAnadir.setResizable(false);
         boolean modificacion = false;

@@ -17,14 +17,17 @@ import java.awt.*;
 public class VAtracciones {
     static VAanadir vAanadir = new VAanadir();
 
-    public static void ejecutar(boolean admin) {
-
+    public static void ejecutar(boolean admin, Point posicion) {
         vAanadir.construir();
+
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
+
+        // Lo situo
+        base.setLocation((int) posicion.getX(), (int) posicion.getY());
 
         // Creo el menú de arriba y los botones
         JPanel arriba = new JPanel();
@@ -105,25 +108,25 @@ public class VAtracciones {
         });
 
         botonN3.addActionListener(a->{
-            VZonas.ejecutar(true);
+            VZonas.ejecutar(true, base.getLocation());
             base.dispose();
             vAanadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
-            VVisitas.ejecutar(true);
+            VVisitas.ejecutar(true, base.getLocation());
             base.dispose();
             vAanadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
-            VClientes.ejecutar(true);
+            VClientes.ejecutar(true, base.getLocation());
             base.dispose();
             vAanadir.ocultar();
         });
 
         botonN6.addActionListener(a->{
-            VEntradas.ejecutar(true);
+            VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
             vAanadir.ocultar();
         });
@@ -141,7 +144,7 @@ public class VAtracciones {
                 );
                 if (resp.equals("Atracción eliminada con éxito")) {
                     base.dispose();
-                    VAtracciones.ejecutar(true);
+                    VAtracciones.ejecutar(true, base.getLocation());
                 }
 
             } else {
@@ -156,7 +159,7 @@ public class VAtracciones {
 
         botonS4.addActionListener(a->{
             base.dispose();
-            VAtracciones.ejecutar(true);
+            VAtracciones.ejecutar(true, base.getLocation());
         });
 
         botonS1.addActionListener(a->{

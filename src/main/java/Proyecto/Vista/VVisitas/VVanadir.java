@@ -12,7 +12,7 @@ public class VVanadir {
         fAnadir.setResizable(false);
 
         fAnadir.setTitle("Añadir visita");
-        fAnadir.setSize(500, 170);
+        fAnadir.setSize(500, 210);
         fAnadir.setLayout(new BorderLayout());
 
         JPanel panelC = new JPanel(new GridLayout(2, 3, 10, 5));
@@ -37,19 +37,26 @@ public class VVanadir {
         panelC.add(tFC2);
         panelC.add(tFC3);
 
-        JPanel panelS = new JPanel(new FlowLayout());
+        JPanel panelS = new JPanel(new GridLayout(2,1,0,5));
 
         JButton botonAnadir = new JButton("Añadir");
+        JLabel pista = new JLabel("La fecha sigue el siguiente formato: YYYY-MM-DD hh:mm:ss");
 
-        panelS.add(botonAnadir);
+        JPanel SCentrado1 = new JPanel(new FlowLayout());
+        JPanel SCentrado2 = new JPanel(new FlowLayout());
+
+        SCentrado1.add(botonAnadir);
+        SCentrado2.add(pista);
+
+        panelS.add(SCentrado1);
+        panelS.add(SCentrado2);
 
         panelC.setBorder(new EmptyBorder(15, 15, 0, 15));
         panelS.setBorder(new EmptyBorder(15, 15, 15, 15));
         fAnadir.add(panelC, BorderLayout.CENTER);
         fAnadir.add(panelS, BorderLayout.SOUTH);
 
-        JLabel pista = new JLabel("La fecha sigue el siguiente formato YYYY-MM-DD hh:mm:ss");
-        panelS.add(pista);
+
 
         botonAnadir.addActionListener(a -> {
             if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
@@ -70,7 +77,7 @@ public class VVanadir {
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    if (resp.equals("Entrada introducido con éxito")) {
+                    if (resp.equals("Visita introducida con éxito")) {
                         tFC1.setText("");
                         tFC2.setText("");
                         tFC3.setText("");
