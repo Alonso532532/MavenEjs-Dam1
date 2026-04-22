@@ -2,10 +2,9 @@ package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Visita;
-import com.mysql.cj.util.DnsSrv;
+import Proyecto.Modelo.Zonas;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public final class DVisita {
@@ -23,6 +22,28 @@ public final class DVisita {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    //Selecciono las visitas que pertenezcan a un número de zona, sirve para evitar los fallos por eliminar zonas con visitas asignadas
+    public static ArrayList<Visita> seleccionarPorNumeroDeZona(int numeroDeZona){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from visita where numeroDeZona = ?");
+
+            preparedStatement.setInt(1, numeroDeZona);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ArrayList<Visita> visitas = new ArrayList<>();
+            while (resultSet.next()){
+                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona"), resultSet.getString("fecha"), false));
+            }
+
+            return visitas;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     // Este comprueba si una visita existe
@@ -72,6 +93,20 @@ public final class DVisita {
             preparedStatement.setString(3, fecha);
 
             return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Esta elimina todas las visitas según su número de visíta
+    public static boolean eliminarPorNumeroDeZona(int numeroDeZona){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from visita where numeroDeZona = ?");
+
+            preparedStatement.setInt(1, numeroDeZona);
+
+            return preparedStatement.executeUpdate()>0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

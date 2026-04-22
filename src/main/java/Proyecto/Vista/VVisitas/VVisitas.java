@@ -85,7 +85,7 @@ public class VVisitas {
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
         JButton botonS1 = new JButton("Añadir");
-        JButton botonS2 = new JButton("Borrar");
+        JButton botonS2 = new JButton("Borrar selección");
         JButton botonS3 = new JButton("Modificar");
         JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);

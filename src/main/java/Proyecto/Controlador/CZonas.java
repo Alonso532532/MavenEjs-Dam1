@@ -41,7 +41,6 @@ public final class CZonas {
     // Mediante el número de zona elimino una zona comprobando los posibles fallos
     public static String eliminarPorNumeroDeZona(int numeroDeZona){
         try {
-
             if (DZonas.eliminarPorNumero(numeroDeZona)) {
                 return "Zona eliminada con éxito";
             } else {

@@ -5,6 +5,8 @@ import Proyecto.Controlador.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class VVanadir {
     private static JFrame fAnadir = new JFrame();
@@ -19,7 +21,7 @@ public class VVanadir {
 
         TextField tFC1 = new TextField();
         TextField tFC2 = new TextField();
-        TextField tFC3 = new TextField();
+        TextField tFC3 = new TextField(String.valueOf(LocalDateTime.now()).replace("T", " ").substring(0, 19));
 
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
@@ -80,7 +82,7 @@ public class VVanadir {
                     if (resp.equals("Visita introducida con éxito")) {
                         tFC1.setText("");
                         tFC2.setText("");
-                        tFC3.setText("");
+                        tFC3.setText(String.valueOf(LocalDateTime.now()).replace("T", " ").substring(0, 19));
                     }
                 } catch (NumberFormatException e) {
                     JFrame mensaje = new JFrame("Error de formato");

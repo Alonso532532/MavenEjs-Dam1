@@ -2,7 +2,9 @@ package Proyecto.Vista.VZonas;
 
 import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CVisita;
 import Proyecto.Controlador.CZonas;
+import Proyecto.DAO.DVisita;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Modelo.Zonas;
 import Proyecto.Vista.Inicio;
@@ -86,7 +88,7 @@ public class VZonas {
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
         JButton botonS1 = new JButton("Añadir");
-        JButton botonS2 = new JButton("Borrar");
+        JButton botonS2 = new JButton("Borrar selección");
         JButton botonS3 = new JButton("Modificar");
         JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);
@@ -129,23 +131,59 @@ public class VZonas {
             base.dispose();
         });
 
+        // Este es el botón de "borrar selección"
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
+
+            // Primero compruebo si ha seleccionado algo, si no se lo muestro mediante un pop up
             if  (tabla.getSelectedRow() != -1) {
                 Object[] seleccionada = datos[tabla.getSelectedRow()];
-                String resp;
-                JOptionPane.showMessageDialog(
-                        mensaje,
-                        resp = CZonas.eliminarPorNumeroDeZona((Integer) seleccionada[0]),
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                if (resp.equals("Zona eliminada con éxito")) {
-                    base.dispose();
-                    VZonas.ejecutar(true, base.getLocation());
+                Boolean eliminar = false;
+
+                // Compruebo que no dependa ningún elemento de este
+                if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+
+                    // Sí depende algún elemento le pregunto si quiere eliminarlo
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).size() + " visitas y \n¿Quieres eliminarlas?",
+                            "Confirmación",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        JFrame mensajeVisitas = new JFrame("Operación de eliminación (visitas)");
+                        JOptionPane.showMessageDialog(
+                                mensajeVisitas,
+                                CVisita.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                "Información sobre la operación",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                        eliminar = true;
+                    } else {
+                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+                        eliminar = false;
+                    }
+                } else {
+                    eliminar = true;
                 }
 
-            } else {
+                if (eliminar) {
+                        String resp;
+                        JOptionPane.showMessageDialog(
+                                mensaje,
+                                resp = CZonas.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                "Información sobre la operación",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        if (resp.equals("Zona eliminada con éxito")) {
+                            base.dispose();
+                            VZonas.ejecutar(true, base.getLocation());
+                        }
+                }
+            }else {
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",
