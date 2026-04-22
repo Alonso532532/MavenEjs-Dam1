@@ -14,9 +14,9 @@ public final class CClientes {
     public static String anadir(String dni, int edad, String nombre){
         try {
 
-                Clientes cliente = new Clientes(dni, edad, nombre, true);
-                DClientes.anadir(cliente);
-                return "Cliente introducido con éxito";
+            Clientes cliente = new Clientes(dni, edad, nombre, true);
+            DClientes.anadir(cliente);
+            return "Cliente introducido con éxito";
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos

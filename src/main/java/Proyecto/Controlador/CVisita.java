@@ -21,6 +21,10 @@ public final class CVisita {
         return DVisita.seleccionarPorNumeroDeZona(numeroDeZona);
     }
 
+    public static ArrayList<Visita> seleccionarPorDni(String dni){
+        return DVisita.seleccionarPorDni(dni);
+    }
+
     // Mediante los datos necesarios para hacer una visita añado la visita comprobando los posibles fallos
     public static String anadir(String dni, int numeroDeZona, String fecha){
         try {
@@ -70,6 +74,22 @@ public final class CVisita {
                 return "Visitas eliminadas con éxito";
             } else {
                 return "Ha ocurrido un error con los datos de la visita, causa:\nEl numero de zona no existe\n";
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la visita, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Mediante el dni elimino las visitas relacionadas comprobando los posibles fallos
+    public static String eliminarPorDni(String dni){
+        try {
+
+            if (DVisita.eliminarPorDni(dni)) {
+                return "Visitas eliminadas con éxito";
+            } else {
+                return "Ha ocurrido un error con los datos de la visita, causa:\nEl dni no existe\n";
             }
 
         }catch (RuntimeException e){

@@ -46,6 +46,28 @@ public final class DVisita {
 
     }
 
+    //Selecciono las visitas que pertenezcan a un DNI, sirve para evitar los fallos por eliminar clientes con visitas asignadas
+    public static ArrayList<Visita> seleccionarPorDni(String dni){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from visita where dni = ?");
+
+            preparedStatement.setString(1, dni);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ArrayList<Visita> visitas = new ArrayList<>();
+            while (resultSet.next()){
+                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona"), resultSet.getString("fecha"), false));
+            }
+
+            return visitas;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     // Este comprueba si una visita existe
     public static boolean comprobarPorClave(String dni, int numeroDeZona, String fecha){
         try {
@@ -105,6 +127,20 @@ public final class DVisita {
             PreparedStatement preparedStatement = connection.prepareStatement("delete from visita where numeroDeZona = ?");
 
             preparedStatement.setInt(1, numeroDeZona);
+
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Esta elimina todas las visitas según su dni
+    public static boolean eliminarPorDni(String dni){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from visita where dni = ?");
+
+            preparedStatement.setString(1, dni);
 
             return preparedStatement.executeUpdate()>0;
         } catch (SQLException e) {

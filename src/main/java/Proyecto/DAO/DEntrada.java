@@ -2,11 +2,13 @@ package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Entrada;
+import Proyecto.Modelo.Visita;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public final class DEntrada {
+
     // Esta función seleccióna todas las entradas
     public static ArrayList<Entrada> seleccionarTodo(){
         try{
@@ -21,6 +23,28 @@ public final class DEntrada {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    //Selecciono las entradas que pertenezcan a un DNI, sirve para evitar los fallos por eliminar clientes con entradas asignadas
+    public static ArrayList<Entrada> seleccionarPorDni(String dni){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from entrada where dni = ?");
+
+            preparedStatement.setString(1, dni);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ArrayList<Entrada> entradas = new ArrayList<>();
+            while (resultSet.next()){
+                entradas.add(new Entrada(resultSet.getInt("numeroDeEntrada"), resultSet.getString("tipo"), resultSet.getDouble("precio"), resultSet.getString("dni")));
+            }
+
+            return entradas;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     // Esta añade una entrada mediante un objeto "Entrada"
@@ -48,6 +72,20 @@ public final class DEntrada {
             preparedStatement.setInt(1, numeroDeEntrada);
 
             return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Esta elimina todas las entradas según su dni
+    public static boolean eliminarPorDni(String dni){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from entrada where dni = ?");
+
+            preparedStatement.setString(1, dni);
+
+            return preparedStatement.executeUpdate()>0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

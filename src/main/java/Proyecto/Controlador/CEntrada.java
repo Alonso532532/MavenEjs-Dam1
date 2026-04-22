@@ -2,14 +2,20 @@ package Proyecto.Controlador;
 
 import Proyecto.DAO.DAtracciones;
 import Proyecto.DAO.DEntrada;
+import Proyecto.DAO.DVisita;
 import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Entrada;
+import Proyecto.Modelo.Visita;
 
 import java.util.ArrayList;
 
 public final class CEntrada {
     public static ArrayList<Entrada> seleccionarTodo(){
         return DEntrada.seleccionarTodo();
+    }
+
+    public static ArrayList<Entrada> seleccionarPorDni(String dni){
+        return DEntrada.seleccionarPorDni(dni);
     }
 
     // Mediante los datos necesarios para hacer una entrada añado la entrada comprobando los posibles fallos
@@ -44,6 +50,22 @@ public final class CEntrada {
                 return "Entrada eliminada con éxito";
             } else {
                 return "Ha ocurrido un error con los datos de la entrada, causa:\nEl numero de entrada no existe\n";
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la entrada, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Mediante el dni elimino las entradas relacionadas comprobando los posibles fallos
+    public static String eliminarPorDni(String dni){
+        try {
+
+            if (DEntrada.eliminarPorDni(dni)) {
+                return "Entradas eliminadas con éxito";
+            } else {
+                return "Ha ocurrido un error con los datos de la entrada, causa:\nEl dni no existe\n";
             }
 
         }catch (RuntimeException e){

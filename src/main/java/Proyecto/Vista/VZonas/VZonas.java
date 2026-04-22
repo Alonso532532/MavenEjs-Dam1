@@ -157,32 +157,28 @@ public class VZonas {
                     // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
 
                     if (respuesta == JOptionPane.YES_OPTION) {
-                        String resp = "";
                         if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
                             JFrame mensajeVisitas = new JFrame("Operación de eliminación (visitas)");
                             JOptionPane.showMessageDialog(
                                     mensajeVisitas,
-                                    resp = CVisita.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                    CVisita.eliminarPorNumeroDeZona((int) seleccionada[0]),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
                         }
-                        if (resp.equals("Visitas eliminadas con éxito")) {
-                            if (!CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
-                                JFrame mensajeAtracciones = new JFrame("Operación de eliminación (atracciones)");
-                                JOptionPane.showMessageDialog(
-                                        mensajeAtracciones,
-                                        resp = CAtracciones.eliminarPorNumeroDeZona((int) seleccionada[0]),
-                                        "Información sobre la operación",
-                                        JOptionPane.INFORMATION_MESSAGE
-                                );
-                            }
+
+                        if (!CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                            JFrame mensajeAtracciones = new JFrame("Operación de eliminación (atracciones)");
+                            JOptionPane.showMessageDialog(
+                                    mensajeAtracciones,
+                                    CAtracciones.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
                         }
-                        //Si todo_ se elimina correctamente activo el borrado del elemento
-                        if (resp.equals("Atracciones eliminadas con éxito"))eliminar = true;
 
-
-
+                        // Activo el borrado del elemento
+                        eliminar = true;
                     } else {
                         // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
                         eliminar = false;

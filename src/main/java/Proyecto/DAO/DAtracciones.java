@@ -77,7 +77,7 @@ public final class DAtracciones {
         }
     }
 
-    // Esta elimina todas las atracciones según su número de visíta
+    // Esta elimina todas las atracciones según su número de zona
     public static boolean eliminarPorNumeroDeZona(int numeroDeZona){
         try {
             Connection connection = Conexion.conectar();

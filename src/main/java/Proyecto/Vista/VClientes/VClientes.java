@@ -1,6 +1,6 @@
 package Proyecto.Vista.VClientes;
 
-import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.*;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.*;
 import Proyecto.Vista.VAtracciones.VAtracciones;
@@ -130,23 +130,78 @@ public class VClientes {
             vAnadir.ocultar();
         });
 
+
+
+        // Este es el botón de "borrar selección"
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
+
+            // Primero compruebo si ha seleccionado algo, si no se lo muestro mediante un pop up
             if  (tabla.getSelectedRow() != -1) {
                 Object[] seleccionada = datos[tabla.getSelectedRow()];
-                String resp;
-                JOptionPane.showMessageDialog(
-                        mensaje,
-                        resp = CClientes.eliminarPorDni(String.valueOf(seleccionada[0])),
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                if (resp.equals("Cliente eliminado con éxito")) {
-                    base.dispose();
-                    VClientes.ejecutar(true, base.getLocation());
+                Boolean eliminar = false;
+
+                // Compruebo que no dependa ningún elemento de este
+                if (!CEntrada.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty() || !CVisita.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty()) {
+
+                    // Sí depende algún elemento le pregunto si quiere eliminarlo
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "De este cliente dependen " + CEntrada.seleccionarPorDni(String.valueOf(seleccionada[0])).size() + " entradas y "+CVisita.seleccionarPorDni(String.valueOf(seleccionada[0])).size()+" visitas\n¿Quieres eliminarlas?",
+                            "Confirmación",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
+
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        if (!CEntrada.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty()) {
+                            JFrame mensajeVisitas = new JFrame("Operación de eliminación (entradas)");
+                            JOptionPane.showMessageDialog(
+                                    mensajeVisitas,
+                                    CEntrada.eliminarPorDni(String.valueOf(seleccionada[0])),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+
+                        if (!CVisita.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty()) {
+                            JFrame mensajeAtracciones = new JFrame("Operación de eliminación (visitas)");
+                            JOptionPane.showMessageDialog(
+                                    mensajeAtracciones,
+                                    CVisita.eliminarPorDni(String.valueOf(seleccionada[0])),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+
+                        // Activo el borrado del elemento
+                        eliminar = true;
+                    } else {
+                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+                        eliminar = false;
+                    }
+
+
+                } else {
+                    eliminar = true;
                 }
 
-            } else {
+                // Elimino el elemento si hay que eliminarlo
+                if (eliminar) {
+                    String resp;
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            resp = CClientes.eliminarPorDni(String.valueOf(seleccionada[0])),
+                            "Información sobre la operación",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    if (resp.equals("Cliente eliminado con éxito")) {
+                        base.dispose();
+                        VEntradas.ejecutar(true, base.getLocation());
+                    }
+                }
+            }else {
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",
