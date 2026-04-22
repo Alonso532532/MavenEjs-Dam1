@@ -1,4 +1,4 @@
-package Proyecto.Vista.VClientes;
+package Proyecto.Vista.VEntradas;
 
 import Proyecto.Controlador.*;
 
@@ -6,12 +6,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class VCanadir {
+public class VEAnadir {
     private static JFrame fAnadir = new JFrame();
     public void construir() {
         fAnadir.setResizable(false);
 
-        fAnadir.setTitle("Añadir clientes");
+        fAnadir.setTitle("Añadir entrada");
         fAnadir.setSize(500, 170);
         fAnadir.setLayout(new BorderLayout());
 
@@ -25,9 +25,9 @@ public class VCanadir {
         JLabel labelC2 = new JLabel();
         JLabel labelC3 = new JLabel();
 
-        labelC1.setText("DNI");
-        labelC2.setText("Edad");
-        labelC3.setText("Nombre");
+        labelC1.setText("Tipo");
+        labelC2.setText("Precio");
+        labelC3.setText("DNI");
 
         panelC.add(labelC1);
         panelC.add(labelC2);
@@ -59,15 +59,15 @@ public class VCanadir {
                 );
             } else {
                 try {
-                    JFrame mensaje = new JFrame("Operación para añadir clientes");
+                    JFrame mensaje = new JFrame("Operación para añadir entradas");
                     String resp = "";
                     JOptionPane.showMessageDialog(
                             mensaje,
-                            resp = CClientes.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                            resp = CEntrada.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    if (resp.equals("Cliente introducido con éxito")) {
+                    if (resp.equals("Entrada introducido con éxito")) {
                         tFC1.setText("");
                         tFC2.setText("");
                         tFC3.setText("");
@@ -76,7 +76,7 @@ public class VCanadir {
                     JFrame mensaje = new JFrame("Error de formato");
                     JOptionPane.showMessageDialog(
                             mensaje,
-                            "Error, el formato de la edad es inválido",
+                            "Error, el formato del precio es inválido",
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
@@ -85,7 +85,8 @@ public class VCanadir {
         });
     }
 
-    public void mostrar(){
+    public void mostrar(Point posicion){
+        fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
     }
 

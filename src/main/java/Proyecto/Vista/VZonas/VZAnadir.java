@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class VZanadir {
+public class VZAnadir {
     private static JFrame fAnadir = new JFrame();
     public void construir() {
         fAnadir.setResizable(false);
@@ -60,7 +60,8 @@ public class VZanadir {
         });
     }
 
-    public void mostrar(){
+    public void mostrar(Point posicion){
+        fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
     }
 

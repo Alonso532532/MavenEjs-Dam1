@@ -1,10 +1,8 @@
 package Proyecto.Vista.VEntradas;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CEntrada;
 import Proyecto.Modelo.Entrada;
 import Proyecto.Vista.Inicio;
-import Proyecto.Vista.VAtracciones.VAanadir;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VVisitas.VVisitas;
@@ -17,7 +15,7 @@ import java.awt.*;
 
 
 public class VEntradas {
-    static VEanadir vAanadir = new VEanadir();
+    static VEAnadir vAanadir = new VEAnadir();
 
     public static void ejecutar(boolean admin, Point posicion) {
         vAanadir.construir();
@@ -167,7 +165,7 @@ public class VEntradas {
         });
 
         botonS1.addActionListener(a->{
-            vAanadir.mostrar();
+            vAanadir.mostrar(base.getLocation());
         });
     }
 }

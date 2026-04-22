@@ -1,6 +1,5 @@
 package Proyecto.Vista.VClientes;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.*;
@@ -15,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class VClientes {
-    static VCanadir vAnadir = new VCanadir();
+    static VCAnadir vAnadir = new VCAnadir();
 
     public static void ejecutar(boolean admin, Point posicion) {
 
@@ -163,7 +162,7 @@ public class VClientes {
         });
 
         botonS1.addActionListener(a->{
-            vAnadir.mostrar();
+            vAnadir.mostrar(base.getLocation());
         });
     }
 }

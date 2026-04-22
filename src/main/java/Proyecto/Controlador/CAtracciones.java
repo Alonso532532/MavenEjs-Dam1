@@ -1,7 +1,9 @@
 package Proyecto.Controlador;
 
 import Proyecto.DAO.DAtracciones;
+import Proyecto.DAO.DVisita;
 import Proyecto.Modelo.Atracciones;
+import Proyecto.Modelo.Visita;
 
 
 import java.util.ArrayList;
@@ -9,6 +11,10 @@ import java.util.ArrayList;
 public final class CAtracciones {
     public static ArrayList<Atracciones> seleccionarTodo(){
         return DAtracciones.seleccionarTodo();
+    }
+
+    public static ArrayList<Atracciones> seleccionarPorNumeroDeZona(int numeroDeZona){
+        return DAtracciones.seleccionarPorNumeroDeZona(numeroDeZona);
     }
 
     // Mediante los datos necesarios para hacer una atracción añado la atracción comprobando los posibles fallos
@@ -35,6 +41,8 @@ public final class CAtracciones {
         }
     }
 
+
+
     // Mediante el número de atracción elimino una atracción comprobando los posibles fallos
     public static String eliminarPorNumeroDeAtraccion(int numeroDeAtraccion){
         try {
@@ -48,6 +56,22 @@ public final class CAtracciones {
         }catch (RuntimeException e){
             // Fallos de SQL
             return "Ha ocurrido un error en la introducción de la atracción, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Mediante el número de zona elimino las atracciones relacionadas comprobando los posibles fallos
+    public static String eliminarPorNumeroDeZona(int numeroDeZona){
+        try {
+
+            if (DAtracciones.eliminarPorNumeroDeZona(numeroDeZona)) {
+                return "Atracciones eliminadas con éxito";
+            } else {
+                return "Ha ocurrido un error con los datos de la atraccion, causa:\nEl numero de zona no existe\n";
+            }
+
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la atraccion, causa:\n"+e.getMessage();
         }
     }
 }

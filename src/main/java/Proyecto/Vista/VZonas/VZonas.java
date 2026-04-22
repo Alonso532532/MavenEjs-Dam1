@@ -1,14 +1,10 @@
 package Proyecto.Vista.VZonas;
 
 import Proyecto.Controlador.CAtracciones;
-import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CVisita;
 import Proyecto.Controlador.CZonas;
-import Proyecto.DAO.DVisita;
-import Proyecto.Modelo.Clientes;
 import Proyecto.Modelo.Zonas;
 import Proyecto.Vista.Inicio;
-import Proyecto.Vista.VAtracciones.VAanadir;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEntradas;
@@ -18,10 +14,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.concurrent.TimeoutException;
 
 
 public class VZonas {
-    static VZanadir vAanadir = new VZanadir();
+    static VZAnadir vAanadir = new VZAnadir();
 
     public static void ejecutar(boolean admin, Point posicion) {
         vAanadir.construir();
@@ -109,26 +107,31 @@ public class VZonas {
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN2.addActionListener(a->{
             VAtracciones.ejecutar(true, base.getLocation());
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true, base.getLocation());
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(true, base.getLocation());
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
+            vAanadir.ocultar();
         });
 
         // Este es el botón de "borrar selección"
@@ -141,35 +144,56 @@ public class VZonas {
                 Boolean eliminar = false;
 
                 // Compruebo que no dependa ningún elemento de este
-                if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty() || !CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
 
                     // Sí depende algún elemento le pregunto si quiere eliminarlo
                     int respuesta = JOptionPane.showConfirmDialog(
                             null,
-                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).size() + " visitas y \n¿Quieres eliminarlas?",
+                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).size() + " visitas y "+CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).size()+" atracciones\n¿Quieres eliminarlas?",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION
                     );
 
                     // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        JFrame mensajeVisitas = new JFrame("Operación de eliminación (visitas)");
-                        JOptionPane.showMessageDialog(
-                                mensajeVisitas,
-                                CVisita.eliminarPorNumeroDeZona((int) seleccionada[0]),
-                                "Información sobre la operación",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
 
-                        eliminar = true;
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        String resp = "";
+                        if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                            JFrame mensajeVisitas = new JFrame("Operación de eliminación (visitas)");
+                            JOptionPane.showMessageDialog(
+                                    mensajeVisitas,
+                                    resp = CVisita.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                    "Información sobre la operación",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+                        if (resp.equals("Visitas eliminadas con éxito")) {
+                            if (!CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                                JFrame mensajeAtracciones = new JFrame("Operación de eliminación (atracciones)");
+                                JOptionPane.showMessageDialog(
+                                        mensajeAtracciones,
+                                        resp = CAtracciones.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                        "Información sobre la operación",
+                                        JOptionPane.INFORMATION_MESSAGE
+                                );
+                            }
+                        }
+                        //Si todo_ se elimina correctamente activo el borrado del elemento
+                        if (resp.equals("Atracciones eliminadas con éxito"))eliminar = true;
+
+
+
                     } else {
                         // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
                         eliminar = false;
                     }
+
+
                 } else {
                     eliminar = true;
                 }
 
+                // Elimino el elemento si hay que eliminarlo
                 if (eliminar) {
                         String resp;
                         JOptionPane.showMessageDialog(
@@ -199,7 +223,7 @@ public class VZonas {
         });
 
         botonS1.addActionListener(a->{
-            vAanadir.mostrar();
+            vAanadir.mostrar(base.getLocation());
         });
     }
 }

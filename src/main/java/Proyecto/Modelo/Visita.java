@@ -6,6 +6,7 @@ import Proyecto.DAO.DZonas;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class Visita {
@@ -25,6 +26,7 @@ public class Visita {
         if (!setDni(dni)) error+="El DNI es inexistente\n";
         if (!setNumeroDeZona(numeroDeZona)) error+="El numero de zona es inexistente\n";
         if (!setFecha(fecha)) error+="El formato de la fecha es inválido\n";
+        if (LocalDateTime.now().isBefore(this.fecha) || LocalDateTime.parse("1900-01-01T00:00:00").isAfter(this.fecha)) error+="La fecha es imposible\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 

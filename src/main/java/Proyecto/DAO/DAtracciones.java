@@ -3,6 +3,7 @@ package Proyecto.DAO;
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Clientes;
+import Proyecto.Modelo.Visita;
 import Proyecto.Modelo.Zonas;
 
 import java.sql.*;
@@ -23,6 +24,28 @@ public final class DAtracciones {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    //Selecciono las atracciones que pertenezcan a un número de zona, sirve para evitar los fallos por eliminar zonas con atracciones asignadas
+    public static ArrayList<Atracciones> seleccionarPorNumeroDeZona(int numeroDeZona){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from atracciones where numeroDeZona = ?");
+
+            preparedStatement.setInt(1, numeroDeZona);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ArrayList<Atracciones> atracciones = new ArrayList<>();
+            while (resultSet.next()){
+                atracciones.add(new Atracciones(resultSet.getInt("numeroDeAtraccion"), resultSet.getString("nombre"), resultSet.getInt("numeroDeZona")));
+            }
+
+            return atracciones;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     // Esta añade una atracción mediante un objeto "Atraccion"
@@ -49,6 +72,20 @@ public final class DAtracciones {
             preparedStatement.setInt(1, numeroDeAtraccion);
 
             return preparedStatement.executeUpdate()==1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Esta elimina todas las atracciones según su número de visíta
+    public static boolean eliminarPorNumeroDeZona(int numeroDeZona){
+        try {
+            Connection connection = Conexion.conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from atracciones where numeroDeZona = ?");
+
+            preparedStatement.setInt(1, numeroDeZona);
+
+            return preparedStatement.executeUpdate()>0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

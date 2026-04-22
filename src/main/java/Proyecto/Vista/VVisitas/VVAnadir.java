@@ -1,33 +1,34 @@
-package Proyecto.Vista.VEntradas;
+package Proyecto.Vista.VVisitas;
 
 import Proyecto.Controlador.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.time.LocalDateTime;
 
-public class VEanadir {
+public class VVAnadir {
     private static JFrame fAnadir = new JFrame();
     public void construir() {
         fAnadir.setResizable(false);
 
-        fAnadir.setTitle("Añadir entrada");
-        fAnadir.setSize(500, 170);
+        fAnadir.setTitle("Añadir visita");
+        fAnadir.setSize(500, 210);
         fAnadir.setLayout(new BorderLayout());
 
         JPanel panelC = new JPanel(new GridLayout(2, 3, 10, 5));
 
         TextField tFC1 = new TextField();
         TextField tFC2 = new TextField();
-        TextField tFC3 = new TextField();
+        TextField tFC3 = new TextField(String.valueOf(LocalDateTime.now()).replace("T", " ").substring(0, 19));
 
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
         JLabel labelC3 = new JLabel();
 
-        labelC1.setText("Tipo");
-        labelC2.setText("Precio");
-        labelC3.setText("DNI");
+        labelC1.setText("DNI");
+        labelC2.setText("Numero de zona");
+        labelC3.setText("Fecha");
 
         panelC.add(labelC1);
         panelC.add(labelC2);
@@ -37,16 +38,26 @@ public class VEanadir {
         panelC.add(tFC2);
         panelC.add(tFC3);
 
-        JPanel panelS = new JPanel(new FlowLayout());
+        JPanel panelS = new JPanel(new GridLayout(2,1,0,5));
 
         JButton botonAnadir = new JButton("Añadir");
+        JLabel pista = new JLabel("La fecha sigue el siguiente formato: YYYY-MM-DD hh:mm:ss");
 
-        panelS.add(botonAnadir);
+        JPanel SCentrado1 = new JPanel(new FlowLayout());
+        JPanel SCentrado2 = new JPanel(new FlowLayout());
+
+        SCentrado1.add(botonAnadir);
+        SCentrado2.add(pista);
+
+        panelS.add(SCentrado1);
+        panelS.add(SCentrado2);
 
         panelC.setBorder(new EmptyBorder(15, 15, 0, 15));
         panelS.setBorder(new EmptyBorder(15, 15, 15, 15));
         fAnadir.add(panelC, BorderLayout.CENTER);
         fAnadir.add(panelS, BorderLayout.SOUTH);
+
+
 
         botonAnadir.addActionListener(a -> {
             if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
@@ -59,24 +70,24 @@ public class VEanadir {
                 );
             } else {
                 try {
-                    JFrame mensaje = new JFrame("Operación para añadir entradas");
+                    JFrame mensaje = new JFrame("Operación para añadir visitas");
                     String resp = "";
                     JOptionPane.showMessageDialog(
                             mensaje,
-                            resp = CEntrada.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
+                            resp = CVisita.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    if (resp.equals("Entrada introducido con éxito")) {
+                    if (resp.equals("Visita introducida con éxito")) {
                         tFC1.setText("");
                         tFC2.setText("");
-                        tFC3.setText("");
+                        tFC3.setText(String.valueOf(LocalDateTime.now()).replace("T", " ").substring(0, 19));
                     }
                 } catch (NumberFormatException e) {
                     JFrame mensaje = new JFrame("Error de formato");
                     JOptionPane.showMessageDialog(
                             mensaje,
-                            "Error, el formato del precio es inválido",
+                            "Error, el formato del numero de zona es inválido",
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
@@ -85,7 +96,8 @@ public class VEanadir {
         });
     }
 
-    public void mostrar(){
+    public void mostrar(Point posicion){
+        fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
     }
 

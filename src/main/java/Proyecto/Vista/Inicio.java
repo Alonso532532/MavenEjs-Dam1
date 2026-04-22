@@ -1,6 +1,8 @@
 package Proyecto.Vista;
 
+import Proyecto.Controlador.CUsuarios;
 import Proyecto.DAO.DUsuarios;
+import Proyecto.Modelo.Usuario;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
@@ -54,7 +56,7 @@ public final class Inicio {
         JPanel contrasena = new JPanel(new GridLayout(2, 1));
         contrasena.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        JTextField campoC = new JTextField();
+        JPasswordField campoC = new JPasswordField();
         campoC.setFont(new Font("", 0, 20));
         JLabel labelC = new JLabel("Contraseña");
         labelC.setFont(new Font("", 0, 25));
@@ -94,7 +96,7 @@ public final class Inicio {
         AtomicInteger cont = new AtomicInteger();
 
         boton.addActionListener(a->{
-            if (DUsuarios.buscarPorNombreYContrasena(campoU.getText(),campoC.getText())){
+            if (CUsuarios.comprobarInicioDeSesion(new Usuario(campoU.getText(), campoC.getText(), false))){
                 VAtracciones.ejecutar(true, base.getLocation());
                 base.dispose();
             }

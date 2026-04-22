@@ -15,7 +15,7 @@ import java.awt.*;
 
 
 public class VAtracciones {
-    static VAanadir vAanadir = new VAanadir();
+    static VAAnadir vAanadir = new VAAnadir();
 
     public static void ejecutar(boolean admin, Point posicion) {
         vAanadir.construir();
@@ -163,7 +163,7 @@ public class VAtracciones {
         });
 
         botonS1.addActionListener(a->{
-            vAanadir.mostrar();
+            vAanadir.mostrar(base.getLocation());
         });
     }
 }
