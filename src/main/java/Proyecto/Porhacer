@@ -1,9 +1,6 @@
-Se podría cambiar el formato en el que pide la fecha de una visita el controlador para que no se tenga que comprobar en la vista
+Se podría cambiar el formato en el que pide la fecha de una visita el controlador para que no se tenga que comprobar en la vista??
 
 Buscar la manera de facilitarle el numero de id de los sitios que sea necesario para añadir algo de otra tabla
-
-Hay que mejorar algunos regex (precio entrada)
-
 
 Hecho
 - Todos los modelos controlan las entradas en los setters, incluso las de las relaciones con otras tablas (solo se pueden introducir valores validos o respondera una excepción con los problemas como mensaje)
