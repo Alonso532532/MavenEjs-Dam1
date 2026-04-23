@@ -1,14 +1,18 @@
 package Proyecto.Vista.VVisitas;
 
 import Proyecto.Controlador.*;
+import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDateTime;
 
 public class VVAnadir {
     private static JFrame fAnadir = new JFrame();
+    private static DefaultTableModel modelo;
+
     public void construir() {
         fAnadir.setResizable(false);
 
@@ -79,9 +83,7 @@ public class VVAnadir {
                             JOptionPane.INFORMATION_MESSAGE
                     );
                     if (resp.equals("Visita introducida con éxito")) {
-                        tFC1.setText("");
-                        tFC2.setText("");
-                        tFC3.setText(String.valueOf(LocalDateTime.now()).replace("T", " ").substring(0, 19));
+                        VVisitas.actualizarTabla(modelo);
                     }
                 } catch (NumberFormatException e) {
                     JFrame mensaje = new JFrame("Error de formato");
@@ -96,9 +98,12 @@ public class VVAnadir {
         });
     }
 
-    public void mostrar(Point posicion){
+    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+        // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
+
+        modelo = modeloNuevo;
     }
 
     public void ocultar(){

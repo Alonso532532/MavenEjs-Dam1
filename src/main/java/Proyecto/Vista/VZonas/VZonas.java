@@ -3,6 +3,7 @@ package Proyecto.Vista.VZonas;
 import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CVisita;
 import Proyecto.Controlador.CZonas;
+import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Zonas;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
@@ -13,6 +14,7 @@ import Proyecto.Vista.VVisitas.VVisitas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.concurrent.TimeoutException;
@@ -76,11 +78,42 @@ public class VZonas {
                 return false;
             }
         };
+        // Añado el modelo a la tabla
         JTable tabla = new JTable(modelo);
+
         // Hago que la tabla tenga una barra "scroll" cuando haga falta
         JScrollPane scroll = new JScrollPane(tabla);
-
         medio.add(scroll);
+
+        // Hago que la tabla tenga un campo para buscar
+        JPanel medioArriba = new JPanel(new BorderLayout());
+        medioArriba.setBorder(new EmptyBorder(0, 0, 10, 0));
+
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        tabla.setRowSorter(sorter);
+        JTextField filtro = new JTextField();
+
+        filtro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+
+            private void filtrar() {
+                String texto = filtro.getText();
+                if (texto.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+                }
+            }
+        });
+
+        JLabel filtroL = new JLabel("Filtrar:");
+        filtroL.setBorder(new EmptyBorder(0, 0, 0, 5));
+
+        medioArriba.add(filtroL, BorderLayout.WEST);
+        medioArriba.add(filtro, BorderLayout.CENTER);
+        medio.add(medioArriba, BorderLayout.NORTH);
 
         // Creo la parte de abajo y sus botónes
         JPanel abajo = new JPanel();
@@ -140,7 +173,9 @@ public class VZonas {
 
             // Primero compruebo si ha seleccionado algo, si no se lo muestro mediante un pop up
             if  (tabla.getSelectedRow() != -1) {
-                Object[] seleccionada = datos[tabla.getSelectedRow()];
+                int filaVista = tabla.getSelectedRow();
+                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                Object[] seleccionada = datos[filaModelo];
                 Boolean eliminar = false;
 
                 // Compruebo que no dependa ningún elemento de este
@@ -198,9 +233,9 @@ public class VZonas {
                                 "Información sobre la operación",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
+                    // Si se elmina bien actualizo
                         if (resp.equals("Zona eliminada con éxito")) {
-                            base.dispose();
-                            VZonas.ejecutar(true, base.getLocation());
+                            actualizarTabla(modelo);
                         }
                 }
             }else {
@@ -214,12 +249,23 @@ public class VZonas {
         });
 
         botonS4.addActionListener(a->{
-            base.dispose();
-            VZonas.ejecutar(true, base.getLocation());
+            actualizarTabla(modelo);
         });
 
         botonS1.addActionListener(a->{
-            vAanadir.mostrar(base.getLocation());
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAanadir.mostrar(base.getLocation(), modelo);
         });
+    }
+
+    public static void actualizarTabla(DefaultTableModel modelo) {
+        modelo.setRowCount(0); // borra filas
+
+        for (Zonas c : CZonas.seleccionarTodo()) {
+            modelo.addRow(new Object[]{
+                    c.getNumeroDeZona(),
+                    c.getNombre()
+            });
+        }
     }
 }

@@ -4,10 +4,12 @@ import Proyecto.Controlador.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class VCAnadir {
     private static JFrame fAnadir = new JFrame();
+    private static DefaultTableModel modelo;
     public void construir() {
         fAnadir.setResizable(false);
 
@@ -68,9 +70,7 @@ public class VCAnadir {
                             JOptionPane.INFORMATION_MESSAGE
                     );
                     if (resp.equals("Cliente introducido con éxito")) {
-                        tFC1.setText("");
-                        tFC2.setText("");
-                        tFC3.setText("");
+                        VClientes.actualizarTabla(modelo);
                     }
                 } catch (NumberFormatException e) {
                     JFrame mensaje = new JFrame("Error de formato");
@@ -85,9 +85,12 @@ public class VCAnadir {
         });
     }
 
-    public void mostrar(Point posicion){
+    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+        // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
+
+        modelo = modeloNuevo;
     }
 
     public void ocultar(){

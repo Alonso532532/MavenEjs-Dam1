@@ -11,14 +11,15 @@ import Proyecto.Vista.VZonas.VZonas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class VClientes {
     static VCAnadir vAnadir = new VCAnadir();
 
     public static void ejecutar(boolean admin, Point posicion) {
-
         vAnadir.construir();
+
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,12 +73,42 @@ public class VClientes {
                 return false;
             }
         };
+        // Añado el modelo a la tabla
         JTable tabla = new JTable(modelo);
+
         // Hago que la tabla tenga una barra "scroll" cuando haga falta
         JScrollPane scroll = new JScrollPane(tabla);
-
         medio.add(scroll);
 
+        // Hago que la tabla tenga un campo para buscar
+        JPanel medioArriba = new JPanel(new BorderLayout());
+        medioArriba.setBorder(new EmptyBorder(0, 0, 10, 0));
+
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        tabla.setRowSorter(sorter);
+        JTextField filtro = new JTextField();
+
+        filtro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+
+            private void filtrar() {
+                String texto = filtro.getText();
+                if (texto.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+                }
+            }
+        });
+
+        JLabel filtroL = new JLabel("Filtrar:");
+        filtroL.setBorder(new EmptyBorder(0, 0, 0, 5));
+
+        medioArriba.add(filtroL, BorderLayout.WEST);
+        medioArriba.add(filtro, BorderLayout.CENTER);
+        medio.add(medioArriba, BorderLayout.NORTH);
         // Creo la parte de abajo y sus botónes
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
@@ -138,7 +169,9 @@ public class VClientes {
 
             // Primero compruebo si ha seleccionado algo, si no se lo muestro mediante un pop up
             if  (tabla.getSelectedRow() != -1) {
-                Object[] seleccionada = datos[tabla.getSelectedRow()];
+                int filaVista = tabla.getSelectedRow();
+                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                Object[] seleccionada = datos[filaModelo];
                 Boolean eliminar = false;
 
                 // Compruebo que no dependa ningún elemento de este
@@ -196,9 +229,9 @@ public class VClientes {
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+                    // Si se elmina bien actualizo
                     if (resp.equals("Cliente eliminado con éxito")) {
-                        base.dispose();
-                        VEntradas.ejecutar(true, base.getLocation());
+                        actualizarTabla(modelo);
                     }
                 }
             }else {
@@ -212,12 +245,24 @@ public class VClientes {
         });
 
         botonS4.addActionListener(a->{
-            base.dispose();
-            VClientes.ejecutar(true, base.getLocation());
+            actualizarTabla(modelo);
         });
 
         botonS1.addActionListener(a->{
-            vAnadir.mostrar(base.getLocation());
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAnadir.mostrar(base.getLocation(), modelo);
         });
+    }
+
+    public static void actualizarTabla(DefaultTableModel modelo) {
+        modelo.setRowCount(0); // borra filas
+
+        for (Clientes c : CClientes.seleccionarTodo()) {
+            modelo.addRow(new Object[]{
+                    c.getDni(),
+                    c.getEdad(),
+                    c.getNombre()
+            });
+        }
     }
 }

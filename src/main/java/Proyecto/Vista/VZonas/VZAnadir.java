@@ -1,13 +1,17 @@
 package Proyecto.Vista.VZonas;
 
 import Proyecto.Controlador.*;
+import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class VZAnadir {
     private static JFrame fAnadir = new JFrame();
+    private static DefaultTableModel modelo;
+
     public void construir() {
         fAnadir.setResizable(false);
 
@@ -53,16 +57,19 @@ public class VZAnadir {
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-                if (resp.equals("Atracción introducida con éxito")) {
-                    tFC1.setText("");
+                if (resp.equals("Zona introducida con éxito")) {
+                    VZonas.actualizarTabla(modelo);
                 }
             }
         });
     }
 
-    public void mostrar(Point posicion){
+    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+        // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
+
+        modelo = modeloNuevo;
     }
 
     public void ocultar(){

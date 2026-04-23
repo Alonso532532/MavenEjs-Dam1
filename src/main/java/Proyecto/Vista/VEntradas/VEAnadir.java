@@ -1,13 +1,17 @@
 package Proyecto.Vista.VEntradas;
 
 import Proyecto.Controlador.*;
+import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class VEAnadir {
     private static JFrame fAnadir = new JFrame();
+    private static DefaultTableModel modelo;
+
     public void construir() {
         fAnadir.setResizable(false);
 
@@ -67,10 +71,8 @@ public class VEAnadir {
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                    if (resp.equals("Entrada introducido con éxito")) {
-                        tFC1.setText("");
-                        tFC2.setText("");
-                        tFC3.setText("");
+                    if (resp.equals("Entrada introducida con éxito")) {
+                        VEntradas.actualizarTabla(modelo);
                     }
                 } catch (NumberFormatException e) {
                     JFrame mensaje = new JFrame("Error de formato");
@@ -85,9 +87,12 @@ public class VEAnadir {
         });
     }
 
-    public void mostrar(Point posicion){
+    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+        // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
+
+        modelo = modeloNuevo;
     }
 
     public void ocultar(){

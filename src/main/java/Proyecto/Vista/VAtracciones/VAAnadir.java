@@ -1,13 +1,17 @@
 package Proyecto.Vista.VAtracciones;
 
 import Proyecto.Controlador.*;
+import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class VAAnadir {
     private static JFrame fAnadir = new JFrame();
+    private static DefaultTableModel modelo;
+
     public void construir() {
         fAnadir.setResizable(false);
 
@@ -63,8 +67,7 @@ public class VAAnadir {
                             JOptionPane.INFORMATION_MESSAGE
                     );
                     if (resp.equals("Atracción introducida con éxito")) {
-                        tFC1.setText("");
-                        tFC2.setText("");
+                        VAtracciones.actualizarTabla(modelo);
                     }
                 } catch (NumberFormatException e) {
                     JFrame mensaje = new JFrame("Error de formato");
@@ -79,10 +82,12 @@ public class VAAnadir {
         });
     }
 
-    public void mostrar(Point posicion){
-        // Lo situo
+    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+        // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
+
+        modelo = modeloNuevo;
     }
 
     public void ocultar(){
