@@ -166,12 +166,14 @@ public class VVisitas {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                Object[] seleccionada = datos[filaModelo];
+                String dni = String.valueOf(modelo.getValueAt(filaModelo, 0));
+                Integer numeroDeZona = (Integer) (modelo.getValueAt(filaModelo, 1));
+                String fechaBonita = String.valueOf(modelo.getValueAt(filaModelo, 2));
 
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CVisita.eliminarPorClave(String.valueOf(seleccionada[0]), (Integer) seleccionada[1], String.valueOf(seleccionada[2])),
+                        resp = CVisita.eliminarPorClave(dni, numeroDeZona, fechaBonita),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
@@ -207,7 +209,7 @@ public class VVisitas {
             modelo.addRow(new Object[]{
                     c.getDni(),
                     c.getNumeroDeZona(),
-                    c.getFecha()
+                    c.getFechaBonita()
             });
         }
     }

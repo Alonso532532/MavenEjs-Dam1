@@ -171,16 +171,16 @@ public class VClientes {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                Object[] seleccionada = datos[filaModelo];
+                String dni = String.valueOf(modelo.getValueAt(filaModelo, 0));
                 Boolean eliminar = false;
 
                 // Compruebo que no dependa ningún elemento de este
-                if (!CEntrada.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty() || !CVisita.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty()) {
+                if (!CEntrada.seleccionarPorDni(dni).isEmpty() || !CVisita.seleccionarPorDni(dni).isEmpty()) {
 
                     // Sí depende algún elemento le pregunto si quiere eliminarlo
                     int respuesta = JOptionPane.showConfirmDialog(
                             null,
-                            "De este cliente dependen " + CEntrada.seleccionarPorDni(String.valueOf(seleccionada[0])).size() + " entradas y "+CVisita.seleccionarPorDni(String.valueOf(seleccionada[0])).size()+" visitas\n¿Quieres eliminarlas?",
+                            "De este cliente dependen " + CEntrada.seleccionarPorDni(dni).size() + " entradas y "+CVisita.seleccionarPorDni(dni).size()+" visitas\n¿Quieres eliminarlas?",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION
                     );
@@ -188,21 +188,21 @@ public class VClientes {
                     // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
 
                     if (respuesta == JOptionPane.YES_OPTION) {
-                        if (!CEntrada.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty()) {
+                        if (!CEntrada.seleccionarPorDni(dni).isEmpty()) {
                             JFrame mensajeVisitas = new JFrame("Operación de eliminación (entradas)");
                             JOptionPane.showMessageDialog(
                                     mensajeVisitas,
-                                    CEntrada.eliminarPorDni(String.valueOf(seleccionada[0])),
+                                    CEntrada.eliminarPorDni(dni),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
                         }
 
-                        if (!CVisita.seleccionarPorDni(String.valueOf(seleccionada[0])).isEmpty()) {
+                        if (!CVisita.seleccionarPorDni(dni).isEmpty()) {
                             JFrame mensajeAtracciones = new JFrame("Operación de eliminación (visitas)");
                             JOptionPane.showMessageDialog(
                                     mensajeAtracciones,
-                                    CVisita.eliminarPorDni(String.valueOf(seleccionada[0])),
+                                    CVisita.eliminarPorDni(dni),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
@@ -225,7 +225,7 @@ public class VClientes {
                     String resp;
                     JOptionPane.showMessageDialog(
                             mensaje,
-                            resp = CClientes.eliminarPorDni(String.valueOf(seleccionada[0])),
+                            resp = CClientes.eliminarPorDni(dni),
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );

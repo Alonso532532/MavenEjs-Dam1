@@ -170,12 +170,12 @@ public class VAtracciones {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                Object[] seleccionada = datos[filaModelo];
+                Integer numeroAtraccion = (Integer) modelo.getValueAt(filaModelo, 0);
 
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CAtracciones.eliminarPorNumeroDeAtraccion((Integer) seleccionada[0]),
+                        resp = CAtracciones.eliminarPorNumeroDeAtraccion(numeroAtraccion),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );

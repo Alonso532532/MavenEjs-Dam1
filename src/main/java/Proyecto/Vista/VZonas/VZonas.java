@@ -175,16 +175,16 @@ public class VZonas {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                Object[] seleccionada = datos[filaModelo];
+                Integer numeroZona = (Integer) modelo.getValueAt(filaModelo, 0);
                 Boolean eliminar = false;
 
                 // Compruebo que no dependa ningún elemento de este
-                if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty() || !CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                if (!CVisita.seleccionarPorNumeroDeZona(numeroZona).isEmpty() || !CAtracciones.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
 
                     // Sí depende algún elemento le pregunto si quiere eliminarlo
                     int respuesta = JOptionPane.showConfirmDialog(
                             null,
-                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).size() + " visitas y "+CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).size()+" atracciones\n¿Quieres eliminarlas?",
+                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona(numeroZona).size() + " visitas y "+CAtracciones.seleccionarPorNumeroDeZona(numeroZona).size()+" atracciones\n¿Quieres eliminarlas?",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION
                     );
@@ -192,21 +192,21 @@ public class VZonas {
                     // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
 
                     if (respuesta == JOptionPane.YES_OPTION) {
-                        if (!CVisita.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                        if (!CVisita.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
                             JFrame mensajeVisitas = new JFrame("Operación de eliminación (visitas)");
                             JOptionPane.showMessageDialog(
                                     mensajeVisitas,
-                                    CVisita.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                    CVisita.eliminarPorNumeroDeZona(numeroZona),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
                         }
 
-                        if (!CAtracciones.seleccionarPorNumeroDeZona((int) seleccionada[0]).isEmpty()) {
+                        if (!CAtracciones.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
                             JFrame mensajeAtracciones = new JFrame("Operación de eliminación (atracciones)");
                             JOptionPane.showMessageDialog(
                                     mensajeAtracciones,
-                                    CAtracciones.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                    CAtracciones.eliminarPorNumeroDeZona(numeroZona),
                                     "Información sobre la operación",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
@@ -229,7 +229,7 @@ public class VZonas {
                         String resp;
                         JOptionPane.showMessageDialog(
                                 mensaje,
-                                resp = CZonas.eliminarPorNumeroDeZona((int) seleccionada[0]),
+                                resp = CZonas.eliminarPorNumeroDeZona(numeroZona),
                                 "Información sobre la operación",
                                 JOptionPane.INFORMATION_MESSAGE
                         );

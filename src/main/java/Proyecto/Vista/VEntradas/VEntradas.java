@@ -172,12 +172,12 @@ public class VEntradas {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                Object[] seleccionada = datos[filaModelo];
+                Integer numeroEntrada = (Integer) modelo.getValueAt(filaModelo, 0);
 
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CEntrada.eliminarPorNumeroDeEntrada((Integer) seleccionada[0]),
+                        resp = CEntrada.eliminarPorNumeroDeEntrada(numeroEntrada),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
