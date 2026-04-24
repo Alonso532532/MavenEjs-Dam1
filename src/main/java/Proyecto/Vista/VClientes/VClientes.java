@@ -140,25 +140,21 @@ public class VClientes {
         botonN2.addActionListener(a -> {
             VAtracciones.ejecutar(true, base.getLocation());
             base.dispose();
-            vAnadir.ocultar();
         });
 
         botonN3.addActionListener(a -> {
             VZonas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAnadir.ocultar();
         });
 
         botonN4.addActionListener(a -> {
             VVisitas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAnadir.ocultar();
         });
 
         botonN6.addActionListener(a -> {
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAnadir.ocultar();
         });
 
 

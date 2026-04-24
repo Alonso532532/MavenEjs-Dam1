@@ -1,11 +1,15 @@
 package Proyecto.Controlador;
 
+import Proyecto.Coexion.Conexion;
 import Proyecto.DAO.DAtracciones;
 import Proyecto.DAO.DVisita;
 import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Visita;
 
 
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class CAtracciones {
@@ -73,5 +77,22 @@ public final class CAtracciones {
             // Fallos de SQL
             return "Ha ocurrido un error en la introducción de la atraccion, causa:\n"+e.getMessage();
         }
+    }
+
+    // Modifico los valores mediante la clave
+    public static String modificar(int numeroDeAtraccion, String nombre, int numeroDeZona){
+        try{
+            Atracciones validar = new Atracciones(nombre, numeroDeZona);
+
+        } catch (IllegalArgumentException e){
+            JFrame mensaje = new JFrame("Error al validar los campos");
+            JOptionPane.showMessageDialog(
+                    mensaje,
+                    e.getMessage(),
+                    "Error en la operación",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return "";
     }
 }

@@ -2,7 +2,10 @@ package Proyecto;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Vista.Inicio;
+import Proyecto.Vista.VAtracciones.VAModificar;
 
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.SQLException;
 
 public class Demo {
@@ -37,5 +40,8 @@ public class Demo {
 //        VAnadir.ejecutar(campos, 1);
 
         Inicio.ejecutar();
+        VAModificar hola = new VAModificar();
+        hola.construir();
+        hola.mostrar(new Point(500, 200), new DefaultTableModel(), 2, "Hola", 3);
     }
 }

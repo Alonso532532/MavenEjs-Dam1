@@ -1,9 +1,7 @@
 package Proyecto.Vista.VAtracciones;
 
 import Proyecto.Controlador.CAtracciones;
-import Proyecto.Controlador.CClientes;
 import Proyecto.Modelo.Atracciones;
-import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.*;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEntradas;
@@ -18,10 +16,12 @@ import java.awt.*;
 
 
 public class VAtracciones {
-    static VAAnadir vAanadir = new VAAnadir();
+    static VAAnadir vAAnadir = new VAAnadir();
+    static VAModificar vAModificar = new VAModificar();
 
     public static void ejecutar(boolean admin, Point posicion) {
-        vAanadir.construir();
+        vAAnadir.construir();
+        vAModificar.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -138,31 +138,27 @@ public class VAtracciones {
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
-            vAanadir.ocultar();
+            vAAnadir.ocultar();
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonS2.addActionListener(a->{
@@ -200,7 +196,7 @@ public class VAtracciones {
 
         botonS1.addActionListener(a->{
             // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAanadir.mostrar(base.getLocation(), modelo);
+            vAAnadir.mostrar(base.getLocation(), modelo);
         });
     }
 

@@ -145,25 +145,21 @@ public class VEntradas {
         botonN2.addActionListener(a->{
             VAtracciones.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
 

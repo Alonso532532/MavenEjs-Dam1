@@ -146,25 +146,21 @@ public class VZonas {
         botonN2.addActionListener(a->{
             VAtracciones.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
-            vAanadir.ocultar();
         });
 
         // Este es el botón de "borrar selección"

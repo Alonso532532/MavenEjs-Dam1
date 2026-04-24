@@ -139,6 +139,7 @@ public class VVisitas {
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
+            vAanadir.ocultar();
         });
 
         botonN2.addActionListener(a->{
