@@ -40,8 +40,5 @@ public class Demo {
 //        VAnadir.ejecutar(campos, 1);
 
         Inicio.ejecutar();
-        VAModificar hola = new VAModificar();
-        hola.construir();
-        hola.mostrar(new Point(500, 200), new DefaultTableModel(), 2, "Hola", 3);
     }
 }

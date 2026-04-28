@@ -118,7 +118,7 @@ public class VAtracciones {
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
         JButton botonS1 = new JButton("Añadir");
         JButton botonS2 = new JButton("Borrar selección");
-        JButton botonS3 = new JButton("Modificar");
+        JButton botonS3 = new JButton("Modificar selección");
         JButton botonS4 = new JButton("Actualizar tabla");
         abajo.add(botonS1);
         abajo.add(botonS2);
@@ -166,7 +166,7 @@ public class VAtracciones {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                Integer numeroAtraccion = (Integer) modelo.getValueAt(filaModelo, 0);
+                int numeroAtraccion = (int) modelo.getValueAt(filaModelo, 0);
 
                 String resp;
                 JOptionPane.showMessageDialog(
@@ -188,6 +188,22 @@ public class VAtracciones {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             }
+        });
+
+        botonS3.addActionListener(a->{
+            JFrame mensaje = new JFrame("Operación de modificación");
+            if  (tabla.getSelectedRow() != -1) {
+                int filaVista = tabla.getSelectedRow();
+                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                vAModificar.mostrar(base.getLocation(), modelo, (int) modelo.getValueAt(filaModelo, 0), String.valueOf(modelo.getValueAt(filaModelo, 1)), (int) modelo.getValueAt(filaModelo, 2));
+            } else {
+            JOptionPane.showMessageDialog(
+                    mensaje,
+                    "No hay nada seleccionado",
+                    "Información sobre la operación",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        }
         });
 
         botonS4.addActionListener(a->{

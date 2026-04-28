@@ -12,7 +12,6 @@ public class VAModificar {
     private static JFrame fAnadir = new JFrame();
     private static DefaultTableModel modelo;
 
-    private static int numeroDeAtraccionAnterior = 0;
     private static String nombreAnterior = "";
     private static int numeroDeZonaAnterior = 0;
 
@@ -61,7 +60,11 @@ public class VAModificar {
 
         botonModificar.addActionListener(a -> {
             if (!tFC2.getText().equals(nombreAnterior) || !tFC3.getText().equals(String.valueOf(numeroDeZonaAnterior))){
-
+                try {
+//                    Atracciones atraccion = new Atracciones(Integer.parseInt(tFC2.getText(), tFC3.getText());
+                } catch (IllegalArgumentException e){
+                    System.out.println("Ha ocurrido un error con los valores introducidos:\n"+e.getMessage());
+                }
             } else {
                 JFrame mensaje = new JFrame("Sin cambios");
                 JOptionPane.showMessageDialog(
@@ -76,14 +79,13 @@ public class VAModificar {
 
     public void mostrar(Point posicion, DefaultTableModel modeloNuevo, int numeroDeAtraccion, String nombre, int numeroDeZona){
         // Guardo los valores antiguos
-        numeroDeAtraccionAnterior = numeroDeAtraccion;
         nombreAnterior = nombre;
         numeroDeZonaAnterior = numeroDeZona;
 
         // Asigno el valor de la fila seleccionada a los campos de texto
-        tFC1.setText(String.valueOf(numeroDeAtraccionAnterior));
-        tFC2.setText(nombreAnterior);
-        tFC3.setText(String.valueOf(numeroDeZonaAnterior));
+        tFC1.setText(String.valueOf(numeroDeAtraccion));
+        tFC2.setText(nombre);
+        tFC3.setText(String.valueOf(numeroDeZona));
 
         // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
