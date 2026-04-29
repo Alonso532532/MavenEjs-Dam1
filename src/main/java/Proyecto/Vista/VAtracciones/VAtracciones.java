@@ -140,6 +140,7 @@ public class VAtracciones {
             Inicio.ejecutar();
             base.dispose();
             vAAnadir.ocultar();
+            vAModificar.ocultar();
         });
 
         botonN3.addActionListener(a->{
@@ -170,15 +171,16 @@ public class VAtracciones {
 
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
+            // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
+                // Selecciono la fila que ha seleccionado
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                int numeroAtraccion = (int) modelo.getValueAt(filaModelo, 0);
 
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CAtracciones.eliminarPorNumeroDeAtraccion(numeroAtraccion),
+                        resp = CAtracciones.eliminarPorNumeroDeAtraccion((int) modelo.getValueAt(filaModelo, 0)),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
@@ -199,7 +201,9 @@ public class VAtracciones {
 
         botonS3.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de modificación");
+            // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
+                // Selecciono la fila que ha seleccionado
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
                 vAModificar.mostrar(base.getLocation(), modelo, new Atracciones ((int) modelo.getValueAt(filaModelo, 0), String.valueOf(modelo.getValueAt(filaModelo, 1)), (int) modelo.getValueAt(filaModelo, 2)));
@@ -222,7 +226,8 @@ public class VAtracciones {
 
     // Botón de actualizar la tabla
     public static void actualizarTabla(DefaultTableModel modelo) {
-        modelo.setRowCount(0); // borra filas
+        // Borro las filas antes de añadir las nuevas
+        modelo.setRowCount(0);
 
         for (Atracciones c : CAtracciones.seleccionarTodo()) {
             modelo.addRow(new Object[]{
