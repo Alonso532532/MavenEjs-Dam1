@@ -19,7 +19,7 @@ public final class CEntrada {
     }
 
     // Mediante los datos necesarios para hacer una entrada añado la entrada comprobando los posibles fallos
-    public static String anadir(String tipo, double precio, String dni){
+    public static String anadir(String tipo, String precio, String dni){
         try {
 
             Entrada entrada = new Entrada(tipo, precio, dni);

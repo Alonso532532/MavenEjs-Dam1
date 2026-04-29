@@ -16,7 +16,7 @@ public final class DVisita {
             ResultSet resultSet = statement.executeQuery("select * from Visita");
             ArrayList<Visita> visitas = new ArrayList<>();
             while (resultSet.next()){
-                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona"), resultSet.getString("fecha"), false));
+                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getString("numeroDeZona"), resultSet.getString("fecha"), false));
             }
             return visitas;
         }catch (SQLException e){
@@ -36,7 +36,7 @@ public final class DVisita {
 
             ArrayList<Visita> visitas = new ArrayList<>();
             while (resultSet.next()){
-                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona"), resultSet.getString("fecha"), false));
+                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getString("numeroDeZona"), resultSet.getString("fecha"), false));
             }
 
             return visitas;
@@ -58,7 +58,7 @@ public final class DVisita {
 
             ArrayList<Visita> visitas = new ArrayList<>();
             while (resultSet.next()){
-                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getInt("numeroDeZona"), resultSet.getString("fecha"), false));
+                visitas.add(new Visita(resultSet.getString("DNI"), resultSet.getString("numeroDeZona"), resultSet.getString("fecha"), false));
             }
 
             return visitas;

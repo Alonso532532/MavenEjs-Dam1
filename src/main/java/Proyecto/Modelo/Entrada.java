@@ -19,10 +19,14 @@ public class Entrada {
         this.dni = dni;
     }
 
-    public Entrada(String tipo, double precio, String dni) {
+    public Entrada(String tipo, String precio, String dni) {
         String error = "";
         if (!setTipo(tipo)) error+="Tipo de entrada incorrecto\n";
-        if (!setPrecio(precio)) error+="Precio incorrecto\n";
+        try {
+            if (!setPrecio(precio)) error+="Precio incorrecto\n";
+        } catch (NumberFormatException e){
+            error+="Formato de precio inválido\n";
+        }
         if (!setDni(dni)) error+="DNI incorrecto\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
@@ -48,7 +52,8 @@ public class Entrada {
         return precio;
     }
 
-    public boolean setPrecio(double precio) {
+    public boolean setPrecio(String precioString) {
+        double precio = Double.parseDouble(precioString);
         if (precio>=0){
             this.precio = precio;
             return true;

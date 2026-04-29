@@ -195,7 +195,7 @@ public class VAtracciones {
             if  (tabla.getSelectedRow() != -1) {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                vAModificar.mostrar(base.getLocation(), modelo, (int) modelo.getValueAt(filaModelo, 0), String.valueOf(modelo.getValueAt(filaModelo, 1)), (int) modelo.getValueAt(filaModelo, 2));
+                vAModificar.mostrar(base.getLocation(), modelo, new Atracciones ((int) modelo.getValueAt(filaModelo, 0), String.valueOf(modelo.getValueAt(filaModelo, 1)), (int) modelo.getValueAt(filaModelo, 2)));
             } else {
             JOptionPane.showMessageDialog(
                     mensaje,

@@ -26,7 +26,7 @@ public final class CVisita {
     }
 
     // Mediante los datos necesarios para hacer una visita añado la visita comprobando los posibles fallos
-    public static String anadir(String dni, int numeroDeZona, String fecha){
+    public static String anadir(String dni, String numeroDeZona, String fecha){
         try {
 
             Visita visita = new Visita(dni, numeroDeZona, fecha, true);

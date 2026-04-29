@@ -11,7 +11,7 @@ public final class CClientes {
     }
 
     // Mediante los datos necesarios para hacer un cliente añado el cliente comprobando los posibles fallos
-    public static String anadir(String dni, int edad, String nombre){
+    public static String anadir(String dni, String edad, String nombre){
         try {
 
             Clientes cliente = new Clientes(dni, edad, nombre, true);

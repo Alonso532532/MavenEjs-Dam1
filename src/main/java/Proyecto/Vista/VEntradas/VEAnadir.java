@@ -62,26 +62,16 @@ public class VEAnadir {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                try {
-                    JFrame mensaje = new JFrame("Operación para añadir entradas");
-                    String resp = "";
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            resp = CEntrada.anadir(tFC1.getText(), Double.parseDouble(tFC2.getText().replace(",", ".")), tFC3.getText()),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    if (resp.equals("Entrada introducida con éxito")) {
-                        VEntradas.actualizarTabla(modelo);
-                    }
-                } catch (NumberFormatException e) {
-                    JFrame mensaje = new JFrame("Error de formato");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            "Error, el formato del precio es inválido",
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
+                JFrame mensaje = new JFrame("Operación para añadir entradas");
+                String resp = "";
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CEntrada.anadir(tFC1.getText(), tFC2.getText().replace(",", "."), tFC3.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Entrada introducida con éxito")) {
+                    VEntradas.actualizarTabla(modelo);
                 }
             }
         });

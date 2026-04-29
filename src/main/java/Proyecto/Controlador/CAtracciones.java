@@ -22,7 +22,7 @@ public final class CAtracciones {
     }
 
     // Mediante los datos necesarios para hacer una atracción añado la atracción comprobando los posibles fallos
-    public static String anadir(String nombre, int numeroDeZona){
+    public static String anadir(String nombre, String numeroDeZona){
         try {
 
             Atracciones atraccion = new Atracciones(nombre, numeroDeZona);
@@ -80,7 +80,7 @@ public final class CAtracciones {
     }
 
     // Modifico los valores mediante la clave
-    public static String modificar(int numeroDeAtraccion, String nombre, int numeroDeZona){
+    public static String modificar(int numeroDeAtraccion, String nombre, String numeroDeZona){
         try{
             Atracciones validar = new Atracciones(nombre, numeroDeZona);
 

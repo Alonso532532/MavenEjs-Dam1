@@ -10,7 +10,7 @@ public class Clientes {
     private int edad;
     private String nombre;
 
-    public Clientes(String dni, int edad, String nombre, boolean comprobarConcurrencia) {
+    public Clientes(String dni, String edad, String nombre, boolean comprobarConcurrencia) {
         String error = "";
         // Para evitar el problema de claves primarias duplicadas permito que al llamar al constructor tenga la opción de comprobar o no,
         // porque si compruebo siempre no puedo crear un objeto al seleccionar datos de la tabla, ya que siempre que seleccione una fila
@@ -19,7 +19,11 @@ public class Clientes {
             if (DClientes.comprobarPorDni(dni)) error+="El dni ya existe\n";
         }
         if (!setDni(dni)) error+="El dni es incorrecto\n";
-        if (!setEdad(edad)) error+="La edad es incorrecta\n";
+        try {
+            if (!setEdad(edad)) error+="La edad es incorrecta\n";
+        } catch (NumberFormatException e){
+            error+="El formato de la edad es incorrecto\n";
+        }
         if (!setNombre(nombre)) error+="El nombre es demasiado largo/corto o contiene carácteres no permitidos\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
@@ -41,7 +45,8 @@ public class Clientes {
         return edad;
     }
 
-    public boolean setEdad(int edad) {
+    public boolean setEdad(String edadString) {
+        int edad = Integer.parseInt(edadString);
         if (edad<=130 && edad > 0){
             this.edad = edad;
             return true;

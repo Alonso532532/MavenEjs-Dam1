@@ -73,26 +73,16 @@ public class VVAnadir {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                try {
-                    JFrame mensaje = new JFrame("Operación para añadir visitas");
-                    String resp = "";
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            resp = CVisita.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    if (resp.equals("Visita introducida con éxito")) {
-                        VVisitas.actualizarTabla(modelo);
-                    }
-                } catch (NumberFormatException e) {
-                    JFrame mensaje = new JFrame("Error de formato");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            "Error, el formato del numero de zona es inválido",
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
+                JFrame mensaje = new JFrame("Operación para añadir visitas");
+                String resp = "";
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CVisita.anadir(tFC1.getText(), tFC2.getText(), tFC3.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Visita introducida con éxito")) {
+                    VVisitas.actualizarTabla(modelo);
                 }
             }
         });

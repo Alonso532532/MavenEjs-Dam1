@@ -15,16 +15,20 @@ public class Visita {
     private LocalDateTime fecha;
     private String fechaBonita;
 
-    public Visita(String dni, int numeroDeZona, String fecha, boolean comprobarConcurrencia) {
+    public Visita(String dni, String numeroDeZona, String fecha, boolean comprobarConcurrencia) {
         String error = "";
         // Para evitar el problema de claves primarias duplicadas permito que al llamar al constructor tenga la opción de comprobar o no,
         // porque si compruebo siempre no puedo crear un objeto al seleccionar datos de la tabla, ya que siempre que seleccione una fila
         // esa clave primaria ya va a existir impidiéndome crear un objeto a raíz de esos datos
-        if (comprobarConcurrencia){
-            if (DVisita.comprobarPorClave(dni, numeroDeZona, fecha)) error+="La visita ya existe\n";
-        }
         if (!setDni(dni)) error+="El DNI es inexistente\n";
-        if (!setNumeroDeZona(numeroDeZona)) error+="El numero de zona es inexistente\n";
+        try {
+            if (!setNumeroDeZona(numeroDeZona)) error += "El numero de zona es inexistente\n";
+        } catch (NumberFormatException e){
+            error += "El formato del numero de zona es inválido\n";
+        }
+        if (comprobarConcurrencia){
+            if (DVisita.comprobarPorClave(dni, this.numeroDeZona, fecha)) error+="La visita ya existe\n";
+        }
         if (!setFecha(fecha)) error+="El formato de la fecha es inválido\n";
         if (LocalDateTime.now().isBefore(this.fecha) || LocalDateTime.parse("1900-01-01T00:00:00").isAfter(this.fecha)) error+="La fecha es imposible\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
@@ -46,7 +50,8 @@ public class Visita {
         return numeroDeZona;
     }
 
-    public boolean setNumeroDeZona(int numeroDeZona) {
+    public boolean setNumeroDeZona(String numeroDeZonaString) {
+        int numeroDeZona = Integer.parseInt(numeroDeZonaString);
         if (DZonas.comprobarNumeroDeZona(numeroDeZona)) {
             this.numeroDeZona = numeroDeZona;
             return true;

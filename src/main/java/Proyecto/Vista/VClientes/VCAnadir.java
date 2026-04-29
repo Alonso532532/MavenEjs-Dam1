@@ -60,26 +60,16 @@ public class VCAnadir {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                try {
-                    JFrame mensaje = new JFrame("Operación para añadir clientes");
-                    String resp = "";
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            resp = CClientes.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText()), tFC3.getText()),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    if (resp.equals("Cliente introducido con éxito")) {
-                        VClientes.actualizarTabla(modelo);
-                    }
-                } catch (NumberFormatException e) {
-                    JFrame mensaje = new JFrame("Error de formato");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            "Error, el formato de la edad es inválido",
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
+                JFrame mensaje = new JFrame("Operación para añadir clientes");
+                String resp = "";
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CClientes.anadir(tFC1.getText(), tFC2.getText(), tFC3.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Cliente introducido con éxito")) {
+                    VClientes.actualizarTabla(modelo);
                 }
             }
         });

@@ -57,26 +57,16 @@ public class VAAnadir {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                try {
-                    JFrame mensaje = new JFrame("Operación para añadir atracciones");
-                    String resp = "";
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            resp = CAtracciones.anadir(tFC1.getText(), Integer.parseInt(tFC2.getText())),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    if (resp.equals("Atracción introducida con éxito")) {
-                        VAtracciones.actualizarTabla(modelo);
-                    }
-                } catch (NumberFormatException e) {
-                    JFrame mensaje = new JFrame("Error de formato");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            "Error, el formato del numero de Zona es inválido",
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
+                JFrame mensaje = new JFrame("Operación para añadir atracciones");
+                String resp = "";
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CAtracciones.anadir(tFC1.getText(), tFC2.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Atracción introducida con éxito")) {
+                    VAtracciones.actualizarTabla(modelo);
                 }
             }
         });

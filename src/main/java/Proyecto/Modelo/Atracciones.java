@@ -16,10 +16,14 @@ public class Atracciones {
         this.numeroDeZona = numeroDeZona;
     }
 
-    public Atracciones(String nombre, int numeroDeZona) {
+    public Atracciones(String nombre, String numeroDeZona) {
         String error = "";
         if (!setNombre(nombre)) error+="Nombre invalido\n";
-        if (!setNumeroDeZona(numeroDeZona)) error+="Numero de zona inexistente\n";
+        try {
+            if (!setNumeroDeZona(numeroDeZona)) error+="Numero de zona inexistente\n";
+        } catch (NumberFormatException e){
+            error+="Formato de numero de zona inválido\n";
+        }
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -44,7 +48,8 @@ public class Atracciones {
         return numeroDeZona;
     }
 
-    public boolean setNumeroDeZona(int numeroDeZona) {
+    public boolean setNumeroDeZona(String numeroDeZonaString) {
+        int numeroDeZona = Integer.parseInt(numeroDeZonaString);
         if (DZonas.comprobarNumeroDeZona(numeroDeZona)){
             this.numeroDeZona = numeroDeZona;
             return true;

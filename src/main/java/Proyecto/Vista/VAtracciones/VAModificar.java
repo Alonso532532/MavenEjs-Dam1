@@ -61,7 +61,7 @@ public class VAModificar {
         botonModificar.addActionListener(a -> {
             if (!tFC2.getText().equals(nombreAnterior) || !tFC3.getText().equals(String.valueOf(numeroDeZonaAnterior))){
                 try {
-//                    Atracciones atraccion = new Atracciones(Integer.parseInt(tFC2.getText(), tFC3.getText());
+                    Atracciones atraccion = new Atracciones(tFC2.getText(), tFC3.getText());
                 } catch (IllegalArgumentException e){
                     System.out.println("Ha ocurrido un error con los valores introducidos:\n"+e.getMessage());
                 }
@@ -77,15 +77,15 @@ public class VAModificar {
         });
     }
 
-    public void mostrar(Point posicion, DefaultTableModel modeloNuevo, int numeroDeAtraccion, String nombre, int numeroDeZona){
+    public void mostrar(Point posicion, DefaultTableModel modeloNuevo, Atracciones atraccion){
         // Guardo los valores antiguos
-        nombreAnterior = nombre;
-        numeroDeZonaAnterior = numeroDeZona;
+        nombreAnterior = atraccion.getNombre();
+        numeroDeZonaAnterior = atraccion.getNumeroDeZona();
 
         // Asigno el valor de la fila seleccionada a los campos de texto
-        tFC1.setText(String.valueOf(numeroDeAtraccion));
-        tFC2.setText(nombre);
-        tFC3.setText(String.valueOf(numeroDeZona));
+        tFC1.setText(String.valueOf(atraccion.getNumeroDeAtraccion()));
+        tFC2.setText(atraccion.getNombre());
+        tFC3.setText(String.valueOf(atraccion.getNumeroDeZona()));
 
         // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
