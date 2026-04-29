@@ -22,10 +22,9 @@ public final class CAtracciones {
     }
 
     // Mediante los datos necesarios para hacer una atracción añado la atracción comprobando los posibles fallos
-    public static String anadir(String nombre, String numeroDeZona){
+    public static String anadir(Atracciones atraccion){
         try {
 
-            Atracciones atraccion = new Atracciones(nombre, numeroDeZona);
             DAtracciones.anadir(atraccion);
             return "Atracción introducida con éxito";
 
@@ -80,19 +79,15 @@ public final class CAtracciones {
     }
 
     // Modifico los valores mediante la clave
-    public static String modificar(int numeroDeAtraccion, String nombre, String numeroDeZona){
-        try{
-            Atracciones validar = new Atracciones(nombre, numeroDeZona);
+    public static String modificar(int numeroDeAtraccion, Atracciones atraccion, Atracciones atraccionNueva){
 
-        } catch (IllegalArgumentException e){
-            JFrame mensaje = new JFrame("Error al validar los campos");
-            JOptionPane.showMessageDialog(
-                    mensaje,
-                    e.getMessage(),
-                    "Error en la operación",
-                    JOptionPane.ERROR_MESSAGE
-            );
+        if (!atraccion.getNombre().equals(atraccionNueva.getNombre())){
+            DAtracciones.cambiarNombre(numeroDeAtraccion, atraccionNueva.getNombre());
         }
-        return "";
+        if (!(atraccion.getNumeroDeZona()==atraccionNueva.getNumeroDeZona())){
+            DAtracciones.cambiarNumeroDeZona(numeroDeAtraccion, atraccionNueva.getNumeroDeZona());
+        }
+        return "Nombre y numero de zona modificados con éxito";
+
     }
 }

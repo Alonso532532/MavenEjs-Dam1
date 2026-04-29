@@ -29,7 +29,7 @@ public class VAtracciones {
         base.setSize(1000, 700);
         base.setLayout(new BorderLayout(0, 10));
 
-        // Lo situo
+        // Lo sitúo
         base.setLocation((int) posicion.getX(), (int) posicion.getY());
 
         // Creo el menú de arriba y los botones
@@ -54,13 +54,13 @@ public class VAtracciones {
 
         // Creo la zona del medio
         JPanel medio = new JPanel();
-//        medio.setBorder(new LineBorder(new Color(138, 138, 138), 3));
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
         String[] cabecea = {"Numero de atraccion", "Nombre", "Numero de zona"};
         Object[][] datos = new Object[CAtracciones.seleccionarTodo().size()][3];
         int cont = 0;
+
         // Inicializo la matríz
         for (Atracciones i: CAtracciones.seleccionarTodo()){
             datos[cont][0] = i.getNumeroDeAtraccion();
@@ -135,6 +135,7 @@ public class VAtracciones {
 
         base.setVisible(true);
 
+        // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
@@ -159,6 +160,12 @@ public class VAtracciones {
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
+        });
+
+        // Añado funcionalidad a los botónes de abajo
+        botonS1.addActionListener(a->{
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAAnadir.mostrar(base.getLocation(), modelo);
         });
 
         botonS2.addActionListener(a->{
@@ -210,12 +217,10 @@ public class VAtracciones {
             actualizarTabla(modelo);
         });
 
-        botonS1.addActionListener(a->{
-            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAAnadir.mostrar(base.getLocation(), modelo);
-        });
+
     }
 
+    // Botón de actualizar la tabla
     public static void actualizarTabla(DefaultTableModel modelo) {
         modelo.setRowCount(0); // borra filas
 

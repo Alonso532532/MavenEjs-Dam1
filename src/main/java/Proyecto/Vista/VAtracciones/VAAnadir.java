@@ -1,6 +1,7 @@
 package Proyecto.Vista.VAtracciones;
 
 import Proyecto.Controlador.*;
+import Proyecto.Modelo.Atracciones;
 import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
@@ -10,9 +11,12 @@ import java.awt.*;
 
 public class VAAnadir {
     private static JFrame fAnadir = new JFrame();
+    // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
+    // Este método inicializa todo de la ventana
     public void construir() {
+        // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
         fAnadir.setTitle("Añadir atracciones");
@@ -48,6 +52,7 @@ public class VAAnadir {
         fAnadir.add(panelS, BorderLayout.SOUTH);
 
         botonAnadir.addActionListener(a -> {
+            // En cuanto se active al botón se comprueba que no hayan campos vacíos
             if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty()) {
                 JFrame mensaje = new JFrame("Error de formato");
                 JOptionPane.showMessageDialog(
@@ -57,16 +62,33 @@ public class VAAnadir {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                JFrame mensaje = new JFrame("Operación para añadir atracciones");
-                String resp = "";
-                JOptionPane.showMessageDialog(
-                        mensaje,
-                        resp = CAtracciones.anadir(tFC1.getText(), tFC2.getText()),
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                if (resp.equals("Atracción introducida con éxito")) {
+                try {
+                    JFrame mensaje = new JFrame("Operación para añadir atracciones");
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            CAtracciones.anadir(new Atracciones(tFC1.getText(), tFC2.getText())),
+                            "Información sobre la operación",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
                     VAtracciones.actualizarTabla(modelo);
+                } catch (IllegalArgumentException e){
+                    // Error al validar los campos
+                    JFrame mensaje = new JFrame("Error en los valores introducidos");
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            "Ha ocurrido un error con los valores introducidos:\n"+e.getMessage(),
+                            "Información sobre la operación",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                } catch (RuntimeException e){
+                    // Error en la consulta SQL
+                    JFrame mensaje = new JFrame("Error en la modificación");
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            "Ha ocurrido un error al intentar modificar los datos",
+                            "Información sobre la operación",
+                            JOptionPane.ERROR_MESSAGE
+                    );
                 }
             }
         });
