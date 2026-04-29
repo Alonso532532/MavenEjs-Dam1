@@ -1,5 +1,3 @@
 Se podría cambiar el formato en el que pide la fecha de una visita el controlador para que no se tenga que comprobar en la vista??
 
 Buscar la manera de facilitarle el numero de id de los sitios que sea necesario para añadir algo de otra tabla
-
-En los modelos traer solo Strings y validarlos allí, para enviar todos los mensajes de error juntos y validár solo 1 vez
