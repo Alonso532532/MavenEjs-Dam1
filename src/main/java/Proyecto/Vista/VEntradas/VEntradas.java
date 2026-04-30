@@ -54,13 +54,13 @@ public class VEntradas {
 
         // Creo la zona del medio
         JPanel medio = new JPanel();
-//        medio.setBorder(new LineBorder(new Color(138, 138, 138), 3));
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
         String[] cabecea = {"Numero de entrada", "Tipo", "Precio", "DNI"};
         Object[][] datos = new Object[CEntrada.seleccionarTodo().size()][4];
         int cont = 0;
+
         // Inicializo la matríz
         for (Entrada i: CEntrada.seleccionarTodo()){
             datos[cont][0] = i.getNumeroDeEntrada();
@@ -136,6 +136,7 @@ public class VEntradas {
 
         base.setVisible(true);
 
+        // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
@@ -162,6 +163,11 @@ public class VEntradas {
             base.dispose();
         });
 
+        // Añado funcionalidad a los botónes de abajo
+        botonS1.addActionListener(a->{
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAanadir.mostrar(base.getLocation(), modelo);
+        });
 
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
@@ -195,15 +201,12 @@ public class VEntradas {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
-
-        botonS1.addActionListener(a->{
-            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAanadir.mostrar(base.getLocation(), modelo);
-        });
     }
 
+    // Botón de actualizar la tabla
     public static void actualizarTabla(DefaultTableModel modelo) {
-        modelo.setRowCount(0); // borra filas
+        // Borro las filas antes de añadir las nuevas
+        modelo.setRowCount(0);
 
         for (Entrada c : CEntrada.seleccionarTodo()) {
             modelo.addRow(new Object[]{

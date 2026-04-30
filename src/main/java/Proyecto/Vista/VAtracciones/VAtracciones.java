@@ -221,8 +221,6 @@ public class VAtracciones {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
-
-
     }
 
     // Botón de actualizar la tabla
