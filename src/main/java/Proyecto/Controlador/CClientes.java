@@ -20,13 +20,8 @@ public final class CClientes {
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos
-            // Cuento la cantidad de fallos
-            int errores = e.getMessage().split("\n").length;
-            if (errores==1){
-                return "Ha ocurrido un error con los datos del cliente, causa:\n"+e.getMessage();
-            } else {
-                return "Han ocurrido "+errores+" errores con los datos del cliente, causas:\n"+e.getMessage();
-            }
+            return "Han ocurrido errores con los datos del cliente, causa:\n"+e.getMessage();
+
 
         }catch (RuntimeException e){
             // Fallos de SQL

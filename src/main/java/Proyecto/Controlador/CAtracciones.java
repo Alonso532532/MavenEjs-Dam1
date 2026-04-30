@@ -22,21 +22,15 @@ public final class CAtracciones {
     }
 
     // Mediante los datos necesarios para hacer una atracción añado la atracción comprobando los posibles fallos
-    public static String anadir(Atracciones atraccion){
+    public static String anadir(String nombre, String numeroDeZona){
         try {
 
-            DAtracciones.anadir(atraccion);
+            DAtracciones.anadir(new Atracciones(nombre, numeroDeZona));
             return "Atracción introducida con éxito";
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos
-            // Cuento la cantidad de fallos
-            int errores = e.getMessage().split("\n").length;
-            if (errores==1){
-                return "Ha ocurrido un error con los datos de la atracción, causa:\n"+e.getMessage();
-            } else {
-                return "Han ocurrido "+errores+" errores con los datos de la atracción, causas:\n"+e.getMessage();
-            }
+            return "Han ocurrido errores con los datos de la atracción, causa:\n"+e.getMessage();
 
         }catch (RuntimeException e){
             // Fallos de SQL
@@ -79,15 +73,28 @@ public final class CAtracciones {
     }
 
     // Modifico los valores mediante la clave
-    public static String modificar(int numeroDeAtraccion, Atracciones atraccion, Atracciones atraccionNueva){
+    public static String modificar(String numeroDeAtraccion, String nombreAnterior, String numeroDeZonaAnterior, String nombreNuevo, String numeroDeZonaNuevo){
 
-        if (!atraccion.getNombre().equals(atraccionNueva.getNombre())){
-            DAtracciones.cambiarNombre(numeroDeAtraccion, atraccionNueva.getNombre());
-        }
-        if (!(atraccion.getNumeroDeZona()==atraccionNueva.getNumeroDeZona())){
-            DAtracciones.cambiarNumeroDeZona(numeroDeAtraccion, atraccionNueva.getNumeroDeZona());
-        }
-        return "Nombre y numero de zona modificados con éxito";
+        try {
 
+            Atracciones atraccionAntigua = new Atracciones(nombreAnterior, numeroDeZonaAnterior);
+            Atracciones atraccionNueva = new Atracciones(nombreNuevo, numeroDeZonaNuevo);
+
+            if (!atraccionAntigua.getNombre().equals(atraccionNueva.getNombre())){
+                DAtracciones.cambiarNombre(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNombre());
+            }
+
+            if (!(atraccionAntigua.getNumeroDeZona()==atraccionNueva.getNumeroDeZona())){
+                DAtracciones.cambiarNumeroDeZona(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNumeroDeZona());
+            }
+            return "Nombre y numero de zona modificados con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            return "Han ocurrido errores con los datos de la atracción, causa:\n"+e.getMessage();
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la atracción, causa:\n"+e.getMessage();
+        }
     }
 }

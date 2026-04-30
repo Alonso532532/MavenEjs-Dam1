@@ -51,13 +51,13 @@ public class VClientes {
 
         // Creo la zona del medio
         JPanel medio = new JPanel();
-//        medio.setBorder(new LineBorder(new Color(138, 138, 138), 3));
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
         String[] cabecea = {"DNI", "Edad", "Nombre"};
         Object[][] datos = new Object[CClientes.seleccionarTodo().size()][3];
         int cont = 0;
+
         // Inicializo la matríz
         for (Clientes i : CClientes.seleccionarTodo()) {
             datos[cont][0] = i.getDni();
@@ -73,6 +73,7 @@ public class VClientes {
                 return false;
             }
         };
+
         // Añado el modelo a la tabla
         JTable tabla = new JTable(modelo);
 
@@ -109,6 +110,7 @@ public class VClientes {
         medioArriba.add(filtroL, BorderLayout.WEST);
         medioArriba.add(filtro, BorderLayout.CENTER);
         medio.add(medioArriba, BorderLayout.NORTH);
+
         // Creo la parte de abajo y sus botónes
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
@@ -131,6 +133,7 @@ public class VClientes {
 
         base.setVisible(true);
 
+        // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a -> {
             Inicio.ejecutar();
             base.dispose();
@@ -157,8 +160,12 @@ public class VClientes {
             base.dispose();
         });
 
+        botonS1.addActionListener(a->{
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAnadir.mostrar(base.getLocation(), modelo);
+        });
 
-
+        // Añado funcionalidad a los botónes de abajo
         // Este es el botón de "borrar selección"
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
@@ -182,7 +189,6 @@ public class VClientes {
                     );
 
                     // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
-
                     if (respuesta == JOptionPane.YES_OPTION) {
                         if (!CEntrada.seleccionarPorDni(dni).isEmpty()) {
                             JFrame mensajeVisitas = new JFrame("Operación de eliminación (entradas)");
@@ -243,15 +249,11 @@ public class VClientes {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
-
-        botonS1.addActionListener(a->{
-            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAnadir.mostrar(base.getLocation(), modelo);
-        });
     }
 
     public static void actualizarTabla(DefaultTableModel modelo) {
-        modelo.setRowCount(0); // borra filas
+        // Borro las filas antes de añadir las nuevas
+        modelo.setRowCount(0);
 
         for (Clientes c : CClientes.seleccionarTodo()) {
             modelo.addRow(new Object[]{

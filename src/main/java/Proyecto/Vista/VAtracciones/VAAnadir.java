@@ -62,34 +62,14 @@ public class VAAnadir {
                         JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
-                try {
-                    JFrame mensaje = new JFrame("Operación para añadir atracciones");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            CAtracciones.anadir(new Atracciones(tFC1.getText(), tFC2.getText())),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    VAtracciones.actualizarTabla(modelo);
-                } catch (IllegalArgumentException e){
-                    // Error al validar los campos
-                    JFrame mensaje = new JFrame("Error en los valores introducidos");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            "Ha ocurrido un error con los valores introducidos:\n"+e.getMessage(),
-                            "Información sobre la operación",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                } catch (RuntimeException e){
-                    // Error en la consulta SQL
-                    JFrame mensaje = new JFrame("Error en la modificación");
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            "Ha ocurrido un error al intentar modificar los datos",
-                            "Información sobre la operación",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
+                JFrame mensaje = new JFrame("Operación para añadir atracciones");
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        CAtracciones.anadir(tFC1.getText(), tFC2.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                VAtracciones.actualizarTabla(modelo);
             }
         });
     }

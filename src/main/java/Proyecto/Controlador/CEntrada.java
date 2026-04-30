@@ -28,13 +28,8 @@ public final class CEntrada {
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos
-            // Cuento la cantidad de fallos
-            int errores = e.getMessage().split("\n").length;
-            if (errores==1){
-                return "Ha ocurrido un error con los datos de la entrada, causa:\n"+e.getMessage();
-            } else {
-                return "Han ocurrido "+errores+" errores con los datos de la entrada, causas:\n"+e.getMessage();
-            }
+            return "Han ocurrido errores con los datos de la entrada, causa:\n"+e.getMessage();
+
 
         }catch (RuntimeException e){
             // Fallos de SQL

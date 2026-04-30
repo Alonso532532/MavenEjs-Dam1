@@ -76,6 +76,7 @@ public class VAtracciones {
                 return false;
             }
         };
+
         // Añado el modelo a la tabla
         JTable tabla = new JTable(modelo);
 
@@ -206,15 +207,15 @@ public class VAtracciones {
                 // Selecciono la fila que ha seleccionado
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                vAModificar.mostrar(base.getLocation(), modelo, new Atracciones ((int) modelo.getValueAt(filaModelo, 0), String.valueOf(modelo.getValueAt(filaModelo, 1)), (int) modelo.getValueAt(filaModelo, 2)));
+                vAModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
             } else {
-            JOptionPane.showMessageDialog(
-                    mensaje,
-                    "No hay nada seleccionado",
-                    "Información sobre la operación",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-        }
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
         });
 
         botonS4.addActionListener(a->{
