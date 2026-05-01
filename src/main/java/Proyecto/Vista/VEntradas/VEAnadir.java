@@ -56,6 +56,7 @@ public class VEAnadir {
         fAnadir.add(panelS, BorderLayout.SOUTH);
 
         botonAnadir.addActionListener(a -> {
+            // En cuanto se active al botón se comprueba que no hayan campos vacíos
             if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
                 JFrame mensaje = new JFrame("Error de formato");
                 JOptionPane.showMessageDialog(

@@ -11,9 +11,12 @@ import java.time.LocalDateTime;
 
 public class VVAnadir {
     private static JFrame fAnadir = new JFrame();
+    // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
+    // Este método inicializa todo de la ventana
     public void construir() {
+        // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
         fAnadir.setTitle("Añadir visita");
@@ -64,6 +67,7 @@ public class VVAnadir {
 
 
         botonAnadir.addActionListener(a -> {
+            // En cuanto se active al botón se comprueba que no hayan campos vacíos
             if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
                 JFrame mensaje = new JFrame("Error de formato");
                 JOptionPane.showMessageDialog(

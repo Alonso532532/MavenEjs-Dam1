@@ -1,6 +1,8 @@
 package Proyecto.Controlador;
 
+import Proyecto.DAO.DAtracciones;
 import Proyecto.DAO.DClientes;
+import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Clientes;
 
 import java.util.ArrayList;
@@ -42,6 +44,32 @@ public final class CClientes {
         }catch (RuntimeException e){
             // Fallos de SQL
             return "Ha ocurrido un error en la introducción del cliente, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Modifico los valores mediante la clave
+    public static String modificar(String dniAnterior, String edadAnterior, String nombreAnterior, String dniNuevo, String edadNuevo, String nombreNuevo){
+
+        try {
+
+            Clientes clienteAntiguo = new Atracciones(nombreAnterior, numeroDeZonaAnterior);
+            Clientes clienteNuevo = new Atracciones(nombreNuevo, numeroDeZonaNuevo);
+
+            if (!atraccionAntigua.getNombre().equals(atraccionNueva.getNombre())){
+                DAtracciones.cambiarNombre(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNombre());
+            }
+
+            if (!(atraccionAntigua.getNumeroDeZona()==atraccionNueva.getNumeroDeZona())){
+                DAtracciones.cambiarNumeroDeZona(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNumeroDeZona());
+            }
+            return "Nombre y numero de zona modificados con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            return "Han ocurrido errores con los datos de la atracción, causa:\n"+e.getMessage();
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la atracción, causa:\n"+e.getMessage();
         }
     }
 }

@@ -57,13 +57,13 @@ public class VZonas {
 
         // Creo la zona del medio
         JPanel medio = new JPanel();
-//        medio.setBorder(new LineBorder(new Color(138, 138, 138), 3));
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
         String[] cabecea = {"Numero de zona", "Nombre"};
         Object[][] datos = new Object[CZonas.seleccionarTodo().size()][2];
         int cont = 0;
+
         // Inicializo la matríz
         for (Zonas i: CZonas.seleccionarTodo()){
             datos[cont][0] = i.getNumeroDeZona();
@@ -137,6 +137,7 @@ public class VZonas {
 
         base.setVisible(true);
 
+        // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
@@ -161,6 +162,12 @@ public class VZonas {
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
+        });
+
+        // Añado funcionalidad a los botónes de abajo
+        botonS1.addActionListener(a->{
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAanadir.mostrar(base.getLocation(), modelo);
         });
 
         // Este es el botón de "borrar selección"
@@ -247,15 +254,12 @@ public class VZonas {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
-
-        botonS1.addActionListener(a->{
-            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAanadir.mostrar(base.getLocation(), modelo);
-        });
     }
 
+    // Botón de actualizar la tabla
     public static void actualizarTabla(DefaultTableModel modelo) {
-        modelo.setRowCount(0); // borra filas
+        // Borro las filas antes de añadir las nuevas
+        modelo.setRowCount(0);
 
         for (Zonas c : CZonas.seleccionarTodo()) {
             modelo.addRow(new Object[]{

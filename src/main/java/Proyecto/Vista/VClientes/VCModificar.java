@@ -1,13 +1,14 @@
-package Proyecto.Vista.VAtracciones;
+package Proyecto.Vista.VClientes;
 
 import Proyecto.Controlador.CAtracciones;
+import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class VAModificar {
+public class VCModificar {
     private static JFrame fModificar = new JFrame();
     // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;

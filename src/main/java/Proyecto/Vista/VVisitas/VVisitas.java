@@ -54,13 +54,13 @@ public class VVisitas {
 
         // Creo la zona del medio
         JPanel medio = new JPanel();
-//        medio.setBorder(new LineBorder(new Color(138, 138, 138), 3));
         medio.setLayout(new BorderLayout());
 
         // Para crear la tabla que voy a mostrar tengo que crear un array para la cabecera de la tabla y una matríz con las filas de la tabla
         String[] cabecea = {"DNI", "Numero de zona", "Fecha"};
         Object[][] datos = new Object[CVisita.seleccionarTodo().size()][3];
         int cont = 0;
+
         // Inicializo la matríz
         for (Visita i: CVisita.seleccionarTodo()){
             datos[cont][0] = i.getDni();
@@ -76,6 +76,7 @@ public class VVisitas {
                 return false;
             }
         };
+
         // Añado el modelo a la tabla
         JTable tabla = new JTable(modelo);
 
@@ -135,7 +136,7 @@ public class VVisitas {
 
         base.setVisible(true);
 
-
+        // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
@@ -160,6 +161,12 @@ public class VVisitas {
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(true, base.getLocation());
             base.dispose();
+        });
+
+        // Añado funcionalidad a los botónes de abajo
+        botonS1.addActionListener(a->{
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vAanadir.mostrar(base.getLocation(), modelo);
         });
 
         botonS2.addActionListener(a->{
@@ -196,15 +203,12 @@ public class VVisitas {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
-
-        botonS1.addActionListener(a->{
-            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAanadir.mostrar(base.getLocation(), modelo);
-        });
     }
 
+    // Botón de actualizar la tabla
     public static void actualizarTabla(DefaultTableModel modelo) {
-        modelo.setRowCount(0); // borra filas
+        // Borro las filas antes de añadir las nuevas
+        modelo.setRowCount(0);
 
         for (Visita c : CVisita.seleccionarTodo()) {
             modelo.addRow(new Object[]{
