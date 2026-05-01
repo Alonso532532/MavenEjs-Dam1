@@ -3,6 +3,7 @@ package Proyecto.Vista.VClientes;
 import Proyecto.Controlador.*;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.*;
+import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VVisitas.VVisitas;
@@ -16,9 +17,11 @@ import java.awt.*;
 
 public class VClientes {
     static VCAnadir vAnadir = new VCAnadir();
+    static VCModificar vCModificar = new VCModificar();
 
     public static void ejecutar(boolean admin, Point posicion) {
         vAnadir.construir();
+        vCModificar.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -237,6 +240,24 @@ public class VClientes {
                     }
                 }
             }else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS3.addActionListener(a->{
+            JFrame mensaje = new JFrame("Operación de modificación");
+            // Compruebo si ha seleccionado algo
+            if  (tabla.getSelectedRow() != -1) {
+                // Selecciono la fila que ha seleccionado
+                int filaVista = tabla.getSelectedRow();
+                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                vCModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
+            } else {
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",

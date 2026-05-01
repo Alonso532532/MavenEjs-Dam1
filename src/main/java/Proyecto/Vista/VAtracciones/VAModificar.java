@@ -62,8 +62,8 @@ public class VAModificar {
         fModificar.add(panelS, BorderLayout.SOUTH);
 
         botonModificar.addActionListener(a -> {
-            // En cuanto se active al botón se comprueba que no hayan campos vacíos y que se haya modificado almenos un campo
-            if ((!tFC2.getText().equals(nombreAnterior) || !tFC3.getText().equals(String.valueOf(numeroDeZonaAnterior))) && (!tFC2.getText().isEmpty() && !tFC3.getText().isEmpty())){
+            // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
+            if (!tFC2.getText().equals(nombreAnterior) || !tFC3.getText().equals(numeroDeZonaAnterior)){
                 // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
                 JFrame mensaje = new JFrame("Ejecución completada");
                 String resp;
@@ -79,11 +79,11 @@ public class VAModificar {
                     VAtracciones.actualizarTabla(modelo);
                 }
             } else {
-                // Si no hay cambios en los campos o hay campos vacíos
+                // Si no hay cambios en los campos
                 JFrame mensaje = new JFrame("Sin cambios");
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        "No han habido cambios en los valores o hay campos vacíos",
+                        "No han habido cambios en los valores",
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );

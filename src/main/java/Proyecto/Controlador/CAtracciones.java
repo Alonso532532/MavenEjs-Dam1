@@ -87,7 +87,7 @@ public final class CAtracciones {
             if (!(atraccionAntigua.getNumeroDeZona()==atraccionNueva.getNumeroDeZona())){
                 DAtracciones.cambiarNumeroDeZona(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNumeroDeZona());
             }
-            return "Nombre y numero de zona modificados con éxito";
+            return "Atraccion modificada con éxito";
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos

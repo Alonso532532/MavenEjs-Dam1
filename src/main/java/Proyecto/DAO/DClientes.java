@@ -40,12 +40,12 @@ public final class DClientes {
     }
 
     // Esta se encarga de comprobar si el DNI está en la tabla, lo que es util para comprobaciones
-    public static boolean comprobarPorDni(String DNI){
+    public static boolean comprobarPorDni(String dni){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from clientes where DNI = ?");
 
-            preparedStatement.setString(1, DNI);
+            preparedStatement.setString(1, dni);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -57,12 +57,12 @@ public final class DClientes {
     }
 
     // Esta elimina un cliente según su DNI
-    public static boolean eliminarPorDni(String DNI){
+    public static boolean eliminarPorDni(String dni){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("delete from Clientes where DNI = ?");
 
-            preparedStatement.setString(1, DNI);
+            preparedStatement.setString(1, dni);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {
@@ -71,13 +71,13 @@ public final class DClientes {
     }
 
     // En estas modifico todos los atributos
-    public static boolean cambiarEdad(String DNI, int edad){
+    public static boolean cambiarEdad(String dni, int edad){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("update Clientes set edad = ? where DNI = ?");
 
             preparedStatement.setInt(1, edad);
-            preparedStatement.setString(2, DNI);
+            preparedStatement.setString(2, dni);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {
@@ -85,13 +85,13 @@ public final class DClientes {
         }
     }
 
-    public static boolean cambiarNombre(String DNI, String nombre){
+    public static boolean cambiarNombre(String dni, String nombre){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("update Clientes set nombre = ? where DNI = ?");
 
             preparedStatement.setString(1, nombre);
-            preparedStatement.setString(2, DNI);
+            preparedStatement.setString(2, dni);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {
@@ -99,13 +99,13 @@ public final class DClientes {
         }
     }
 
-    public static boolean cambiarDni(String DNIAntiguo, String DNINuevo){
+    public static boolean cambiarDni(String dniAntiguo, String dniNuevo){
         try {
             Connection connection = Conexion.conectar();
             PreparedStatement preparedStatement = connection.prepareStatement("update Clientes set DNI = ? where DNI = ?");
 
-            preparedStatement.setString(1, DNINuevo);
-            preparedStatement.setString(2, DNIAntiguo);
+            preparedStatement.setString(1, dniNuevo);
+            preparedStatement.setString(2, dniAntiguo);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {

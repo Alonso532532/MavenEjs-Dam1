@@ -52,24 +52,36 @@ public final class CClientes {
 
         try {
 
-            Clientes clienteAntiguo = new Atracciones(nombreAnterior, numeroDeZonaAnterior);
-            Clientes clienteNuevo = new Atracciones(nombreNuevo, numeroDeZonaNuevo);
+            Clientes clienteAntiguo = new Clientes(dniAnterior, edadAnterior, nombreAnterior, false);
+            Clientes clienteNuevo = new Clientes(dniNuevo, edadNuevo, nombreNuevo, false);
 
-            if (!atraccionAntigua.getNombre().equals(atraccionNueva.getNombre())){
-                DAtracciones.cambiarNombre(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNombre());
+            // Compruebo la concurrencia aparte porque puede no haber modificado el DNI y saltaría un error
+            if (!clienteAntiguo.getDni().equals(clienteNuevo.getDni())){
+                if (DClientes.comprobarPorDni(clienteNuevo.getDni())){
+                    throw new IllegalArgumentException("El dni ya existe\n");
+                }
             }
 
-            if (!(atraccionAntigua.getNumeroDeZona()==atraccionNueva.getNumeroDeZona())){
-                DAtracciones.cambiarNumeroDeZona(Integer.parseInt(numeroDeAtraccion), atraccionNueva.getNumeroDeZona());
+            if (clienteAntiguo.getEdad()!=clienteNuevo.getEdad()){
+                DClientes.cambiarEdad(clienteAntiguo.getDni(), clienteNuevo.getEdad());
             }
-            return "Nombre y numero de zona modificados con éxito";
+
+            if (!clienteAntiguo.getNombre().equals(clienteNuevo.getNombre())){
+                DClientes.cambiarNombre(clienteAntiguo.getDni(), clienteNuevo.getNombre());
+            }
+
+            if (!clienteAntiguo.getDni().equals(clienteNuevo.getDni())){
+                DClientes.cambiarDni(clienteAntiguo.getDni(), clienteNuevo.getDni());
+            }
+
+            return "Cliente modificado con éxito";
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos
-            return "Han ocurrido errores con los datos de la atracción, causa:\n"+e.getMessage();
+            return "Han ocurrido errores con los datos del cliente, causa:\n"+e.getMessage();
         }catch (RuntimeException e){
             // Fallos de SQL
-            return "Ha ocurrido un error en la introducción de la atracción, causa:\n"+e.getMessage();
+            return "Ha ocurrido un error en la introducción del cliente, causa:\n"+e.getMessage();
         }
     }
 }
