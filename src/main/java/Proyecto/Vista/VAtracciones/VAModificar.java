@@ -21,7 +21,7 @@ public class VAModificar {
     private static TextField tFC3 = new TextField();
 
     // Este método inicializa todo de la ventana
-    public void construir() {
+    public static void construir() {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fModificar.setResizable(false);
 
@@ -73,7 +73,7 @@ public class VAModificar {
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-                if (resp.equals("Nombre y numero de zona modificados con éxito")) {
+                if (resp.equals("Atraccion modificada con éxito")) {
                     nombreAnterior = tFC2.getText();
                     numeroDeZonaAnterior = tFC3.getText();
                     VAtracciones.actualizarTabla(modelo);
@@ -85,13 +85,13 @@ public class VAModificar {
                         mensaje,
                         "No han habido cambios en los valores",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
     }
 
-    public void mostrar(Point posicion, DefaultTableModel modeloNuevo, String numeroDeAtraccion, String nombre, String numeroDeZona){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String numeroDeAtraccion, String nombre, String numeroDeZona){
         // Guardo los valores antiguos
         nombreAnterior = nombre;
         numeroDeZonaAnterior = numeroDeZona;
@@ -108,7 +108,7 @@ public class VAModificar {
         modelo = modeloNuevo;
     }
 
-    public void ocultar(){
+    public static void ocultar(){
         fModificar.dispose();
     }
 }

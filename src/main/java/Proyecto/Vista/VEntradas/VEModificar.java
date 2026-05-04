@@ -1,29 +1,30 @@
-package Proyecto.Vista.VClientes;
+package Proyecto.Vista.VEntradas;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CEntrada;
 import Proyecto.Controlador.CVisita;
-import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class VCModificar {
+public class VEModificar {
     private static JFrame fModificar = new JFrame();
     // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
     // Estas variables me sirven para saber si hay cambios
-    private static String dniAnterior = "";
-    private static String edadAnterior = "";
-    private static String nombreAnterior = "";
+    private static String numeroDeEntrada = "";
+    private static String tipo = "";
+    private static String precio = "";
+    private static String dni = "";
 
     private static TextField tFC1 = new TextField();
     private static TextField tFC2 = new TextField();
     private static TextField tFC3 = new TextField();
+    private static TextField tFC4 = new TextField();
 
     // Este método inicializa todo de la ventana
     public static void construir() {
@@ -43,6 +44,9 @@ public class VCModificar {
         labelC1.setText("DNI");
         labelC2.setText("Edad");
         labelC3.setText("Nombre");
+
+        tFC1.setFocusable(false);
+        tFC1.setBackground(new Color(229, 229, 229));
 
         panelC.add(labelC1);
         panelC.add(labelC2);

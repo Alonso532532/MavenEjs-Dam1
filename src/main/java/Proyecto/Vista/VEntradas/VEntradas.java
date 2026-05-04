@@ -6,6 +6,7 @@ import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Entrada;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VVisitas.VVisitas;
 import Proyecto.Vista.VZonas.VZonas;
@@ -188,6 +189,24 @@ public class VEntradas {
                     actualizarTabla(modelo);
                 }
 
+            } else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS3.addActionListener(a->{
+            JFrame mensaje = new JFrame("Operación de modificación");
+            // Compruebo si ha seleccionado algo
+            if  (tabla.getSelectedRow() != -1) {
+                // Selecciono la fila que ha seleccionado
+                int filaVista = tabla.getSelectedRow();
+                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                VEModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
             } else {
                 JOptionPane.showMessageDialog(
                         mensaje,

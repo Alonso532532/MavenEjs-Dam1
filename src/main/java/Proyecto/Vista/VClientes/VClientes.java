@@ -17,11 +17,9 @@ import java.awt.*;
 
 public class VClientes {
     static VCAnadir vAnadir = new VCAnadir();
-    static VCModificar vCModificar = new VCModificar();
 
     public static void ejecutar(boolean admin, Point posicion) {
         vAnadir.construir();
-        vCModificar.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -191,27 +189,8 @@ public class VClientes {
                             JOptionPane.YES_NO_OPTION
                     );
 
-                    // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
+                    // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
                     if (respuesta == JOptionPane.YES_OPTION) {
-                        if (!CEntrada.seleccionarPorDni(dni).isEmpty()) {
-                            JFrame mensajeVisitas = new JFrame("Operación de eliminación (entradas)");
-                            JOptionPane.showMessageDialog(
-                                    mensajeVisitas,
-                                    CEntrada.eliminarPorDni(dni),
-                                    "Información sobre la operación",
-                                    JOptionPane.INFORMATION_MESSAGE
-                            );
-                        }
-
-                        if (!CVisita.seleccionarPorDni(dni).isEmpty()) {
-                            JFrame mensajeAtracciones = new JFrame("Operación de eliminación (visitas)");
-                            JOptionPane.showMessageDialog(
-                                    mensajeAtracciones,
-                                    CVisita.eliminarPorDni(dni),
-                                    "Información sobre la operación",
-                                    JOptionPane.INFORMATION_MESSAGE
-                            );
-                        }
 
                         // Activo el borrado del elemento
                         eliminar = true;
@@ -256,7 +235,7 @@ public class VClientes {
                 // Selecciono la fila que ha seleccionado
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                vCModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
+                VCModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
             } else {
                 JOptionPane.showMessageDialog(
                         mensaje,

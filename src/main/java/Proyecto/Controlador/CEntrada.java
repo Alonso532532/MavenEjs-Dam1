@@ -68,4 +68,5 @@ public final class CEntrada {
             return "Ha ocurrido un error en la introducción de la entrada, causa:\n"+e.getMessage();
         }
     }
+
 }

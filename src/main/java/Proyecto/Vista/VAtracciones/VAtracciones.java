@@ -17,11 +17,9 @@ import java.awt.*;
 
 public class VAtracciones {
     static VAAnadir vAAnadir = new VAAnadir();
-    static VAModificar vAModificar = new VAModificar();
 
     public static void ejecutar(boolean admin, Point posicion) {
         vAAnadir.construir();
-        vAModificar.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -141,7 +139,7 @@ public class VAtracciones {
             Inicio.ejecutar();
             base.dispose();
             vAAnadir.ocultar();
-            vAModificar.ocultar();
+            VAModificar.ocultar();
         });
 
         botonN3.addActionListener(a->{
@@ -207,7 +205,7 @@ public class VAtracciones {
                 // Selecciono la fila que ha seleccionado
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                vAModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
+                VAModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
             } else {
                 JOptionPane.showMessageDialog(
                         mensaje,

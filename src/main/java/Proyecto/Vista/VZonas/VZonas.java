@@ -192,29 +192,8 @@ public class VZonas {
                             JOptionPane.YES_NO_OPTION
                     );
 
-                    // Si selecciona si se eliminan los elementos relacionados con este y se elimina el elemento
-
+                    // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
                     if (respuesta == JOptionPane.YES_OPTION) {
-                        if (!CVisita.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
-                            JFrame mensajeVisitas = new JFrame("Operación de eliminación (visitas)");
-                            JOptionPane.showMessageDialog(
-                                    mensajeVisitas,
-                                    CVisita.eliminarPorNumeroDeZona(numeroZona),
-                                    "Información sobre la operación",
-                                    JOptionPane.INFORMATION_MESSAGE
-                            );
-                        }
-
-                        if (!CAtracciones.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
-                            JFrame mensajeAtracciones = new JFrame("Operación de eliminación (atracciones)");
-                            JOptionPane.showMessageDialog(
-                                    mensajeAtracciones,
-                                    CAtracciones.eliminarPorNumeroDeZona(numeroZona),
-                                    "Información sobre la operación",
-                                    JOptionPane.INFORMATION_MESSAGE
-                            );
-                        }
-
                         // Activo el borrado del elemento
                         eliminar = true;
                     } else {

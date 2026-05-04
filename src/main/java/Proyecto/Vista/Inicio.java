@@ -3,14 +3,20 @@ package Proyecto.Vista;
 import Proyecto.Controlador.CUsuarios;
 import Proyecto.DAO.DUsuarios;
 import Proyecto.Modelo.Usuario;
+import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VCModificar;
+import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Inicio {
+    static boolean primero = true;
+
     public static void ejecutar() {
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Inicio");
@@ -98,6 +104,11 @@ public final class Inicio {
         boton.addActionListener(a->{
             if (CUsuarios.comprobarInicioDeSesion(new Usuario(campoU.getText(), campoC.getText(), false))){
                 VAtracciones.ejecutar(true, base.getLocation());
+                if (primero){
+                    VAModificar.construir();
+                    VCModificar.construir();
+                    primero=false;
+                }
                 base.dispose();
             }
         });
