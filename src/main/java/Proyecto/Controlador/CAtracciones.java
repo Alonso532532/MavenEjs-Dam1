@@ -56,22 +56,6 @@ public final class CAtracciones {
         }
     }
 
-    // Mediante el número de zona elimino las atracciones relacionadas comprobando los posibles fallos
-    public static String eliminarPorNumeroDeZona(int numeroDeZona){
-        try {
-
-            if (DAtracciones.eliminarPorNumeroDeZona(numeroDeZona)) {
-                return "Atracciones eliminadas con éxito";
-            } else {
-                return "Ha ocurrido un error con los datos de la atraccion, causa:\nEl numero de zona no existe\n";
-            }
-
-        }catch (RuntimeException e){
-            // Fallos de SQL
-            return "Ha ocurrido un error en la introducción de la atraccion, causa:\n"+e.getMessage();
-        }
-    }
-
     // Modifico los valores mediante la clave
     public static String modificar(String numeroDeAtraccion, String nombreAnterior, String numeroDeZonaAnterior, String nombreNuevo, String numeroDeZonaNuevo){
 

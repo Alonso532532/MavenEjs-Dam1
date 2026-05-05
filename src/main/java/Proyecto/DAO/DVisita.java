@@ -120,34 +120,6 @@ public final class DVisita {
         }
     }
 
-    // Esta elimina todas las visitas según su número de visíta
-    public static boolean eliminarPorNumeroDeZona(int numeroDeZona){
-        try {
-            Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from visita where numeroDeZona = ?");
-
-            preparedStatement.setInt(1, numeroDeZona);
-
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // Esta elimina todas las visitas según su dni
-    public static boolean eliminarPorDni(String dni){
-        try {
-            Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from visita where dni = ?");
-
-            preparedStatement.setString(1, dni);
-
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     // En estas modifico todos los atributos
     public static boolean cambiarNumeroDeZona(Visita visita, int numeroDeZonaNuevo){
         try {

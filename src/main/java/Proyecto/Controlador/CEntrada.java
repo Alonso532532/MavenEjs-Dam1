@@ -53,20 +53,32 @@ public final class CEntrada {
         }
     }
 
-    // Mediante el dni elimino las entradas relacionadas comprobando los posibles fallos
-    public static String eliminarPorDni(String dni){
+    public static String modificar(int numeroDeEntrada, String tipoAnterior, String precioAnterior, String dniAnterior, String tipoNuevo, String precioNuevo, String dniNuevo){
+
         try {
 
-            if (DEntrada.eliminarPorDni(dni)) {
-                return "Entradas eliminadas con éxito";
-            } else {
-                return "Ha ocurrido un error con los datos de la entrada, causa:\nEl dni no existe\n";
+            Entrada entradaAntigua = new Entrada(tipoAnterior, precioAnterior, dniAnterior);
+            Entrada entradaNueva = new Entrada(tipoNuevo, precioNuevo, dniNuevo);
+
+            if (!entradaAntigua.getTipo().equals(entradaNueva.getTipo())){
+                DEntrada.cambiarTipo(numeroDeEntrada, tipoNuevo);
             }
 
+            if (entradaAntigua.getPrecio()!=entradaNueva.getPrecio()){
+                DEntrada.cambiarPrecio(numeroDeEntrada, entradaNueva.getPrecio());
+            }
+
+            if (!entradaAntigua.getDni().equals(entradaNueva.getDni())){
+                DEntrada.cambiarDni(numeroDeEntrada, dniNuevo);
+            }
+            return "Entrada modificada con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            return "Han ocurrido errores con los datos de la entrada, causa:\n"+e.getMessage();
         }catch (RuntimeException e){
             // Fallos de SQL
             return "Ha ocurrido un error en la introducción de la entrada, causa:\n"+e.getMessage();
         }
     }
-
 }

@@ -92,7 +92,7 @@ public class VCModificar {
                 }
                 if (modificar) {
                     // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
-                    JFrame mensaje = new JFrame("Ejecución completada");
+                    JFrame mensaje = new JFrame("Proceso de modificación");
                     String resp;
                     JOptionPane.showMessageDialog(
                             mensaje,

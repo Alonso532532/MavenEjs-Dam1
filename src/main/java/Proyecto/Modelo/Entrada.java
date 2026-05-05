@@ -53,7 +53,7 @@ public class Entrada {
     }
 
     public boolean setPrecio(String precioString) {
-        double precio = Double.parseDouble(precioString);
+        double precio = Double.parseDouble(precioString.replace(",", "."));
         if (precio>=0){
             this.precio = precio;
             return true;

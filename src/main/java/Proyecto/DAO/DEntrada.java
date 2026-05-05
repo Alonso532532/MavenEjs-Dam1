@@ -77,20 +77,6 @@ public final class DEntrada {
         }
     }
 
-    // Esta elimina todas las entradas según su dni
-    public static boolean eliminarPorDni(String dni){
-        try {
-            Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from entrada where dni = ?");
-
-            preparedStatement.setString(1, dni);
-
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     // En estas modifico todos los atributos
     public static boolean cambiarTipo(int numeroDeEntrada, String tipo){
         try {

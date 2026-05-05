@@ -17,9 +17,9 @@ public class VEModificar {
 
     // Estas variables me sirven para saber si hay cambios
     private static String numeroDeEntrada = "";
-    private static String tipo = "";
-    private static String precio = "";
-    private static String dni = "";
+    private static String tipoAnterior = "";
+    private static String precioAnterior = "";
+    private static String dniAnterior = "";
 
     private static TextField tFC1 = new TextField();
     private static TextField tFC2 = new TextField();
@@ -40,10 +40,12 @@ public class VEModificar {
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
         JLabel labelC3 = new JLabel();
+        JLabel labelC4 = new JLabel();
 
-        labelC1.setText("DNI");
-        labelC2.setText("Edad");
-        labelC3.setText("Nombre");
+        labelC1.setText("Número");
+        labelC2.setText("Tipo");
+        labelC3.setText("Precio");
+        labelC4.setText("DNI");
 
         tFC1.setFocusable(false);
         tFC1.setBackground(new Color(229, 229, 229));
@@ -51,10 +53,12 @@ public class VEModificar {
         panelC.add(labelC1);
         panelC.add(labelC2);
         panelC.add(labelC3);
+        panelC.add(labelC4);
 
         panelC.add(tFC1);
         panelC.add(tFC2);
         panelC.add(tFC3);
+        panelC.add(tFC4);
 
         JPanel panelS = new JPanel(new FlowLayout());
 
@@ -69,48 +73,24 @@ public class VEModificar {
 
         botonModificar.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
-            if (!tFC1.getText().equals(dniAnterior) || !tFC2.getText().equals(edadAnterior) || !tFC3.getText().equals(nombreAnterior)){
-                boolean modificar;
-                // Compruebo que no dependa ningún elemento de este en caso de que se modifique su clave primaria
-                if ((!CEntrada.seleccionarPorDni(dniAnterior).isEmpty() || !CVisita.seleccionarPorDni(dniAnterior).isEmpty()) && !tFC1.getText().equals(dniAnterior)) {
+            if (!tFC2.getText().equals(tipoAnterior) || !tFC3.getText().equals(precioAnterior) || !tFC4.getText().equals(dniAnterior)){
 
-                    // Sí depende algún elemento le pregunto si quiere eliminarlo
-                    int respuesta = JOptionPane.showConfirmDialog(
-                            null,
-                            "De este cliente dependen " + CEntrada.seleccionarPorDni(dniAnterior).size() + " entradas y "+CVisita.seleccionarPorDni(dniAnterior).size()+" visitas\n¿Quieres modificarlas también?",
-                            "Confirmación",
-                            JOptionPane.YES_NO_OPTION
-                    );
-
-                    // Si selecciona si al modificarse se modifican los elementos que dependan de este
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        // Activo el borrado del elemento
-                        modificar = true;
-                    } else {
-                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
-                        modificar = false;
-                    }
-
-                } else {
-                    modificar = true;
+                // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
+                JFrame mensaje = new JFrame("Proceso de modificación");
+                String resp;
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CEntrada.modificar(Integer.parseInt(numeroDeEntrada), tipoAnterior, precioAnterior, dniAnterior, tFC2.getText(), tFC3.getText(), tFC4.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Entrada modificada con éxito")) {
+                    tipoAnterior = tFC2.getText();
+                    precioAnterior = tFC3.getText();
+                    dniAnterior = tFC4.getText();
+                    VEntradas.actualizarTabla(modelo);
                 }
-                if (modificar) {
-                    // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
-                    JFrame mensaje = new JFrame("Ejecución completada");
-                    String resp;
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            resp = CClientes.modificar(dniAnterior, edadAnterior, nombreAnterior, tFC1.getText(), tFC2.getText(), tFC3.getText()),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    if (resp.equals("Cliente modificado con éxito")) {
-                        dniAnterior = tFC1.getText();
-                        edadAnterior = tFC2.getText();
-                        nombreAnterior = tFC3.getText();
-                        VClientes.actualizarTabla(modelo);
-                    }
-                }
+
             } else {
                 // Si no hay cambios en los campos
                 JFrame mensaje = new JFrame("Sin cambios");
@@ -124,16 +104,18 @@ public class VEModificar {
         });
     }
 
-    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String dni, String edad, String nombre){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String numeroDeEntrada, String tipo, String precio, String dni){
         // Guardo los valores antiguos
+        VEModificar.numeroDeEntrada = numeroDeEntrada;
+        tipoAnterior = tipo;
+        precioAnterior = precio;
         dniAnterior = dni;
-        edadAnterior = edad;
-        nombreAnterior = nombre;
 
         // Asigno el valor de la fila seleccionada a los campos de texto
-        tFC1.setText(dni);
-        tFC2.setText(edad);
-        tFC3.setText(nombre);
+        tFC1.setText(numeroDeEntrada);
+        tFC2.setText(tipo);
+        tFC3.setText(precio);
+        tFC4.setText(dni);
 
         // Sitúo la ventana
         fModificar.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);

@@ -65,7 +65,7 @@ public class VAModificar {
             // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
             if (!tFC2.getText().equals(nombreAnterior) || !tFC3.getText().equals(numeroDeZonaAnterior)){
                 // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
-                JFrame mensaje = new JFrame("Ejecución completada");
+                JFrame mensaje = new JFrame("Proceso de modificación");
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,

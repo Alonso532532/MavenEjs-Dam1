@@ -206,7 +206,7 @@ public class VEntradas {
                 // Selecciono la fila que ha seleccionado
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
-                VEModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
+                VEModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)), String.valueOf(modelo.getValueAt(filaModelo, 3)));
             } else {
                 JOptionPane.showMessageDialog(
                         mensaje,
