@@ -173,8 +173,7 @@ public class VClientes {
 
             // Primero compruebo si ha seleccionado algo, si no se lo muestro mediante un pop up
             if  (tabla.getSelectedRow() != -1) {
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 String dni = String.valueOf(modelo.getValueAt(filaModelo, 0));
                 Boolean eliminar = false;
 
@@ -229,14 +228,13 @@ public class VClientes {
         });
 
         botonS3.addActionListener(a->{
-            JFrame mensaje = new JFrame("Operación de modificación");
             // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 VCModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
             } else {
+                JFrame mensaje = new JFrame("Operación de modificación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",

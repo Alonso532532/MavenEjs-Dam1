@@ -171,9 +171,10 @@ public class VVisitas {
 
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
+            // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                // Selecciono la fila que ha seleccionado
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 String dni = String.valueOf(modelo.getValueAt(filaModelo, 0));
                 Integer numeroDeZona = (Integer) (modelo.getValueAt(filaModelo, 1));
                 String fechaBonita = String.valueOf(modelo.getValueAt(filaModelo, 2));
@@ -191,6 +192,23 @@ public class VVisitas {
                 }
 
             } else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS3.addActionListener(a->{
+            // Compruebo si ha seleccionado algo
+            if  (tabla.getSelectedRow() != -1) {
+                // Selecciono la fila que ha seleccionado
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+                VVModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
+            } else {
+                JFrame mensaje = new JFrame("Operación de modificación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",

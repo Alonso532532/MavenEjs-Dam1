@@ -30,7 +30,8 @@ public class Visita {
             if (DVisita.comprobarPorClave(dni, this.numeroDeZona, fecha)) error+="La visita ya existe\n";
         }
         if (!setFecha(fecha)) error+="El formato de la fecha es inválido\n";
-        if (LocalDateTime.now().isBefore(this.fecha) || LocalDateTime.parse("1900-01-01T00:00:00").isAfter(this.fecha)) error+="La fecha es imposible\n";
+        //Si no ha dado fallo el formato de la fecha, se comprueba que sea posible la fecha de la visita
+        if (!error.contains("El formato de la fecha es inválido\n") && (LocalDateTime.now().isBefore(this.fecha) || LocalDateTime.parse("1900-01-01T00:00:00").isAfter(this.fecha))) error += "La fecha es imposible\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 

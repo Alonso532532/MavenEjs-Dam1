@@ -172,9 +172,10 @@ public class VEntradas {
 
         botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
+            // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                // Selecciono la fila que ha seleccionado
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 Integer numeroEntrada = (Integer) modelo.getValueAt(filaModelo, 0);
 
                 String resp;
@@ -200,14 +201,13 @@ public class VEntradas {
         });
 
         botonS3.addActionListener(a->{
-            JFrame mensaje = new JFrame("Operación de modificación");
             // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 VEModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)), String.valueOf(modelo.getValueAt(filaModelo, 3)));
             } else {
+                JFrame mensaje = new JFrame("Operación de modificación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",

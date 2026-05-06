@@ -47,4 +47,27 @@ public final class CZonas {
             return "Ha ocurrido un error en la introducción de la zona, causa:\n"+e.getMessage();
         }
     }
+
+
+    // Modifico los valores mediante la clave
+    public static String modificar(String numeroDeZona, String nobmreAnterior, String nombreNuevo){
+
+        try {
+
+            Zonas zonaNueva = new Zonas(nobmreAnterior);
+            Zonas zonaAntigua = new Zonas(nombreNuevo);
+
+            // Compruebo la concurrencia aparte porque puede no haber modificado el DNI y saltaría un error
+
+
+            return "Cliente modificado con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            return "Han ocurrido errores con los datos del cliente, causa:\n"+e.getMessage();
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción del cliente, causa:\n"+e.getMessage();
+        }
+    }
 }

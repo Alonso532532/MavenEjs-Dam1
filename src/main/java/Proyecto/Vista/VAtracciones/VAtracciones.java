@@ -173,8 +173,7 @@ public class VAtracciones {
             // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
 
                 String resp;
                 JOptionPane.showMessageDialog(
@@ -199,14 +198,13 @@ public class VAtracciones {
         });
 
         botonS3.addActionListener(a->{
-            JFrame mensaje = new JFrame("Operación de modificación");
             // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
-                int filaVista = tabla.getSelectedRow();
-                int filaModelo = tabla.convertRowIndexToModel(filaVista);
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 VAModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
             } else {
+                JFrame mensaje = new JFrame("Operación de modificación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",

@@ -53,7 +53,7 @@ public final class CClientes {
         try {
 
             Clientes clienteAntiguo = new Clientes(dniAnterior, edadAnterior, nombreAnterior, false);
-            Clientes clienteNuevo = new Clientes(dniNuevo, edadNuevo, nombreNuevo, false);
+            Clientes clienteNuevo = new Clientes(dniNuevo, edadNuevo, nombreNuevo, true);
 
             // Compruebo la concurrencia aparte porque puede no haber modificado el DNI y saltaría un error
             if (!clienteAntiguo.getDni().equals(clienteNuevo.getDni())){

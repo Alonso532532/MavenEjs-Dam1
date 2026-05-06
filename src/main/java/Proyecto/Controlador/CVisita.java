@@ -1,8 +1,10 @@
 package Proyecto.Controlador;
 
 import Proyecto.Coexion.Conexion;
+import Proyecto.DAO.DAtracciones;
 import Proyecto.DAO.DVisita;
 import Proyecto.DAO.DZonas;
+import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Visita;
 import Proyecto.Modelo.Zonas;
 
@@ -55,6 +57,40 @@ public final class CVisita {
                 return "Ha ocurrido un error con los datos de la visita, causa:\nEl conjunto de dni y número de zona no existen\n";
             }
 
+        }catch (RuntimeException e){
+            // Fallos de SQL
+            return "Ha ocurrido un error en la introducción de la visita, causa:\n"+e.getMessage();
+        }
+    }
+
+    // Modifico los valores mediante la clave
+    public static String modificar(String dniAnterior, String numeroDeZonaAnterior, String fechaAnterior, String dniNuevo, String numeroDeZonaNuevo, String fechaNueva){
+
+        try {
+
+            Visita visitaAnterior = new Visita(dniAnterior, numeroDeZonaAnterior, fechaAnterior, false);
+            Visita visitaNueva = new Visita(dniNuevo, numeroDeZonaNuevo, fechaNueva, true);
+
+            if (!visitaAnterior.getDni().equals(dniNuevo)){
+                DVisita.cambiarDni(visitaAnterior, dniNuevo);
+                visitaAnterior.setDni(dniNuevo);
+            }
+
+            if (visitaAnterior.getNumeroDeZona() != visitaNueva.getNumeroDeZona()){
+                DVisita.cambiarNumeroDeZona(visitaAnterior, visitaNueva.getNumeroDeZona());
+                visitaAnterior.setNumeroDeZona(numeroDeZonaNuevo);
+            }
+
+            if (!visitaAnterior.getFecha().equals(visitaNueva.getFecha())){
+                DVisita.cambiarFecha(visitaAnterior, fechaNueva);
+                visitaAnterior.setFecha(fechaNueva);
+            }
+
+            return "Visita modificada con éxito";
+
+        }catch (IllegalArgumentException e){
+            // Fallos producidos al intentar insertar datos incorrectos
+            return "Han ocurrido errores con los datos de la visita, causa:\n"+e.getMessage();
         }catch (RuntimeException e){
             // Fallos de SQL
             return "Ha ocurrido un error en la introducción de la visita, causa:\n"+e.getMessage();
