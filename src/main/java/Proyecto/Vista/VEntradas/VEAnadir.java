@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Arrays;
 
 public class VEAnadir {
     private static JFrame fAnadir = new JFrame();
@@ -24,7 +25,10 @@ public class VEAnadir {
 
         JPanel panelC = new JPanel(new GridLayout(2, 3, 10, 5));
 
-        TextField tFC1 = new TextField();
+        //Creo el combobox
+        String[] opciones = {"Normal", "Oferta", "Familia numerosa"};
+        JComboBox<String> cBF1 = new JComboBox<>(opciones);
+
         TextField tFC2 = new TextField();
         TextField tFC3 = new TextField();
 
@@ -40,7 +44,7 @@ public class VEAnadir {
         panelC.add(labelC2);
         panelC.add(labelC3);
 
-        panelC.add(tFC1);
+        panelC.add(cBF1);
         panelC.add(tFC2);
         panelC.add(tFC3);
 
@@ -57,7 +61,7 @@ public class VEAnadir {
 
         botonAnadir.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que no hayan campos vacíos
-            if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
+            if (tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
                 JFrame mensaje = new JFrame("Error de formato");
                 JOptionPane.showMessageDialog(
                         mensaje,
@@ -70,7 +74,7 @@ public class VEAnadir {
                 String resp = "";
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CEntrada.anadir(tFC1.getText(), tFC2.getText(), tFC3.getText()),
+                        resp = CEntrada.anadir((String) cBF1.getSelectedItem(), tFC2.getText(), tFC3.getText()),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );

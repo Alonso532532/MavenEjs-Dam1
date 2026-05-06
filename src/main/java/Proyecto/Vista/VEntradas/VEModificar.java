@@ -22,7 +22,11 @@ public class VEModificar {
     private static String dniAnterior = "";
 
     private static TextField tFC1 = new TextField();
-    private static TextField tFC2 = new TextField();
+
+    //Creo el combobox
+    private static String[] opciones = {"Normal", "Oferta", "Familia numerosa"};
+    private static JComboBox<String> cBF1 = new JComboBox<>(opciones);
+
     private static TextField tFC3 = new TextField();
     private static TextField tFC4 = new TextField();
 
@@ -56,7 +60,7 @@ public class VEModificar {
         panelC.add(labelC4);
 
         panelC.add(tFC1);
-        panelC.add(tFC2);
+        panelC.add(cBF1);
         panelC.add(tFC3);
         panelC.add(tFC4);
 
@@ -73,19 +77,19 @@ public class VEModificar {
 
         botonModificar.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
-            if (!tFC2.getText().equals(tipoAnterior) || !tFC3.getText().equals(precioAnterior) || !tFC4.getText().equals(dniAnterior)){
+            if (!((String) cBF1.getSelectedItem()).equals(tipoAnterior) || !tFC3.getText().equals(precioAnterior) || !tFC4.getText().equals(dniAnterior)){
 
                 // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
                 JFrame mensaje = new JFrame("Proceso de modificación");
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CEntrada.modificar(Integer.parseInt(numeroDeEntrada), tipoAnterior, precioAnterior, dniAnterior, tFC2.getText(), tFC3.getText(), tFC4.getText()),
+                        resp = CEntrada.modificar(Integer.parseInt(numeroDeEntrada), tipoAnterior, precioAnterior, dniAnterior, (String) cBF1.getSelectedItem(), tFC3.getText(), tFC4.getText()),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
                 if (resp.equals("Entrada modificada con éxito")) {
-                    tipoAnterior = tFC2.getText();
+                    tipoAnterior = (String) cBF1.getSelectedItem();
                     precioAnterior = tFC3.getText();
                     dniAnterior = tFC4.getText();
                     VEntradas.actualizarTabla(modelo);
@@ -111,9 +115,19 @@ public class VEModificar {
         precioAnterior = precio;
         dniAnterior = dni;
 
-        // Asigno el valor de la fila seleccionada a los campos de texto
+        // Asigno el valor de la fila seleccionada a los campos de texto y al combobox
         tFC1.setText(numeroDeEntrada);
-        tFC2.setText(tipo);
+        switch (tipo){
+            case "Normal":
+                cBF1.setSelectedIndex(0);
+                break;
+            case "Oferta":
+                cBF1.setSelectedIndex(1);
+                break;
+            case "Familia numerosa":
+                cBF1.setSelectedIndex(2);
+                break;
+        }
         tFC3.setText(precio);
         tFC4.setText(dni);
 

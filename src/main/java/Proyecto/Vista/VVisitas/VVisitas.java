@@ -20,13 +20,13 @@ import java.awt.*;
 public class VVisitas {
     static VVAnadir vAanadir = new VVAnadir();
 
-    public static void ejecutar(boolean admin, Point posicion) {
+    public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
         vAanadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Visitas");
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        base.setSize(1000, 700);
+        base.setSize(dimension);
         base.setLayout(new BorderLayout(0, 10));
 
         // Lo situo
@@ -144,22 +144,22 @@ public class VVisitas {
         });
 
         botonN2.addActionListener(a->{
-            VAtracciones.ejecutar(true, base.getLocation());
+            VAtracciones.ejecutar(true, base.getLocation(), base.getSize());
             base.dispose();
         });
 
         botonN3.addActionListener(a->{
-            VZonas.ejecutar(true, base.getLocation());
+            VZonas.ejecutar(true, base.getLocation(), base.getSize());
             base.dispose();
         });
 
         botonN5.addActionListener(a->{
-            VClientes.ejecutar(true, base.getLocation());
+            VClientes.ejecutar(true, base.getLocation(), base.getSize());
             base.dispose();
         });
 
         botonN6.addActionListener(a->{
-            VEntradas.ejecutar(true, base.getLocation());
+            VEntradas.ejecutar(true, base.getLocation(), base.getSize());
             base.dispose();
         });
 

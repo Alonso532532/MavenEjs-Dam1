@@ -106,7 +106,7 @@ public final class Inicio {
 
         boton.addActionListener(a->{
             if (CUsuarios.comprobarInicioDeSesion(new Usuario(campoU.getText(), campoC.getText(), false))){
-                VAtracciones.ejecutar(true, base.getLocation());
+                VAtracciones.ejecutar(true, base.getLocation(), base.getSize());
                 if (primero){
                     VAModificar.construir();
                     VCModificar.construir();
