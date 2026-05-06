@@ -7,6 +7,7 @@ import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Zonas;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VVisitas.VVisitas;
@@ -187,7 +188,7 @@ public class VZonas {
                     // Sí depende algún elemento le pregunto si quiere eliminarlo
                     int respuesta = JOptionPane.showConfirmDialog(
                             null,
-                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona(numeroZona).size() + " visitas y "+CAtracciones.seleccionarPorNumeroDeZona(numeroZona).size()+" atracciones\n¿Quieres eliminarlas?",
+                            "De esta zona dependen " + CVisita.seleccionarPorNumeroDeZona(numeroZona).size() + " visitas y "+CAtracciones.seleccionarPorNumeroDeZona(numeroZona).size()+" atracciones\n¿Quieres eliminarlas además de eliminar la zona elemento con el numero: "+tabla.getValueAt(filaModelo, 0)+"?",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION
                     );
@@ -221,6 +222,23 @@ public class VZonas {
                         }
                 }
             }else {
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        "No hay nada seleccionado",
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+
+        botonS3.addActionListener(a->{
+            // Compruebo si ha seleccionado algo
+            if  (tabla.getSelectedRow() != -1) {
+                // Selecciono la fila que ha seleccionado
+                int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+                VZModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)));
+            } else {
+                JFrame mensaje = new JFrame("Operación de modificación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No hay nada seleccionado",

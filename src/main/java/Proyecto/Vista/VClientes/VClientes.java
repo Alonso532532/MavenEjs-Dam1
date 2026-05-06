@@ -183,7 +183,7 @@ public class VClientes {
                     // Sí depende algún elemento le pregunto si quiere eliminarlo
                     int respuesta = JOptionPane.showConfirmDialog(
                             null,
-                            "De este cliente dependen " + CEntrada.seleccionarPorDni(dni).size() + " entradas y "+CVisita.seleccionarPorDni(dni).size()+" visitas\n¿Quieres eliminarlas?",
+                            "De este cliente dependen " + CEntrada.seleccionarPorDni(dni).size() + " entradas y "+CVisita.seleccionarPorDni(dni).size()+" visitas\n¿Quieres eliminarlas además de eliminar el cliente con DNi: "+tabla.getValueAt(filaModelo, 0)+"?",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION
                     );

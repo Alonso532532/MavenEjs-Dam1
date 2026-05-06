@@ -27,7 +27,7 @@ public class Zonas {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("[\\w ]{1,50}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[\\w áéíóúÁÉÍÓÚñÑ]{1,50}").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;

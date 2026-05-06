@@ -175,21 +175,34 @@ public class VVisitas {
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
                 int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-                String dni = String.valueOf(modelo.getValueAt(filaModelo, 0));
-                Integer numeroDeZona = (Integer) (modelo.getValueAt(filaModelo, 1));
-                String fechaBonita = String.valueOf(modelo.getValueAt(filaModelo, 2));
 
-                String resp;
-                JOptionPane.showMessageDialog(
-                        mensaje,
-                        resp = CVisita.eliminarPorClave(dni, numeroDeZona, fechaBonita),
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                // Sí depende algún elemento le pregunto si quiere eliminarlo
+                int respuesta = JOptionPane.showConfirmDialog(
+                        null,
+                        "¿Estas seguro de que quieres eliminar la visita con DNI: "+ tabla.getValueAt(filaModelo, 0) +", Numero de zona: "+ tabla.getValueAt(filaModelo, 1) +" y fecha: "+ tabla.getValueAt(filaModelo, 2) +"?",
+                        "Confirmación",
+                        JOptionPane.YES_NO_OPTION
                 );
-                // Si se elmina bien actualizo
-                if (resp.equals("Visita eliminada con éxito")) {
-                    actualizarTabla(modelo);
+
+                // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
+                if (respuesta == JOptionPane.YES_OPTION) {
+
+                    String resp;
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            resp = CVisita.eliminarPorClave(String.valueOf(modelo.getValueAt(filaModelo, 0)), (Integer) (modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2))),
+                            "Información sobre la operación",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    // Si se elmina bien actualizo
+                    if (resp.equals("Visita eliminada con éxito")) {
+                        actualizarTabla(modelo);
+                    }
                 }
+                // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+
+
+
 
             } else {
                 JOptionPane.showMessageDialog(

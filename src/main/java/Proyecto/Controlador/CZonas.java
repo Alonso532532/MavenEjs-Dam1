@@ -54,13 +54,14 @@ public final class CZonas {
 
         try {
 
-            Zonas zonaNueva = new Zonas(nobmreAnterior);
-            Zonas zonaAntigua = new Zonas(nombreNuevo);
+            Zonas zonaNueva = new Zonas(nombreNuevo);
+            Zonas zonaAntigua = new Zonas(nobmreAnterior);
 
-            // Compruebo la concurrencia aparte porque puede no haber modificado el DNI y saltaría un error
+            if (!zonaAntigua.getNombre().equals(zonaNueva.getNombre())){
+                DZonas.cambiarNombre(Integer.parseInt(numeroDeZona), nombreNuevo);
+            }
 
-
-            return "Cliente modificado con éxito";
+            return "Zona modificada con éxito";
 
         }catch (IllegalArgumentException e){
             // Fallos producidos al intentar insertar datos incorrectos

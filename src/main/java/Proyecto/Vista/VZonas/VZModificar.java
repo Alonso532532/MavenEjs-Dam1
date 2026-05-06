@@ -3,6 +3,7 @@ package Proyecto.Vista.VZonas;
 import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CVisita;
+import Proyecto.Controlador.CZonas;
 import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
@@ -63,45 +64,19 @@ public class VZModificar {
         botonModificar.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
             if (!tFC2.getText().equals(nombreAnterior)){
-                boolean modificar;
-                // Compruebo que no dependa ningún elemento de este en caso de que se modifique su clave primaria
-                if ((!CAtracciones.seleccionarPorNumeroDeZona(Integer.parseInt(tFC1.getText())).isEmpty() || !CVisita.seleccionarPorNumeroDeZona(Integer.parseInt(tFC1.getText())).isEmpty()) && !tFC1.getText().equals(numeroDeZona)) {
-
-                    // Sí depende algún elemento le pregunto si quiere eliminarlo
-                    int respuesta = JOptionPane.showConfirmDialog(
-                            null,
-                            "De este cliente dependen " + CAtracciones.seleccionarPorNumeroDeZona(Integer.parseInt(numeroDeZona)).size() + " atracciones y "+CVisita.seleccionarPorNumeroDeZona(Integer.parseInt(numeroDeZona)).size()+" visitas\n¿Quieres modificarlas también?",
-                            "Confirmación",
-                            JOptionPane.YES_NO_OPTION
-                    );
-
-                    // Si selecciona si al modificarse se modifican los elementos que dependan de este
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        // Activo el borrado del elemento
-                        modificar = true;
-                    } else {
-                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
-                        modificar = false;
-                    }
-
-                } else {
-                    modificar = true;
-                }
-                if (modificar) {
-                    // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
-                    JFrame mensaje = new JFrame("Proceso de modificación");
-                    String resp;
-                    JOptionPane.showMessageDialog(
-                            mensaje,
-                            resp = CClientes.modificar(numeroDeZona, nombreAnterior, nombreAnterior, tFC1.getText(), tFC2.getText(), "tFC3.getText()"),
-                            "Información sobre la operación",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                    if (resp.equals("Cliente modificado con éxito")) {
-                        numeroDeZona = tFC1.getText();
-                        nombreAnterior = tFC2.getText();
-                        VClientes.actualizarTabla(modelo);
-                    }
+                // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
+                JFrame mensaje = new JFrame("Proceso de modificación");
+                String resp;
+                JOptionPane.showMessageDialog(
+                        mensaje,
+                        resp = CZonas.modificar(numeroDeZona, nombreAnterior, tFC2.getText()),
+                        "Información sobre la operación",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                if (resp.equals("Zona modificada con éxito")) {
+                    numeroDeZona = tFC1.getText();
+                    nombreAnterior = tFC2.getText();
+                    VZonas.actualizarTabla(modelo);
                 }
             } else {
                 // Si no hay cambios en los campos
@@ -116,14 +91,14 @@ public class VZModificar {
         });
     }
 
-    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String dni, String edad, String nombre){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String numeroDeZonaNuevo, String nombre){
         // Guardo los valores antiguos
-        numeroDeZona = dni;
+        numeroDeZona = numeroDeZonaNuevo;
         nombreAnterior = nombre;
 
         // Asigno el valor de la fila seleccionada a los campos de texto
-        tFC1.setText(dni);
-        tFC2.setText(edad);
+        tFC1.setText(numeroDeZona);
+        tFC2.setText(nombre);
 
         // Sitúo la ventana
         fModificar.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);

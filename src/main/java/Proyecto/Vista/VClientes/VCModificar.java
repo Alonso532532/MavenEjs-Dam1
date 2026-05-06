@@ -4,6 +4,7 @@ import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CEntrada;
 import Proyecto.Controlador.CVisita;
+import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
@@ -69,24 +70,36 @@ public class VCModificar {
                 boolean modificar;
                 // Compruebo que no dependa ningún elemento de este en caso de que se modifique su clave primaria
                 if ((!CEntrada.seleccionarPorDni(dniAnterior).isEmpty() || !CVisita.seleccionarPorDni(dniAnterior).isEmpty()) && !tFC1.getText().equals(dniAnterior)) {
+                    try {
+                        // Creo un cliente para validar que el cliente es válido andtes de preguntarle
+                        Clientes comprobar = new Clientes(tFC1.getText(), tFC2.getText(), tFC3.getText(), false);
 
-                    // Sí depende algún elemento le pregunto si quiere eliminarlo
-                    int respuesta = JOptionPane.showConfirmDialog(
-                            null,
-                            "De este cliente dependen " + CEntrada.seleccionarPorDni(dniAnterior).size() + " entradas y "+CVisita.seleccionarPorDni(dniAnterior).size()+" visitas\n¿Quieres modificarlas también?",
-                            "Confirmación",
-                            JOptionPane.YES_NO_OPTION
-                    );
+                        // Sí depende algún elemento le pregunto si quiere eliminarlo
+                        int respuesta = JOptionPane.showConfirmDialog(
+                                null,
+                                "De este cliente dependen " + CEntrada.seleccionarPorDni(dniAnterior).size() + " entradas y " + CVisita.seleccionarPorDni(dniAnterior).size() + " visitas\n¿Quieres modificarlas también?",
+                                "Confirmación",
+                                JOptionPane.YES_NO_OPTION
+                        );
 
-                    // Si selecciona si al modificarse se modifican los elementos que dependan de este
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        // Activo el borrado del elemento
-                        modificar = true;
-                    } else {
-                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+                        // Si selecciona si al modificarse se modifican los elementos que dependan de este
+                        if (respuesta == JOptionPane.YES_OPTION) {
+                            // Activo el borrado del elemento
+                            modificar = true;
+                        } else {
+                            // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+                            modificar = false;
+                        }
+                    } catch (IllegalArgumentException e){
+                        JFrame mensaje = new JFrame("Error de formato");
+                        JOptionPane.showMessageDialog(
+                                mensaje,
+                                "Han ocurrido errores con los datos del cliente, causa:\n"+e.getMessage(),
+                                "Información sobre la operación",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
                         modificar = false;
                     }
-
                 } else {
                     modificar = true;
                 }

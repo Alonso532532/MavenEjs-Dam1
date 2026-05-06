@@ -176,19 +176,29 @@ public class VEntradas {
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
                 int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-                Integer numeroEntrada = (Integer) modelo.getValueAt(filaModelo, 0);
-
-                String resp;
-                JOptionPane.showMessageDialog(
-                        mensaje,
-                        resp = CEntrada.eliminarPorNumeroDeEntrada(numeroEntrada),
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                // Sí depende algún elemento le pregunto si quiere eliminarlo
+                int respuesta = JOptionPane.showConfirmDialog(
+                        null,
+                        "¿Estas seguro de que quieres eliminar la entrada con el numero: "+ tabla.getValueAt(filaModelo, 0) +"?",
+                        "Confirmación",
+                        JOptionPane.YES_NO_OPTION
                 );
-                // Si se elmina bien actualizo
-                if (resp.equals("Entrada eliminada con éxito")) {
-                    actualizarTabla(modelo);
+
+                // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    String resp;
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            resp = CEntrada.eliminarPorNumeroDeEntrada((Integer) modelo.getValueAt(filaModelo, 0)),
+                            "Información sobre la operación",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    // Si se elmina bien actualizo
+                    if (resp.equals("Entrada eliminada con éxito")) {
+                        actualizarTabla(modelo);
+                    }
                 }
+                // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
 
             } else {
                 JOptionPane.showMessageDialog(

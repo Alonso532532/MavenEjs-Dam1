@@ -9,6 +9,7 @@ import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEModificar;
 import Proyecto.Vista.VVisitas.VVModificar;
+import Proyecto.Vista.VZonas.VZModificar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -111,6 +112,7 @@ public final class Inicio {
                     VCModificar.construir();
                     VEModificar.construir();
                     VVModificar.construir();
+                    VZModificar.construir();
                     primero=false;
                 }
                 base.dispose();

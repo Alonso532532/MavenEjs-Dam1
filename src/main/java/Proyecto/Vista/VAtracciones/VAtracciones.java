@@ -1,6 +1,8 @@
 package Proyecto.Vista.VAtracciones;
 
 import Proyecto.Controlador.CAtracciones;
+import Proyecto.Controlador.CEntrada;
+import Proyecto.Controlador.CVisita;
 import Proyecto.Modelo.Atracciones;
 import Proyecto.Vista.*;
 import Proyecto.Vista.VClientes.VClientes;
@@ -67,7 +69,8 @@ public class VAtracciones {
             cont++;
         }
 
-        // Para evitar que se puedan modificar datos en la tabla, creo un objeto "DefaultTableModel" y sobreescribo uno de sus métodos para hacer que sea imposible editar los campos
+        // Para evitar que se puedan modificar datos en la tabla, creo un objeto "DefaultTableModel"
+        // y sobreescribo uno de sus métodos para hacer que sea imposible editar los campos a la vez que la inicializo
         DefaultTableModel modelo = new DefaultTableModel(datos, cabecea) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -174,18 +177,31 @@ public class VAtracciones {
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
                 int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-
-                String resp;
-                JOptionPane.showMessageDialog(
-                        mensaje,
-                        resp = CAtracciones.eliminarPorNumeroDeAtraccion((int) modelo.getValueAt(filaModelo, 0)),
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                // Sí depende algún elemento le pregunto si quiere eliminarlo
+                int respuesta = JOptionPane.showConfirmDialog(
+                        null,
+                        "¿Estas seguro de que quieres eliminar la atracción con el numero: "+ tabla.getValueAt(filaModelo, 0) +"?",
+                        "Confirmación",
+                        JOptionPane.YES_NO_OPTION
                 );
-                // Si se elmina bien actualizo
-                if (resp.equals("Atracción eliminada con éxito")) {
-                    actualizarTabla(modelo);
+
+                // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
+                if (respuesta == JOptionPane.YES_OPTION) {
+
+                    String resp;
+                    JOptionPane.showMessageDialog(
+                            mensaje,
+                            resp = CAtracciones.eliminarPorNumeroDeAtraccion((int) modelo.getValueAt(filaModelo, 0)),
+                            "Información sobre la operación",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                    // Si se elmina bien actualizo
+                    if (resp.equals("Atracción eliminada con éxito")) {
+                        actualizarTabla(modelo);
+                    }
                 }
+                // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
 
             } else {
                 JOptionPane.showMessageDialog(
