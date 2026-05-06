@@ -1,3 +1,5 @@
 Se podría cambiar el formato en el que pide la fecha de una visita el controlador para que no se tenga que comprobar en la vista??
 
+comprobar que el precio de una entrada no supera los 6 digitos de largo
+
 Buscar la manera de facilitarle el numero de id de los sitios que sea necesario para añadir algo de otra tabla
