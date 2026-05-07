@@ -3,6 +3,7 @@ package Proyecto;
 import Proyecto.Coexion.Conexion;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAModificar;
+import Proyecto.Vista.VUsuarios.VUsuarios;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;

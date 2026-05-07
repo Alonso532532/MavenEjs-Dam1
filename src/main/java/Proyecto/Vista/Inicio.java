@@ -6,6 +6,7 @@ import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VEntradas.VEModificar;
+import Proyecto.Vista.VUsuarios.VUsuarios;
 import Proyecto.Vista.VVisitas.VVModificar;
 import Proyecto.Vista.VZonas.VZModificar;
 
@@ -18,6 +19,8 @@ public final class Inicio {
     static boolean primero = true;
 
     public static void ejecutar() {
+
+
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Inicio");
         base.setLocationRelativeTo(null);
@@ -58,6 +61,8 @@ public final class Inicio {
 
         usuarioI.add(labelPUI);
         usuarioI.add(campoPU);
+
+        VUsuarios.ejecutar(true, base.getLocation(), base.getSize());
 
         // Parte derecha (contraseña)
         JPanel contrasenaI = new JPanel(new GridLayout(2, 1));
