@@ -35,7 +35,7 @@ public class VEModificar {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fModificar.setResizable(false);
 
-        fModificar.setTitle("Modificar clientes");
+        fModificar.setTitle("Modificar entradas");
         fModificar.setSize(500, 170);
         fModificar.setLayout(new BorderLayout());
 

@@ -16,7 +16,11 @@ public class Clientes {
         // porque si compruebo siempre no puedo crear un objeto al seleccionar datos de la tabla, ya que siempre que seleccione una fila
         // esa clave primaria ya va a existir impidiéndome crear un objeto a raíz de esos datos
         if (comprobarConcurrencia){
-            if (DClientes.comprobarPorDni(dni)) error+="El dni ya existe\n";
+            try {
+                if (DClientes.comprobarPorDni(dni)) error += "El dni ya existe\n";
+            } catch (RuntimeException e){
+                error+="La comprobación de concurrencia no se ha ejecutado correctamente\n";
+            }
         }
         if (!setDni(dni)) error+="El dni es incorrecto\n";
         try {

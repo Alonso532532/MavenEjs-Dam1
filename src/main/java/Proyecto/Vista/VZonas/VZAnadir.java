@@ -18,7 +18,7 @@ public class VZAnadir {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
-        fAnadir.setTitle("Añadir atracciones");
+        fAnadir.setTitle("Añadir zonas");
         fAnadir.setSize(500, 170);
         fAnadir.setLayout(new BorderLayout());
 

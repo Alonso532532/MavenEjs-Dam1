@@ -27,7 +27,11 @@ public class Visita {
             error += "El formato del numero de zona es inválido\n";
         }
         if (comprobarConcurrencia){
-            if (DVisita.comprobarPorClave(dni, this.numeroDeZona, fecha)) error+="La visita ya existe\n";
+            try {
+                if (DVisita.comprobarPorClave(dni, this.numeroDeZona, fecha)) error+="La visita ya existe\n";
+            } catch (RuntimeException e){
+                error+="La comprobación de concurrencia no se ha ejecutado correctamente\n";
+            }
         }
         if (!setFecha(fecha)) error+="El formato de la fecha es inválido\n";
         //Si no ha dado fallo el formato de la fecha, se comprueba que sea posible la fecha de la visita

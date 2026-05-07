@@ -122,9 +122,12 @@ public class VAtracciones {
         JButton botonS2 = new JButton("Borrar selección");
         JButton botonS3 = new JButton("Modificar selección");
         JButton botonS4 = new JButton("Actualizar tabla");
-        abajo.add(botonS1);
-        abajo.add(botonS2);
-        abajo.add(botonS3);
+
+        if (admin) {
+            abajo.add(botonS1);
+            abajo.add(botonS2);
+            abajo.add(botonS3);
+        }
         abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
@@ -146,22 +149,22 @@ public class VAtracciones {
         });
 
         botonN3.addActionListener(a->{
-            VZonas.ejecutar(true, base.getLocation(), base.getSize());
+            VZonas.ejecutar(admin, base.getLocation(), base.getSize());
             base.dispose();
         });
 
         botonN4.addActionListener(a->{
-            VVisitas.ejecutar(true, base.getLocation(), base.getSize());
+            VVisitas.ejecutar(admin, base.getLocation(), base.getSize());
             base.dispose();
         });
 
         botonN5.addActionListener(a->{
-            VClientes.ejecutar(true, base.getLocation(), base.getSize());
+            VClientes.ejecutar(admin, base.getLocation(), base.getSize());
             base.dispose();
         });
 
         botonN6.addActionListener(a->{
-            VEntradas.ejecutar(true, base.getLocation(), base.getSize());
+            VEntradas.ejecutar(admin, base.getLocation(), base.getSize());
             base.dispose();
         });
 

@@ -53,8 +53,14 @@ public class Entrada {
     }
 
     public boolean setPrecio(String precioString) {
-        double precio = Double.parseDouble(precioString.replace(",", "."));
+        // Compruebo si ha puesto "," en vez de "."
+        precioString = precioString.replace(",", ".");
+        double precio = Double.parseDouble(precioString);
         if (precio>=0){
+            // si es positivo y tiene "." compruebo el tamaño de la parte entera y decimal "3.2"
+            if (precioString.contains(".") && (precioString.substring(precioString.indexOf(".")).length()>3 || precioString.substring(0, precioString.indexOf(".")).length()>3)) return false;
+            // si no hay "." solo compruebo la entera
+            if (!precioString.contains(".") && precioString.length()>3) return false;
             this.precio = precio;
             return true;
         }

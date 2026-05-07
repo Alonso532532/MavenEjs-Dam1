@@ -1,5 +1,8 @@
 package Proyecto.Modelo;
 
+import Proyecto.DAO.DClientes;
+import Proyecto.DAO.DUsuarios;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,9 +11,16 @@ public class Usuario {
     private String contrasena;
     private boolean esAdmin;
 
-    public Usuario(String nombre, String contrasena, boolean esAdmin) {
+    public Usuario(String nombre, String contrasena, boolean esAdmin, boolean comprobarConcurrencia) {
         String error = "";
         if (!setNombre(nombre))error+="El nombre es demasiado largo/corto o contiene carácteres no permitidos\n";
+        if (comprobarConcurrencia){
+            try {
+                if (DUsuarios.comprobarPorNombre(nombre)) error+="El nombre ya existe\n";
+            } catch (RuntimeException e){
+                error+="La comprobación de concurrencia no se ha ejecutado correctamente\n";
+            }
+        }
         if (!setContrasena(contrasena))error+="La contraseña tiene que tener entre 5 y 20 (incluidos) caracteres\n";
         this.esAdmin = esAdmin;
         if (!error.isEmpty()) throw new IllegalArgumentException(error);

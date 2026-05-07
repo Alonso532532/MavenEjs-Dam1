@@ -59,7 +59,7 @@ public class VAAnadir {
                         mensaje,
                         "Error, uno o varios campos están vacíos",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             } else {
                 JFrame mensaje = new JFrame("Operación para añadir atracciones");
