@@ -1,12 +1,9 @@
 package Proyecto.Vista.VEntradas;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CEntrada;
-import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Entrada;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
-import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VUsuarios.VUsuarios;
 import Proyecto.Vista.VVisitas.VVisitas;
@@ -20,9 +17,10 @@ import java.awt.*;
 
 
 public class VEntradas {
-    static VEAnadir vAanadir = new VEAnadir();
+
 
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
+        VEAnadir vAanadir = new VEAnadir();
         vAanadir.construir();
 
         // Creo el frame y lo configuro
@@ -105,7 +103,7 @@ public class VEntradas {
 
             private void filtrar() {
                 String texto = filtro.getText();
-                if (texto.trim().length() == 0) {
+                if (texto.trim().isEmpty()) {
                     sorter.setRowFilter(null);
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
@@ -219,7 +217,7 @@ public class VEntradas {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
@@ -236,7 +234,7 @@ public class VEntradas {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });

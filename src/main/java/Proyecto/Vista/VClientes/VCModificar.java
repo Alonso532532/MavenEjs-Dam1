@@ -1,12 +1,9 @@
 package Proyecto.Vista.VClientes;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CEntrada;
 import Proyecto.Controlador.CVisita;
-import Proyecto.DAO.DClientes;
 import Proyecto.Modelo.Clientes;
-import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -101,7 +98,7 @@ public class VCModificar {
                                 mensaje,
                                 "Han ocurrido errores con los datos del cliente, causa:\n"+e.getMessage(),
                                 "Información sobre la operación",
-                                JOptionPane.INFORMATION_MESSAGE
+                                JOptionPane.ERROR_MESSAGE
                         );
                         modificar = false;
                     }
@@ -127,12 +124,12 @@ public class VCModificar {
                 }
             } else {
                 // Si no hay cambios en los campos
-                JFrame mensaje = new JFrame("Sin cambios");
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No han habido cambios en los valores",
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        "Sin cambios",
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });

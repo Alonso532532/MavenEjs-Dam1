@@ -7,13 +7,11 @@ import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VEntradas.VEModificar;
 import Proyecto.Vista.VUsuarios.VUModificar;
-import Proyecto.Vista.VUsuarios.VUsuarios;
 import Proyecto.Vista.VVisitas.VVModificar;
 import Proyecto.Vista.VZonas.VZModificar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public final class Inicio {
@@ -105,17 +103,7 @@ public final class Inicio {
 
         // Parte de registro de nuevos usuarios
         // El título
-        JPanel tituloRegistro = new JPanel();
-        tituloRegistro.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.GRAY));
-
-        JLabel registro = new JLabel("Registrarse");
-        registro.setFont(new Font("Times new roman", 3, 50));
-        tituloRegistro.add(registro);
-
-        SpringLayout layoutNR = new SpringLayout();
-        layoutNR.putConstraint(SpringLayout.VERTICAL_CENTER, registro, 0, SpringLayout.VERTICAL_CENTER, tituloRegistro);
-        layoutNR.putConstraint(SpringLayout.HORIZONTAL_CENTER, registro, 0, SpringLayout.HORIZONTAL_CENTER, tituloRegistro);
-        tituloRegistro.setLayout(layoutNR);
+        JPanel tituloRegistro = getJPanel();
 
         // Los campos
         JPanel medioR = new JPanel(new GridLayout(1, 3));
@@ -296,7 +284,7 @@ public final class Inicio {
         botonAR.addActionListener(a->{
             if (botonAR.getText().equals("Dar privilegio")){
                 if (!admin[0]){
-                    // Copmpruebo que no hayan campos vacíos
+                    // Compruebo que no hayan campos vacíos
                     if (campoCI.getText().isEmpty() || campoUI.getText().isEmpty()){
                         JFrame mensaje = new JFrame("Información sobre la operación");
                         JOptionPane.showMessageDialog(
@@ -341,5 +329,20 @@ public final class Inicio {
         });
 
         base.setVisible(true);
+    }
+
+    private static JPanel getJPanel() {
+        JPanel tituloRegistro = new JPanel();
+        tituloRegistro.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.GRAY));
+
+        JLabel registro = new JLabel("Registrarse");
+        registro.setFont(new Font("Times new roman", 3, 50));
+        tituloRegistro.add(registro);
+
+        SpringLayout layoutNR = new SpringLayout();
+        layoutNR.putConstraint(SpringLayout.VERTICAL_CENTER, registro, 0, SpringLayout.VERTICAL_CENTER, tituloRegistro);
+        layoutNR.putConstraint(SpringLayout.HORIZONTAL_CENTER, registro, 0, SpringLayout.HORIZONTAL_CENTER, tituloRegistro);
+        tituloRegistro.setLayout(layoutNR);
+        return tituloRegistro;
     }
 }

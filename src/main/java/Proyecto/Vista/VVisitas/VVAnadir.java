@@ -1,7 +1,6 @@
 package Proyecto.Vista.VVisitas;
 
 import Proyecto.Controlador.*;
-import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -74,11 +73,11 @@ public class VVAnadir {
                         mensaje,
                         "Error, uno o varios campos están vacíos",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             } else {
                 JFrame mensaje = new JFrame("Operación para añadir visitas");
-                String resp = "";
+                String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
                         resp = CVisita.anadir(tFC1.getText(), tFC2.getText(), tFC3.getText()),

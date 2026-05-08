@@ -1,8 +1,6 @@
 package Proyecto.Vista.VAtracciones;
 
 import Proyecto.Controlador.*;
-import Proyecto.Modelo.Atracciones;
-import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

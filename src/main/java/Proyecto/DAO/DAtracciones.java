@@ -2,9 +2,6 @@ package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Atracciones;
-import Proyecto.Modelo.Clientes;
-import Proyecto.Modelo.Visita;
-import Proyecto.Modelo.Zonas;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,21 +67,6 @@ public final class DAtracciones {
             PreparedStatement preparedStatement = connection.prepareStatement("delete from atracciones where numeroDeAtraccion = ?");
 
             preparedStatement.setInt(1, numeroDeAtraccion);
-
-            return preparedStatement.executeUpdate()==1;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // En estas modifico todos los atributos
-    public static boolean cambiarNumeroDeAtraccion(int numeroDeAtraccionAntiguo, int numeroDeAtraccionNuevo){
-        try {
-            Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("update atracciones set numeroDeAtraccion = ? where numeroDeAtraccion = ?");
-
-            preparedStatement.setInt(1, numeroDeAtraccionNuevo);
-            preparedStatement.setInt(2, numeroDeAtraccionAntiguo);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {

@@ -2,7 +2,6 @@ package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Visita;
-import Proyecto.Modelo.Zonas;
 
 import java.sql.*;
 import java.util.ArrayList;

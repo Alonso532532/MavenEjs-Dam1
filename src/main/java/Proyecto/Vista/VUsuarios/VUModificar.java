@@ -1,11 +1,6 @@
 package Proyecto.Vista.VUsuarios;
 
-import Proyecto.Controlador.CClientes;
-import Proyecto.Controlador.CEntrada;
 import Proyecto.Controlador.CUsuarios;
-import Proyecto.Controlador.CVisita;
-import Proyecto.Modelo.Clientes;
-import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -93,12 +88,12 @@ public class VUModificar {
 
             } else {
                 // Si no hay cambios en los campos
-                JFrame mensaje = new JFrame("Sin cambios");
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No han habido cambios en los valores",
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        "Sin cambios",
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
 

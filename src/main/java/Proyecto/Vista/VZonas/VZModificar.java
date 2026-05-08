@@ -1,10 +1,6 @@
 package Proyecto.Vista.VZonas;
 
-import Proyecto.Controlador.CAtracciones;
-import Proyecto.Controlador.CClientes;
-import Proyecto.Controlador.CVisita;
 import Proyecto.Controlador.CZonas;
-import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -36,7 +32,6 @@ public class VZModificar {
 
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
-        JLabel labelC3 = new JLabel();
 
         labelC1.setText("Numero de zona");
         labelC2.setText("Nombre");
@@ -80,12 +75,12 @@ public class VZModificar {
                 }
             } else {
                 // Si no hay cambios en los campos
-                JFrame mensaje = new JFrame("Sin cambios");
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No han habido cambios en los valores",
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        "Sin cambios",
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });

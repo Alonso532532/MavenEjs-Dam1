@@ -6,8 +6,6 @@ import Proyecto.DAO.DZonas;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 public class Visita {
     private String dni;
@@ -72,8 +70,7 @@ public class Visita {
         this.fechaBonita=fecha;
         fecha = fecha.replace(" ", "T");
         try {
-            LocalDateTime parseada = LocalDateTime.parse(fecha);
-            this.fecha = parseada;
+            this.fecha = LocalDateTime.parse(fecha);
             return true;
         } catch (DateTimeParseException e){
             return false;

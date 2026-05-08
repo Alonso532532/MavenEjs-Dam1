@@ -80,11 +80,11 @@ public class VAModificar {
                 }
             } else {
                 // Si no hay cambios en los campos
-                JFrame mensaje = new JFrame("Sin cambios");
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No han habido cambios en los valores",
-                        "Información sobre la operación",
+                        "Sin cambios",
                         JOptionPane.ERROR_MESSAGE
                 );
             }

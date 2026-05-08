@@ -3,11 +3,9 @@ package Proyecto.Vista.VZonas;
 import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CVisita;
 import Proyecto.Controlador.CZonas;
-import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Zonas;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
-import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VUsuarios.VUsuarios;
@@ -18,14 +16,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.sql.SQLException;
-import java.util.concurrent.TimeoutException;
-
 
 public class VZonas {
-    static VZAnadir vAanadir = new VZAnadir();
-
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
+        VZAnadir vAanadir = new VZAnadir();
         vAanadir.construir();
 
         // Creo el frame y lo configuro
@@ -107,7 +101,7 @@ public class VZonas {
 
             private void filtrar() {
                 String texto = filtro.getText();
-                if (texto.trim().length() == 0) {
+                if (texto.trim().isEmpty()) {
                     sorter.setRowFilter(null);
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
@@ -195,7 +189,7 @@ public class VZonas {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
                 Integer numeroZona = (Integer) modelo.getValueAt(filaModelo, 0);
-                Boolean eliminar = false;
+                boolean eliminar;
 
                 // Compruebo que no dependa ningún elemento de este
                 if (!CVisita.seleccionarPorNumeroDeZona(numeroZona).isEmpty() || !CAtracciones.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
@@ -209,13 +203,9 @@ public class VZonas {
                     );
 
                     // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        // Activo el borrado del elemento
-                        eliminar = true;
-                    } else {
-                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
-                        eliminar = false;
-                    }
+                    // Activo el borrado del elemento
+                    // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+                    eliminar = respuesta == JOptionPane.YES_OPTION;
 
 
                 } else {
@@ -241,7 +231,7 @@ public class VZonas {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
@@ -258,7 +248,7 @@ public class VZonas {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });

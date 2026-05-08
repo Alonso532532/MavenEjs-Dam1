@@ -1,7 +1,6 @@
 package Proyecto.Modelo;
 
 import Proyecto.DAO.DClientes;
-import Proyecto.DAO.DEntrada;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

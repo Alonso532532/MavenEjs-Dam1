@@ -1,7 +1,6 @@
 package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
-import Proyecto.Modelo.Visita;
 import Proyecto.Modelo.Zonas;
 
 import java.sql.*;
@@ -61,22 +60,6 @@ public final class DZonas {
 
             // Si ".next" funciona significa que ha encontrado una zona con ese numero de zona y devolverá true, sino false
             return preparedStatement.executeQuery().next();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    // En estas modifico todos los atributos
-    public static boolean cambiarNumeroDeZona(int numeroDeZonaAntiguo, int numeroDeZonaNuevo){
-        try {
-            Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("update zonas set numeroDeZona = ? where numeroDeZona = ?");
-
-            preparedStatement.setInt(1, numeroDeZonaNuevo);
-            preparedStatement.setInt(2, numeroDeZonaAntiguo);
-
-            return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

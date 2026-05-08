@@ -1,12 +1,8 @@
 package Proyecto.Vista.VUsuarios;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CUsuarios;
-import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Usuario;
 import Proyecto.Vista.Inicio;
-import Proyecto.Vista.VAtracciones.VAAnadir;
-import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
 import Proyecto.Vista.VEntradas.VEntradas;
@@ -20,8 +16,9 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class VUsuarios {
-
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
+        VUAnadir vUAnadir = new VUAnadir();
+        vUAnadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Usuarios");
@@ -101,7 +98,7 @@ public class VUsuarios {
 
             private void filtrar() {
                 String texto = filtro.getText();
-                if (texto.trim().length() == 0) {
+                if (texto.trim().isEmpty()) {
                     sorter.setRowFilter(null);
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
@@ -119,13 +116,15 @@ public class VUsuarios {
         // Creo la parte de abajo y sus botónes
         JPanel abajo = new JPanel();
         abajo.setLayout(new GridLayout(1, 10, 10, 10));
-        JButton botonS1 = new JButton("Borrar selección");
-        JButton botonS2 = new JButton("Modificar selección");
-        JButton botonS3 = new JButton("Actualizar tabla");
+        JButton botonS1 = new JButton("Añadir");
+        JButton botonS2 = new JButton("Borrar selección");
+        JButton botonS3 = new JButton("Modificar selección");
+        JButton botonS4 = new JButton("Actualizar tabla");
 
         abajo.add(botonS1);
         abajo.add(botonS2);
         abajo.add(botonS3);
+        abajo.add(botonS4);
 
         // Finalmente, añado todas las partes y muestro el frame
         arriba.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -169,8 +168,13 @@ public class VUsuarios {
             base.dispose();
         });
 
-        // Añado funcionalidad a los botónes de abajo
         botonS1.addActionListener(a->{
+            // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
+            vUAnadir.mostrar(base.getLocation(), modelo);
+        });
+
+        // Añado funcionalidad a los botónes de abajo
+        botonS2.addActionListener(a->{
             JFrame mensaje = new JFrame("Operación de eliminación");
             // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
@@ -207,12 +211,12 @@ public class VUsuarios {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
 
-        botonS2.addActionListener(a->{
+        botonS3.addActionListener(a->{
             // Compruebo si ha seleccionado algo
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
@@ -224,13 +228,13 @@ public class VUsuarios {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
 
         // Botón de actualizar la tabla
-        botonS3.addActionListener(a->{
+        botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
     }

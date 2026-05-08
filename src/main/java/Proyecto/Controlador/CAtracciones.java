@@ -1,15 +1,9 @@
 package Proyecto.Controlador;
 
-import Proyecto.Coexion.Conexion;
 import Proyecto.DAO.DAtracciones;
-import Proyecto.DAO.DVisita;
 import Proyecto.Modelo.Atracciones;
-import Proyecto.Modelo.Visita;
 
 
-import javax.swing.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class CAtracciones {

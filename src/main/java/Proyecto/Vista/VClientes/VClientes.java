@@ -3,7 +3,6 @@ package Proyecto.Vista.VClientes;
 import Proyecto.Controlador.*;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.*;
-import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VUsuarios.VUsuarios;
@@ -17,9 +16,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class VClientes {
-    static VCAnadir vAnadir = new VCAnadir();
-
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
+        VCAnadir vAnadir = new VCAnadir();
         vAnadir.construir();
 
         // Creo el frame y lo configuro
@@ -102,7 +100,7 @@ public class VClientes {
 
             private void filtrar() {
                 String texto = filtro.getText();
-                if (texto.trim().length() == 0) {
+                if (texto.trim().isEmpty()) {
                     sorter.setRowFilter(null);
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
@@ -189,7 +187,7 @@ public class VClientes {
             if  (tabla.getSelectedRow() != -1) {
                 int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
                 String dni = String.valueOf(modelo.getValueAt(filaModelo, 0));
-                Boolean eliminar = false;
+                boolean eliminar;
 
                 // Compruebo que no dependa ningún elemento de este
                 if (!CEntrada.seleccionarPorDni(dni).isEmpty() || !CVisita.seleccionarPorDni(dni).isEmpty()) {
@@ -203,14 +201,9 @@ public class VClientes {
                     );
 
                     // Si selecciona si se eliminan automáticamente los elementos relacionados con este y se elimina el elemento
-                    if (respuesta == JOptionPane.YES_OPTION) {
-
-                        // Activo el borrado del elemento
-                        eliminar = true;
-                    } else {
-                        // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
-                        eliminar = false;
-                    }
+                    // Activo el borrado del elemento
+                    // En caso de que haya seleccionado no o haya cerrado la ventana no se elmina nada
+                    eliminar = respuesta == JOptionPane.YES_OPTION;
 
 
                 } else {
@@ -236,7 +229,7 @@ public class VClientes {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
@@ -253,7 +246,7 @@ public class VClientes {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });

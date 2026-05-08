@@ -1,11 +1,7 @@
 package Proyecto.Controlador;
 
-import Proyecto.DAO.DEntrada;
 import Proyecto.DAO.DUsuarios;
-import Proyecto.DAO.DVisita;
-import Proyecto.Modelo.Entrada;
 import Proyecto.Modelo.Usuario;
-import Proyecto.Modelo.Visita;
 
 import java.util.ArrayList;
 

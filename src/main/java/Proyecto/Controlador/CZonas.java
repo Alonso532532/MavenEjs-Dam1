@@ -1,12 +1,8 @@
 package Proyecto.Controlador;
 
-import Proyecto.DAO.DClientes;
 import Proyecto.DAO.DZonas;
-import Proyecto.Modelo.Clientes;
 import Proyecto.Modelo.Zonas;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 public final class CZonas {

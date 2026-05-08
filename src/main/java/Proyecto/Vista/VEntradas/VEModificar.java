@@ -1,9 +1,6 @@
 package Proyecto.Vista.VEntradas;
 
-import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CEntrada;
-import Proyecto.Controlador.CVisita;
-import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -77,7 +74,7 @@ public class VEModificar {
 
         botonModificar.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
-            if (!((String) cBF1.getSelectedItem()).equals(tipoAnterior) || !tFC3.getText().equals(precioAnterior) || !tFC4.getText().equals(dniAnterior)){
+            if (!(cBF1.getSelectedItem()).equals(tipoAnterior) || !tFC3.getText().equals(precioAnterior) || !tFC4.getText().equals(dniAnterior)){
 
                 // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
                 JFrame mensaje = new JFrame("Proceso de modificación");
@@ -97,12 +94,12 @@ public class VEModificar {
 
             } else {
                 // Si no hay cambios en los campos
-                JFrame mensaje = new JFrame("Sin cambios");
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "No han habido cambios en los valores",
-                        "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        "Sin cambios",
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });

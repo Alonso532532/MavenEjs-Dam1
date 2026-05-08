@@ -1,8 +1,6 @@
 package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
-import Proyecto.Modelo.Clientes;
-import Proyecto.Modelo.Entrada;
 import Proyecto.Modelo.Usuario;
 
 import java.sql.*;

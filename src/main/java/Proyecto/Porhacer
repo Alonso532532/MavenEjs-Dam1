@@ -1,3 +1,5 @@
 Se podría cambiar el formato en el que pide la fecha de una visita el controlador para que no se tenga que comprobar en la vista??
 
 Buscar la manera de facilitarle el numero de id de los sitios que sea necesario para añadir algo de otra tabla
+
+En la fecha y hora, poner que solo se vea la fecha

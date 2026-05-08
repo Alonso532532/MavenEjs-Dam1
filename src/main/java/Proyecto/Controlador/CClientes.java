@@ -1,8 +1,6 @@
 package Proyecto.Controlador;
 
-import Proyecto.DAO.DAtracciones;
 import Proyecto.DAO.DClientes;
-import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Clientes;
 
 import java.util.ArrayList;

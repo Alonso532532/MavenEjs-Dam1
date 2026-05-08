@@ -2,7 +2,6 @@ package Proyecto.DAO;
 
 import Proyecto.Coexion.Conexion;
 import Proyecto.Modelo.Entrada;
-import Proyecto.Modelo.Visita;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -113,20 +112,6 @@ public final class DEntrada {
 
             preparedStatement.setString(1, dni);
             preparedStatement.setInt(2, numeroDeEntrada);
-
-            return preparedStatement.executeUpdate()==1;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static boolean cambiarNumeroDeEntrada(int numeroDeEntradaAntiguo, int numeroDeEntradaNuevo){
-        try {
-            Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("update Entrada set DNI = ? where numeroDeEntrada = ?");
-
-            preparedStatement.setInt(1, numeroDeEntradaNuevo);
-            preparedStatement.setInt(2, numeroDeEntradaAntiguo);
 
             return preparedStatement.executeUpdate()==1;
         } catch (SQLException e) {

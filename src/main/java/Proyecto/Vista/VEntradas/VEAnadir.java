@@ -1,13 +1,11 @@
 package Proyecto.Vista.VEntradas;
 
 import Proyecto.Controlador.*;
-import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.Arrays;
 
 public class VEAnadir {
     private static JFrame fAnadir = new JFrame();
@@ -67,11 +65,11 @@ public class VEAnadir {
                         mensaje,
                         "Error, uno o varios campos están vacíos",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             } else {
                 JFrame mensaje = new JFrame("Operación para añadir entradas");
-                String resp = "";
+                String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
                         resp = CEntrada.anadir((String) cBF1.getSelectedItem(), tFC2.getText(), tFC3.getText()),

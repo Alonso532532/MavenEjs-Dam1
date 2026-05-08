@@ -1,35 +1,39 @@
-package Proyecto.Vista.VClientes;
+package Proyecto.Vista.VUsuarios;
 
-import Proyecto.Controlador.*;
+import Proyecto.Controlador.CUsuarios;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class VCAnadir {
+public class VUAnadir {
     private static JFrame fAnadir = new JFrame();
+    // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
+
+    // Este método inicializa todo de la ventana
     public void construir() {
+        // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
-        fAnadir.setTitle("Añadir clientes");
+        fAnadir.setTitle("Añadir entrada");
         fAnadir.setSize(500, 170);
         fAnadir.setLayout(new BorderLayout());
 
         JPanel panelC = new JPanel(new GridLayout(2, 3, 10, 5));
 
         TextField tFC1 = new TextField();
-        TextField tFC2 = new TextField();
-        TextField tFC3 = new TextField();
+        JPasswordField tFC2 = new JPasswordField();
+        JCheckBox cBC1 = new JCheckBox();
 
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
         JLabel labelC3 = new JLabel();
 
-        labelC1.setText("DNI");
-        labelC2.setText("Edad");
-        labelC3.setText("Nombre");
+        labelC1.setText("Nombre");
+        labelC2.setText("Contrasena");
+        labelC3.setText("Admin");
 
         panelC.add(labelC1);
         panelC.add(labelC2);
@@ -37,7 +41,7 @@ public class VCAnadir {
 
         panelC.add(tFC1);
         panelC.add(tFC2);
-        panelC.add(tFC3);
+        panelC.add(cBC1);
 
         JPanel panelS = new JPanel(new FlowLayout());
 
@@ -51,25 +55,26 @@ public class VCAnadir {
         fAnadir.add(panelS, BorderLayout.SOUTH);
 
         botonAnadir.addActionListener(a -> {
-            if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getText().isEmpty()) {
-                JFrame mensaje = new JFrame("Error de formato");
+            // En cuanto se active al botón se comprueba que no hayan campos vacíos
+            if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty()) {
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 JOptionPane.showMessageDialog(
                         mensaje,
                         "Error, uno o varios campos están vacíos",
-                        "Información sobre la operación",
+                        "Error de formato",
                         JOptionPane.ERROR_MESSAGE
                 );
             } else {
-                JFrame mensaje = new JFrame("Operación para añadir clientes");
+                JFrame mensaje = new JFrame("Información sobre la operación");
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CClientes.anadir(tFC1.getText(), tFC2.getText(), tFC3.getText()),
-                        "Información sobre la operación",
+                        resp = CUsuarios.anadir(tFC1.getText(), tFC2.getText(), cBC1.isSelected()),
+                        "Operación para añadir usuarios",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-                if (resp.equals("Cliente introducido con éxito")) {
-                    VClientes.actualizarTabla(modelo);
+                if (resp.equals("Usuario introducido con éxito")) {
+                    VUsuarios.actualizarTabla(modelo);
                 }
             }
         });

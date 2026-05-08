@@ -1,7 +1,6 @@
 package Proyecto.Vista.VZonas;
 
 import Proyecto.Controlador.*;
-import Proyecto.Vista.VAtracciones.VAtracciones;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -50,11 +49,11 @@ public class VZAnadir {
                         mensaje,
                         "Error, el campo está vacío",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             } else {
                 JFrame mensaje = new JFrame("Operación para añadir atracciones");
-                String resp = "";
+                String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
                         resp = CZonas.anadir(tFC1.getText()),

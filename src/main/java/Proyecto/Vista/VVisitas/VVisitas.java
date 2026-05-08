@@ -1,8 +1,6 @@
 package Proyecto.Vista.VVisitas;
 
-import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CVisita;
-import Proyecto.Modelo.Atracciones;
 import Proyecto.Modelo.Visita;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
@@ -19,9 +17,9 @@ import java.awt.*;
 
 
 public class VVisitas {
-    static VVAnadir vAanadir = new VVAnadir();
 
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
+        VVAnadir vAanadir = new VVAnadir();
         vAanadir.construir();
 
         // Creo el frame y lo configuro
@@ -104,7 +102,7 @@ public class VVisitas {
 
             private void filtrar() {
                 String texto = filtro.getText();
-                if (texto.trim().length() == 0) {
+                if (texto.trim().isEmpty()) {
                     sorter.setRowFilter(null);
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
@@ -223,7 +221,7 @@ public class VVisitas {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
@@ -240,7 +238,7 @@ public class VVisitas {
                         mensaje,
                         "No hay nada seleccionado",
                         "Información sobre la operación",
-                        JOptionPane.INFORMATION_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
