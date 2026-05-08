@@ -20,10 +20,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class VUsuarios {
-    static VAAnadir vAAnadir = new VAAnadir();
 
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
-        vAAnadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Usuarios");
@@ -143,8 +141,7 @@ public class VUsuarios {
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
             base.dispose();
-            vAAnadir.ocultar();
-            VAModificar.ocultar();
+            VUModificar.ocultar();
         });
 
         botonN2.addActionListener(a->{
@@ -220,7 +217,7 @@ public class VUsuarios {
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
                 int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-                VAModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), String.valueOf(modelo.getValueAt(filaModelo, 1)), String.valueOf(modelo.getValueAt(filaModelo, 2)));
+                VUModificar.mostrar(base.getLocation(), modelo, String.valueOf(modelo.getValueAt(filaModelo, 0)), (boolean) modelo.getValueAt(filaModelo, 1));
             } else {
                 JFrame mensaje = new JFrame("Operación de modificación");
                 JOptionPane.showMessageDialog(

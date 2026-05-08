@@ -101,7 +101,7 @@ public final class DUsuarios {
     public static boolean cambiarContrasena(String nombre, String nombreNuevo){
         try {
             Connection connection = Conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement("update usuarios set nombre = ? where nombre = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update usuarios set contrasena = ? where nombre = ?");
 
             preparedStatement.setString(1, nombreNuevo);
             preparedStatement.setString(2, nombre);

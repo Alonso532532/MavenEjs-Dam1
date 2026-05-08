@@ -55,13 +55,6 @@ public final class CClientes {
             Clientes clienteAntiguo = new Clientes(dniAnterior, edadAnterior, nombreAnterior, false);
             Clientes clienteNuevo = new Clientes(dniNuevo, edadNuevo, nombreNuevo, false);
 
-            // Compruebo la concurrencia aparte porque puede no haber modificado el DNI y saltaría un error
-            if (!clienteAntiguo.getDni().equals(clienteNuevo.getDni())){
-                if (DClientes.comprobarPorDni(clienteNuevo.getDni())){
-                    throw new IllegalArgumentException("El dni ya existe\n");
-                }
-            }
-
             if (clienteAntiguo.getEdad()!=clienteNuevo.getEdad()){
                 DClientes.cambiarEdad(clienteAntiguo.getDni(), clienteNuevo.getEdad());
             }

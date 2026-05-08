@@ -1,34 +1,36 @@
-package Proyecto.Vista.VVisitas;
+package Proyecto.Vista.VUsuarios;
 
-import Proyecto.Controlador.CAtracciones;
+import Proyecto.Controlador.CClientes;
+import Proyecto.Controlador.CEntrada;
+import Proyecto.Controlador.CUsuarios;
 import Proyecto.Controlador.CVisita;
-import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Modelo.Clientes;
+import Proyecto.Vista.VClientes.VClientes;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class VVModificar {
+public class VUModificar {
     private static JFrame fModificar = new JFrame();
     // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
     // Estas variables me sirven para saber si hay cambios
-    private static String dniAnterior = "";
-    private static String numeroDeZonaAnterior = "";
-    private static String fechaAnterior = "";
+    private static String nombreAnterior = "";
+    private static boolean esAdminAnterior = false;
 
     private static TextField tFC1 = new TextField();
-    private static TextField tFC2 = new TextField();
-    private static TextField tFC3 = new TextField();
+    private static JPasswordField tFC2 = new JPasswordField();
+    private static JCheckBox tFC3 = new JCheckBox();
 
     // Este método inicializa todo de la ventana
     public static void construir() {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fModificar.setResizable(false);
 
-        fModificar.setTitle("Modificar visitas");
+        fModificar.setTitle("Modificar clientes");
         fModificar.setSize(500, 210);
         fModificar.setLayout(new BorderLayout());
 
@@ -38,9 +40,9 @@ public class VVModificar {
         JLabel labelC2 = new JLabel();
         JLabel labelC3 = new JLabel();
 
-        labelC1.setText("DNI");
-        labelC2.setText("Numero de zona");
-        labelC3.setText("Fecha");
+        labelC1.setText("Nombre");
+        labelC2.setText("Contrasena");
+        labelC3.setText("Es admin");
 
         panelC.add(labelC1);
         panelC.add(labelC2);
@@ -53,7 +55,7 @@ public class VVModificar {
         JPanel panelS = new JPanel(new GridLayout(2,1,0,5));
 
         JButton botonModificar = new JButton("Modificar");
-        JLabel pista = new JLabel("La fecha sigue el siguiente formato: YYYY-MM-DD hh:mm:ss");
+        JLabel pista = new JLabel("Los cambios del usuario actual tendrán efecto al volver a iniciar sesión");
 
         JPanel SCentrado1 = new JPanel(new FlowLayout());
         JPanel SCentrado2 = new JPanel(new FlowLayout());
@@ -61,33 +63,34 @@ public class VVModificar {
         SCentrado1.add(botonModificar);
         SCentrado2.add(pista);
 
-        panelC.setBorder(new EmptyBorder(15, 15, 0, 15));
-        panelS.setBorder(new EmptyBorder(15, 15, 15, 15));
-
         panelS.add(SCentrado1);
         panelS.add(SCentrado2);
 
+        panelC.setBorder(new EmptyBorder(15, 15, 0, 15));
+        panelS.setBorder(new EmptyBorder(15, 15, 15, 15));
         fModificar.add(panelC, BorderLayout.CENTER);
         fModificar.add(panelS, BorderLayout.SOUTH);
 
         botonModificar.addActionListener(a -> {
-            // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
-            if (!tFC1.getText().equals(dniAnterior) || !tFC2.getText().equals(numeroDeZonaAnterior) || !tFC3.getText().equals(fechaAnterior)){
+            // En cuanto se active al botón se comprueba que se haya modificado al menos un campo, la contraseña no la cuento para que no se sepa si es igual a la introducida
+            if (!tFC1.getText().equals(nombreAnterior) || !tFC2.getText().isEmpty() || tFC3.isSelected() != esAdminAnterior){
+
                 // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
                 JFrame mensaje = new JFrame("Proceso de modificación");
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CVisita.modificar(dniAnterior, numeroDeZonaAnterior, fechaAnterior, tFC1.getText(), tFC2.getText(), tFC3.getText()),
+                        resp = CUsuarios.modificar(nombreAnterior, esAdminAnterior, tFC1.getText(), tFC2.getText(), tFC3.isSelected()),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-                if (resp.equals("Visita modificada con éxito")) {
-                    dniAnterior = tFC1.getText();
-                    numeroDeZonaAnterior = tFC2.getText();
-                    fechaAnterior = tFC3.getText();
-                    VVisitas.actualizarTabla(modelo);
+                if (resp.equals("Usuario modificado con éxito")) {
+                    nombreAnterior = tFC1.getText();
+                    tFC2.setText("");
+                    esAdminAnterior = tFC3.isSelected();
+                    VUsuarios.actualizarTabla(modelo);
                 }
+
             } else {
                 // Si no hay cambios en los campos
                 JFrame mensaje = new JFrame("Sin cambios");
@@ -95,22 +98,21 @@ public class VVModificar {
                         mensaje,
                         "No han habido cambios en los valores",
                         "Información sobre la operación",
-                        JOptionPane.ERROR_MESSAGE
+                        JOptionPane.INFORMATION_MESSAGE
                 );
             }
+
         });
     }
 
-    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String dni, String numeroDeZona, String fecha){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo, String nombre, boolean esAdmin){
         // Guardo los valores antiguos
-        dniAnterior = dni;
-        numeroDeZonaAnterior = numeroDeZona;
-        fechaAnterior = fecha;
+        nombreAnterior = nombre;
+        esAdminAnterior = esAdmin;
 
         // Asigno el valor de la fila seleccionada a los campos de texto
-        tFC1.setText(dni);
-        tFC2.setText(numeroDeZona);
-        tFC3.setText(fecha);
+        tFC1.setText(nombre);
+        tFC3.setSelected(esAdmin);
 
         // Sitúo la ventana
         fModificar.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);

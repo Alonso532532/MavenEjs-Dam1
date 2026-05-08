@@ -4,6 +4,7 @@ import Proyecto.Controlador.CAtracciones;
 import Proyecto.Controlador.CClientes;
 import Proyecto.Controlador.CEntrada;
 import Proyecto.Controlador.CVisita;
+import Proyecto.DAO.DClientes;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 
@@ -65,14 +66,18 @@ public class VCModificar {
         fModificar.add(panelS, BorderLayout.SOUTH);
 
         botonModificar.addActionListener(a -> {
-            // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
+            // En cuanto se active al botón se comprueba que se haya modificado al menos un campo
             if (!tFC1.getText().equals(dniAnterior) || !tFC2.getText().equals(edadAnterior) || !tFC3.getText().equals(nombreAnterior)){
                 boolean modificar;
                 // Compruebo que no dependa ningún elemento de este en caso de que se modifique su clave primaria
                 if ((!CEntrada.seleccionarPorDni(dniAnterior).isEmpty() || !CVisita.seleccionarPorDni(dniAnterior).isEmpty()) && !tFC1.getText().equals(dniAnterior)) {
                     try {
-                        // Creo un cliente para validar que el cliente es válido andtes de preguntarle
-                        Clientes comprobar = new Clientes(tFC1.getText(), tFC2.getText(), tFC3.getText(), false);
+                        // Creo un cliente para validar que el cliente es válido antes de preguntarle, si ha modificado el dni también compruebo concurrencia
+                        if (tFC1.getText().equals(dniAnterior)){
+                            Clientes comprobar = new Clientes(tFC1.getText(), tFC2.getText(), tFC3.getText(), false);
+                        } else {
+                            Clientes comprobar = new Clientes(tFC1.getText(), tFC2.getText(), tFC3.getText(), true);
+                        }
 
                         // Sí depende algún elemento le pregunto si quiere eliminarlo
                         int respuesta = JOptionPane.showConfirmDialog(

@@ -45,17 +45,27 @@ public final class CUsuarios {
         }
     }
 
-    public static String modificar(String nombreAntiguo, String contrasenaAntigua, boolean adminAntiguo, String nombreNuevo, String contrasenaNueva, boolean adminNuevo){
+    public static String modificar(String nombreAntiguo, boolean adminAntiguo, String nombreNuevo, String contrasenaNueva, boolean adminNuevo){
         try {
 
-            Usuario usuarioAnterior = new Usuario(nombreAntiguo, contrasenaAntigua, adminAntiguo, false);
-            Usuario usuarioNuevo = new Usuario(nombreNuevo, contrasenaNueva, adminNuevo, true);
+            Usuario usuarioAnterior = new Usuario(nombreAntiguo, adminAntiguo, false);
+            // Si no introduce una nueva contraseña no compruebo la contraseña y tampoco la cambio,
+            // también compruebo si cambia el nombre que ese nombre no esté asignado ya a otro usuario
+            if (!contrasenaNueva.isEmpty() && !nombreAntiguo.equals(nombreNuevo)) {
+                Usuario usuarioNuevo = new Usuario(nombreNuevo, contrasenaNueva, adminNuevo, true);
+            } else if (contrasenaNueva.isEmpty() && !nombreAntiguo.equals(nombreNuevo)){
+                Usuario usuarioNuevo = new Usuario(nombreNuevo, adminNuevo, true);
+            } else if (!contrasenaNueva.isEmpty()){
+                Usuario usuarioNuevo = new Usuario(nombreNuevo, contrasenaNueva, adminNuevo, false);
+            } else {
+                Usuario usuarioNuevo = new Usuario(nombreNuevo, adminNuevo, false);
+            }
 
             if (!nombreAntiguo.equals(nombreNuevo)){
                 DUsuarios.cambiarNombre(nombreAntiguo, nombreNuevo);
             }
 
-            if (!contrasenaAntigua.equals(contrasenaNueva)){
+            if (!contrasenaNueva.isEmpty()){
                 DUsuarios.cambiarContrasena(nombreNuevo, contrasenaNueva);
             }
 

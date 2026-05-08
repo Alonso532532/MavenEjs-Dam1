@@ -26,6 +26,21 @@ public class Usuario {
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
+    // Este constructor sirve para que si al modificar no se cambia la contraseña, esta no se cambie
+    public Usuario(String nombre, boolean esAdmin, boolean comprobarConcurrencia) {
+        String error = "";
+        if (!setNombre(nombre))error+="El nombre es demasiado largo/corto o contiene carácteres no permitidos\n";
+        if (comprobarConcurrencia){
+            try {
+                if (DUsuarios.comprobarPorNombre(nombre)) error+="El nombre ya existe\n";
+            } catch (RuntimeException e){
+                error+="La comprobación de concurrencia no se ha ejecutado correctamente\n";
+            }
+        }
+        this.esAdmin = esAdmin;
+        if (!error.isEmpty()) throw new IllegalArgumentException(error);
+    }
+
     public String getNombre() {
         return nombre;
     }

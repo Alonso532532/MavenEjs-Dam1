@@ -6,6 +6,7 @@ import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VCModificar;
 import Proyecto.Vista.VEntradas.VEModificar;
+import Proyecto.Vista.VUsuarios.VUModificar;
 import Proyecto.Vista.VUsuarios.VUsuarios;
 import Proyecto.Vista.VVisitas.VVModificar;
 import Proyecto.Vista.VZonas.VZModificar;
@@ -61,8 +62,6 @@ public final class Inicio {
 
         usuarioI.add(labelPUI);
         usuarioI.add(campoPU);
-
-        VUsuarios.ejecutar(true, base.getLocation(), base.getSize());
 
         // Parte derecha (contraseña)
         JPanel contrasenaI = new JPanel(new GridLayout(2, 1));
@@ -238,6 +237,7 @@ public final class Inicio {
                         VEModificar.construir();
                         VVModificar.construir();
                         VZModificar.construir();
+                        VUModificar.construir();
                         primero = false;
                     }
                     base.dispose();

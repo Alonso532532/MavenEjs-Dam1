@@ -16,9 +16,6 @@ public final class Conexion {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/Proyecto/Coexion/ParametrosDeConexion.txt"))){
             //Separo los datos
             String[] parametros = bufferedReader.readLine().split(",");
-            for (String parametro : parametros) {
-                System.out.println(parametro);
-            }
             return DriverManager.getConnection(parametros[0],parametros[1],parametros[2]);
         } catch (SQLException e) {
             throw new SQLException("Error en la conexión de la base de datos");

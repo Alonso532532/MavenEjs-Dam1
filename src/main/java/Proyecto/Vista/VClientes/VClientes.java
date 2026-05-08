@@ -6,6 +6,7 @@ import Proyecto.Vista.*;
 import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VEntradas.VEntradas;
+import Proyecto.Vista.VUsuarios.VUsuarios;
 import Proyecto.Vista.VVisitas.VVisitas;
 import Proyecto.Vista.VZonas.VZonas;
 
@@ -39,6 +40,7 @@ public class VClientes {
         JButton botonN4 = new JButton("Visitas");
         JButton botonN5 = new JButton("Clientes");
         JButton botonN6 = new JButton("Entradas");
+        JButton botonN7 = new JButton("Usuarios");
 
         botonN1.setBackground(new Color(255, 91, 91));
         botonN5.setBackground(new Color(189, 189, 189));
@@ -49,6 +51,9 @@ public class VClientes {
         arriba.add(botonN4);
         arriba.add(botonN5);
         arriba.add(botonN6);
+        if (admin){
+            arriba.add(botonN7);
+        }
 
         // Creo la zona del medio
         JPanel medio = new JPanel();
@@ -162,6 +167,11 @@ public class VClientes {
 
         botonN6.addActionListener(a -> {
             VEntradas.ejecutar(admin, base.getLocation(), base.getSize());
+            base.dispose();
+        });
+
+        botonN7.addActionListener(a->{
+            VUsuarios.ejecutar(admin, base.getLocation(), base.getSize());
             base.dispose();
         });
 
