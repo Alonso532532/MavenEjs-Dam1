@@ -188,7 +188,7 @@ public class VEntradas {
             if  (tabla.getSelectedRow() != -1) {
                 // Selecciono la fila que ha seleccionado
                 int filaModelo = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-                // Sí depende algún elemento le pregunto si quiere eliminarlo
+                // Le pregunto si quiere eliminarlo
                 int respuesta = JOptionPane.showConfirmDialog(
                         null,
                         "¿Estas seguro de que quieres eliminar la entrada con el numero: "+ tabla.getValueAt(filaModelo, 0) +"?",

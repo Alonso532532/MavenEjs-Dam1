@@ -13,6 +13,8 @@ import Proyecto.Vista.VVisitas.VVisitas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -94,10 +96,10 @@ public class VZonas {
         tabla.setRowSorter(sorter);
         JTextField filtro = new JTextField();
 
-        filtro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+        filtro.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { filtrar(); }
+            public void removeUpdate(DocumentEvent e) { filtrar(); }
+            public void insertUpdate(DocumentEvent e) { filtrar(); }
 
             private void filtrar() {
                 String texto = filtro.getText();
@@ -189,7 +191,7 @@ public class VZonas {
                 int filaVista = tabla.getSelectedRow();
                 int filaModelo = tabla.convertRowIndexToModel(filaVista);
                 Integer numeroZona = (Integer) modelo.getValueAt(filaModelo, 0);
-                boolean eliminar;
+                boolean eliminar = false;
 
                 // Compruebo que no dependa ningún elemento de este
                 if (!CVisita.seleccionarPorNumeroDeZona(numeroZona).isEmpty() || !CAtracciones.seleccionarPorNumeroDeZona(numeroZona).isEmpty()) {
@@ -209,7 +211,15 @@ public class VZonas {
 
 
                 } else {
-                    eliminar = true;
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Estas seguro de que quieres eliminar la zona con el numero: "+ tabla.getValueAt(filaModelo, 0) +"?",
+                            "Confirmación",
+                            JOptionPane.YES_NO_OPTION
+                    );
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        eliminar = true;
+                    }
                 }
 
                 // Elimino el elemento si hay que eliminarlo

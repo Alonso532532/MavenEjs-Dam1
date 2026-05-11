@@ -3,6 +3,7 @@ package Proyecto;
 import Proyecto.Coexion.Conexion;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAModificar;
+import Proyecto.Vista.VTablas;
 import Proyecto.Vista.VUsuarios.VUsuarios;
 
 import javax.swing.table.DefaultTableModel;
@@ -41,5 +42,6 @@ public class Demo {
 //        VAnadir.ejecutar(campos, 1);
 
         Inicio.ejecutar();
+        //VTablas.ejecutar(true, new Point(200, 200), new Dimension(1000, 700));
     }
 }

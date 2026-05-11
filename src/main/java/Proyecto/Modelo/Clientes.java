@@ -22,13 +22,14 @@ public class Clientes {
                 error+="La comprobación de concurrencia no se ha ejecutado correctamente\n";
             }
         }
-        if (!setDni(dni)) error+="El dni es incorrecto\n";
+        if (!setDni(dni)) error+="El dni es incorrecto, ej: 11111111A\n";
         try {
-            if (!setEdad(edad)) error+="La edad es incorrecta\n";
+            if (!setEdad(edad)) error+="Demasiada edad o edad negativa\n";
         } catch (NumberFormatException e){
             error+="El formato de la edad es incorrecto\n";
         }
-        if (!setNombre(nombre)) error+="El nombre es demasiado largo/corto o contiene carácteres no permitidos\n";
+        if (!setNombre(nombre)) error+="El nombre contiene carácteres no permitidos, solo se permiten letras\n";
+        if (nombre.length()>50) error+="Nombre demasiado largo, máximo 50 carácteres\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -63,7 +64,7 @@ public class Clientes {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("[A-Za-zñáéíóúÁÉÍÓÚ ]{1,50}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[A-Za-zñáéíóúÁÉÍÓÚ ]+").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;
