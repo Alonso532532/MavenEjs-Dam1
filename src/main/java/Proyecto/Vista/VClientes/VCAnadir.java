@@ -10,7 +10,12 @@ import java.awt.*;
 public class VCAnadir {
     private static JFrame fAnadir = new JFrame();
     private static DefaultTableModel modelo;
-    public void construir() {
+
+    private static TextField tFC1 = new TextField();
+    private static TextField tFC2 = new TextField();
+    private static TextField tFC3 = new TextField();
+
+    public static void construir() {
         fAnadir.setResizable(false);
 
         fAnadir.setTitle("Añadir clientes");
@@ -18,10 +23,6 @@ public class VCAnadir {
         fAnadir.setLayout(new BorderLayout());
 
         JPanel panelC = new JPanel(new GridLayout(2, 3, 10, 5));
-
-        TextField tFC1 = new TextField();
-        TextField tFC2 = new TextField();
-        TextField tFC3 = new TextField();
 
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
@@ -75,15 +76,19 @@ public class VCAnadir {
         });
     }
 
-    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo){
         // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
 
         modelo = modeloNuevo;
+
+        tFC1.setText("");
+        tFC2.setText("");
+        tFC3.setText("");
     }
 
-    public void ocultar(){
+    public static void ocultar(){
         fAnadir.dispose();
     }
 }

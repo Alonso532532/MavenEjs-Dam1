@@ -3,6 +3,8 @@ package Proyecto.Vista.VClientes;
 import Proyecto.Controlador.*;
 import Proyecto.Modelo.Clientes;
 import Proyecto.Vista.*;
+import Proyecto.Vista.VAtracciones.VAAnadir;
+import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VUsuarios.VUsuarios;
@@ -19,8 +21,6 @@ import java.awt.*;
 
 public class VClientes {
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
-        VCAnadir vAnadir = new VCAnadir();
-        vAnadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -145,39 +145,37 @@ public class VClientes {
         // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a -> {
             Inicio.ejecutar();
-            base.dispose();
-            vAnadir.ocultar();
-            VCModificar.ocultar();
+            cerrarTodo(base);
         });
 
         botonN2.addActionListener(a -> {
             VAtracciones.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN3.addActionListener(a -> {
             VZonas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN4.addActionListener(a -> {
             VVisitas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN6.addActionListener(a -> {
             VEntradas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN7.addActionListener(a->{
             VUsuarios.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonS1.addActionListener(a->{
             // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAnadir.mostrar(base.getLocation(), modelo);
+            VCAnadir.mostrar(base.getLocation(), modelo);
         });
 
         // Añado funcionalidad a los botónes de abajo
@@ -264,6 +262,13 @@ public class VClientes {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
+    }
+
+    // Cierro todo al salir de la interfaz
+    static void cerrarTodo(Frame frame){
+        frame.dispose();
+        VCAnadir.ocultar();
+        VCModificar.ocultar();
     }
 
     public static void actualizarTabla(DefaultTableModel modelo) {

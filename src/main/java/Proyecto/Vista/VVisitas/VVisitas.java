@@ -5,6 +5,8 @@ import Proyecto.Modelo.Visita;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
+import Proyecto.Vista.VEntradas.VEAnadir;
+import Proyecto.Vista.VEntradas.VEModificar;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VUsuarios.VUsuarios;
 import Proyecto.Vista.VZonas.VZonas;
@@ -19,8 +21,6 @@ import java.awt.*;
 public class VVisitas {
 
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
-        VVAnadir vAanadir = new VVAnadir();
-        vAanadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Visitas");
@@ -145,40 +145,38 @@ public class VVisitas {
         // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
-            base.dispose();
-            vAanadir.ocultar();
-            VVModificar.ocultar();
+            cerrarTodo(base);
         });
 
         botonN2.addActionListener(a->{
             VAtracciones.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN7.addActionListener(a->{
             VUsuarios.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         // Añado funcionalidad a los botónes de abajo
         botonS1.addActionListener(a->{
             // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAanadir.mostrar(base.getLocation(), modelo);
+            VVAnadir.mostrar(base.getLocation(), modelo);
         });
 
         botonS2.addActionListener(a->{
@@ -246,6 +244,13 @@ public class VVisitas {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
+    }
+
+    // Cierro todo al salir de la interfaz
+    static void cerrarTodo(Frame frame){
+        frame.dispose();
+        VVAnadir.ocultar();
+        VVModificar.ocultar();
     }
 
     // Botón de actualizar la tabla

@@ -18,7 +18,7 @@ public class Atracciones {
 
     public Atracciones(String nombre, String numeroDeZona) {
         String error = "";
-        if (!setNombre(nombre)) error+="El nombre contiene carácteres no permitidos, solo se permiten letras\n";
+        if (!setNombre(nombre)) error+="El nombre contiene carácteres no permitidos, solo se permiten letras y espacios\n";
         if (nombre.length()>50) error+="Nombre demasiado largo, máximo 50 carácteres\n";
         try {
             if (!setNumeroDeZona(numeroDeZona)) error+="Numero de zona inexistente\n";

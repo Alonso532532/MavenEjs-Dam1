@@ -1,6 +1,7 @@
 package Proyecto.Vista.VVisitas;
 
 import Proyecto.Controlador.CVisita;
+import Proyecto.Controlador.CZonas;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -24,10 +25,11 @@ public class VVModificar {
     private static String horaAnterior = "";
 
     private static TextField tFC1 = new TextField();
-    private static TextField tFC2 = new TextField();
+    //Creo el combobox
+    private static JComboBox<String> cBC1 = new JComboBox<>();
     // Creo un desplegable para la fecha
-    private static JDateChooser tFC3 = new JDateChooser();
-    private static TextField tFC4 = new TextField();
+    private static JDateChooser tFC2 = new JDateChooser();
+    private static TextField tFC3 = new TextField();
 
     // Este método inicializa todo de la ventana
     public static void construir() {
@@ -52,7 +54,7 @@ public class VVModificar {
         labelC4.setText("Hora");
 
         // Le asigno un formato al desplegable de la fecha
-        tFC3.setDateFormatString("dd/MM/yyyy");
+        tFC2.setDateFormatString("dd/MM/yyyy");
 
         panelC.add(labelC1);
         panelC.add(labelC2);
@@ -60,9 +62,9 @@ public class VVModificar {
         panelC.add(labelC4);
 
         panelC.add(tFC1);
+        panelC.add(cBC1);
         panelC.add(tFC2);
         panelC.add(tFC3);
-        panelC.add(tFC4);
 
         JPanel panelS = new JPanel(new GridLayout(2,1,0,5));
 
@@ -85,9 +87,9 @@ public class VVModificar {
         fModificar.add(panelS, BorderLayout.SOUTH);
 
         botonModificar.addActionListener(a -> {
-            if (tFC3.getDate()!=null) {
+            if (tFC2.getDate()!=null) {
                 // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
-                if (!tFC1.getText().equals(dniAnterior) || !tFC2.getText().equals(numeroDeZonaAnterior) || !tFC3.getDate().equals(fechaAnterior) || !tFC4.getText().equals(horaAnterior)) {
+                if (!tFC1.getText().equals(dniAnterior) || !cBC1.getSelectedItem().toString().contains(numeroDeZonaAnterior) || !tFC2.getDate().equals(fechaAnterior) || !tFC3.getText().equals(horaAnterior)) {
 
                     // Instancio una clase que me permite parsear el resultado que me da el desplegable de la fecha al formato que necesito
                     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -97,15 +99,15 @@ public class VVModificar {
                     String resp;
                     JOptionPane.showMessageDialog(
                             mensaje,
-                            resp = CVisita.modificar(dniAnterior, numeroDeZonaAnterior, formato.format(fechaAnterior) + "T" + horaAnterior, tFC1.getText(), tFC2.getText(), formato.format(tFC3.getDate()) + "T" + tFC4.getText()),
+                            resp = CVisita.modificar(dniAnterior, numeroDeZonaAnterior, formato.format(fechaAnterior) + "T" + horaAnterior, tFC1.getText(), cBC1.getSelectedItem().toString().substring(0, 1), formato.format(tFC2.getDate()) + "T" + tFC3.getText()),
                             "Información sobre la operación",
                             JOptionPane.INFORMATION_MESSAGE
                     );
                     if (resp.equals("Visita modificada con éxito")) {
                         dniAnterior = tFC1.getText();
-                        numeroDeZonaAnterior = tFC2.getText();
-                        fechaAnterior = tFC3.getDate();
-                        horaAnterior = tFC4.getText();
+                        numeroDeZonaAnterior = cBC1.getSelectedItem().toString().substring(0, 1);
+                        fechaAnterior = tFC2.getDate();
+                        horaAnterior = tFC3.getText();
                         VVisitas.actualizarTabla(modelo);
                     }
                 } else {
@@ -143,10 +145,25 @@ public class VVModificar {
 
         // Asigno el valor de la fila seleccionada a los campos de texto
         tFC1.setText(dni);
-        tFC2.setText(numeroDeZona);
+        // Inicializo el combobox cada vez que se muestra la vista con las zonas
+        String[] opciones = CZonas.seleccionarTodo().stream().map(a -> a.getNumeroDeZona() + "-" + a.getNombre()).toList().toArray(new String[0]);
+        cBC1.removeAllItems();
+
+        for (String opcion : opciones) {
+            cBC1.addItem(opcion);
+        }
+
+        // Busco la opción para poner por defécto
+        int index = 0;
+        for (int i = 0; i < opciones.length; i++) {
+            if (opciones[i].contains(numeroDeZona)) index = i;
+        }
+
+        cBC1.setSelectedIndex(index);
+
         // Parseo la fecha igual que arriba
-        tFC3.setDate(Date.from(LocalDate.parse(fecha.substring(0,10)).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        tFC4.setText(fecha.substring(11, 19));
+        tFC2.setDate(Date.from(LocalDate.parse(fecha.substring(0,10)).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        tFC3.setText(fecha.substring(11, 19));
 
         // Sitúo la ventana
         fModificar.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);

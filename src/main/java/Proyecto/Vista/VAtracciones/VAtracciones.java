@@ -19,8 +19,6 @@ import java.awt.*;
 public class VAtracciones {
 
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
-        VAAnadir vAAnadir = new VAAnadir();
-        vAAnadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Clientes");
@@ -146,40 +144,38 @@ public class VAtracciones {
         // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
-            base.dispose();
-            vAAnadir.ocultar();
-            VAModificar.ocultar();
+            cerrarTodo(base);
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN7.addActionListener(a->{
             VUsuarios.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         // Añado funcionalidad a los botónes de abajo
         botonS1.addActionListener(a->{
             // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vAAnadir.mostrar(base.getLocation(), modelo);
+            VAAnadir.mostrar(base.getLocation(), modelo);
         });
 
         botonS2.addActionListener(a->{
@@ -244,6 +240,13 @@ public class VAtracciones {
         botonS4.addActionListener(a->{
             actualizarTabla(modelo);
         });
+    }
+
+    // Cierro todo al salir de la interfaz
+    static void cerrarTodo(Frame frame){
+        frame.dispose();
+        VAAnadir.ocultar();
+        VAModificar.ocultar();
     }
 
     // Botón de actualizar la tabla

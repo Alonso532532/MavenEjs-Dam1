@@ -5,6 +5,8 @@ import Proyecto.Modelo.Usuario;
 import Proyecto.Vista.Inicio;
 import Proyecto.Vista.VAtracciones.VAtracciones;
 import Proyecto.Vista.VClientes.VClientes;
+import Proyecto.Vista.VEntradas.VEAnadir;
+import Proyecto.Vista.VEntradas.VEModificar;
 import Proyecto.Vista.VEntradas.VEntradas;
 import Proyecto.Vista.VVisitas.VVisitas;
 import Proyecto.Vista.VZonas.VZonas;
@@ -17,8 +19,6 @@ import java.awt.*;
 
 public class VUsuarios {
     public static void ejecutar(boolean admin, Point posicion, Dimension dimension) {
-        VUAnadir vUAnadir = new VUAnadir();
-        vUAnadir.construir();
 
         // Creo el frame y lo configuro
         JFrame base = new JFrame("Usuarios");
@@ -139,38 +139,37 @@ public class VUsuarios {
         // Añado funcionalidad a los botónes de arriba, de las tablas
         botonN1.addActionListener(a->{
             Inicio.ejecutar();
-            base.dispose();
-            VUModificar.ocultar();
+            cerrarTodo(base);
         });
 
         botonN2.addActionListener(a->{
             VAtracciones.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN3.addActionListener(a->{
             VZonas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN4.addActionListener(a->{
             VVisitas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN5.addActionListener(a->{
             VClientes.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonN6.addActionListener(a->{
             VEntradas.ejecutar(admin, base.getLocation(), base.getSize());
-            base.dispose();
+            cerrarTodo(base);
         });
 
         botonS1.addActionListener(a->{
             // Cada vez que lo muestro, le paso el modelo de la tabla para que pueda actualizarla
-            vUAnadir.mostrar(base.getLocation(), modelo);
+            VUAnadir.mostrar(base.getLocation(), modelo);
         });
 
         // Añado funcionalidad a los botónes de abajo
@@ -239,6 +238,12 @@ public class VUsuarios {
         });
     }
 
+    // Cierro todo al salir de la interfaz
+    static void cerrarTodo(Frame frame){
+        frame.dispose();
+        VUAnadir.ocultar();
+        VUModificar.ocultar();
+    }
 
     public static void actualizarTabla(DefaultTableModel modelo) {
         // Borro las filas antes de añadir las nuevas

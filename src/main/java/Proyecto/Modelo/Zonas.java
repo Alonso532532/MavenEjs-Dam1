@@ -14,7 +14,8 @@ public class Zonas {
 
     public Zonas(String nombre) {
         String error = "";
-        if (!setNombre(nombre)) error+="Nombre invalido\n";
+        if (!setNombre(nombre)) error+="El nombre contiene carácteres no permitidos, solo se permiten letras y espacios\n";
+        if (nombre.length()>50) error+="Nombre demasiado largo, máximo 50 carácteres\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 
@@ -27,7 +28,7 @@ public class Zonas {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("[a-záéíóúÁÉÍÓÚñÑ ]{1,50}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[a-záéíóúÁÉÍÓÚñÑ ]+").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;

@@ -2,12 +2,18 @@ package Proyecto.Vista;
 
 import Proyecto.Controlador.CUsuarios;
 import Proyecto.Modelo.Usuario;
+import Proyecto.Vista.VAtracciones.VAAnadir;
 import Proyecto.Vista.VAtracciones.VAModificar;
 import Proyecto.Vista.VAtracciones.VAtracciones;
+import Proyecto.Vista.VClientes.VCAnadir;
 import Proyecto.Vista.VClientes.VCModificar;
+import Proyecto.Vista.VEntradas.VEAnadir;
 import Proyecto.Vista.VEntradas.VEModificar;
+import Proyecto.Vista.VUsuarios.VUAnadir;
 import Proyecto.Vista.VUsuarios.VUModificar;
+import Proyecto.Vista.VVisitas.VVAnadir;
 import Proyecto.Vista.VVisitas.VVModificar;
+import Proyecto.Vista.VZonas.VZAnadir;
 import Proyecto.Vista.VZonas.VZModificar;
 
 import javax.swing.*;
@@ -226,6 +232,13 @@ public final class Inicio {
                         VVModificar.construir();
                         VZModificar.construir();
                         VUModificar.construir();
+
+                        VAAnadir.construir();
+                        VCAnadir.construir();
+                        VEAnadir.construir();
+                        VUAnadir.construir();
+                        VVAnadir.construir();
+                        VZAnadir.construir();
                         primero = false;
                     }
                     base.dispose();

@@ -22,11 +22,11 @@ public class Entrada {
         String error = "";
         if (!setTipo(tipo)) error+="Tipo de entrada incorrecto\n";
         try {
-            if (!setPrecio(precio)) error+="Precio incorrecto\n";
+            if (!setPrecio(precio)) error+="Precio incorrecto, no puede ser negativo ni superar los 999.99€\n";
         } catch (NumberFormatException e){
-            error+="Formato de precio inválido\n";
+            error+="Formato de precio inválido, ej: 23.45\n";
         }
-        if (!setDni(dni)) error+="DNI incorrecto\n";
+        if (!setDni(dni)) error+="El DNI es inexistente\n";
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
 

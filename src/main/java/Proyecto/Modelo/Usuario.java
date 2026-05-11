@@ -12,7 +12,8 @@ public class Usuario {
 
     public Usuario(String nombre, String contrasena, boolean esAdmin, boolean comprobarConcurrencia) {
         String error = "";
-        if (!setNombre(nombre))error+="El nombre es demasiado largo/corto o contiene carácteres no permitidos\n";
+        if (!setNombre(nombre)) error+="El nombre contiene carácteres no permitidos, solo se permiten letras y espacios\n";
+        if (nombre.length()>20) error+="Nombre demasiado largo, máximo 20 carácteres\n";
         if (comprobarConcurrencia){
             try {
                 if (DUsuarios.comprobarPorNombre(nombre)) error+="El nombre ya existe\n";
@@ -20,7 +21,7 @@ public class Usuario {
                 error+="La comprobación de concurrencia no se ha ejecutado correctamente\n";
             }
         }
-        if (!setContrasena(contrasena))error+="La contraseña tiene que tener entre 5 y 20 (incluidos) caracteres\n";
+        if (!setContrasena(contrasena))error+="La contraseña tiene que tener entre 5 y 20 caracteres\n";
         this.esAdmin = esAdmin;
         if (!error.isEmpty()) throw new IllegalArgumentException(error);
     }
@@ -45,7 +46,7 @@ public class Usuario {
     }
 
     public boolean setNombre(String nombre) {
-        Matcher matcher = Pattern.compile("[A-Za-zñáéíóúÁÉÍÓÚ ]{1,20}").matcher(nombre);
+        Matcher matcher = Pattern.compile("[A-Za-zñáéíóúÁÉÍÓÚ ]+").matcher(nombre);
         if (matcher.matches()){
             this.nombre = nombre;
             return true;

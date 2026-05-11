@@ -12,8 +12,12 @@ public class VUAnadir {
     // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
+    private static TextField tFC1 = new TextField();
+    private static JPasswordField tFC2 = new JPasswordField();
+    private static JCheckBox cBC1 = new JCheckBox();
+
     // Este método inicializa todo de la ventana
-    public void construir() {
+    public static void construir() {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
@@ -22,10 +26,6 @@ public class VUAnadir {
         fAnadir.setLayout(new BorderLayout());
 
         JPanel panelC = new JPanel(new GridLayout(2, 3, 10, 5));
-
-        TextField tFC1 = new TextField();
-        JPasswordField tFC2 = new JPasswordField();
-        JCheckBox cBC1 = new JCheckBox();
 
         JLabel labelC1 = new JLabel();
         JLabel labelC2 = new JLabel();
@@ -80,15 +80,19 @@ public class VUAnadir {
         });
     }
 
-    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo){
         // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
 
         modelo = modeloNuevo;
+
+        tFC1.setText("");
+        tFC2.setText("");
+        cBC1.setSelected(false);
     }
 
-    public void ocultar(){
+    public static void ocultar(){
         fAnadir.dispose();
     }
 }

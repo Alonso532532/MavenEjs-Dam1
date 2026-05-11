@@ -17,8 +17,15 @@ public class VVAnadir {
     // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
+    private static TextField tFC1 = new TextField();
+    // Creo el combobox y le añado las opciones
+    private static JComboBox<String> cBC1 = new JComboBox<>();
+    // Creo un desplegable para la fecha
+    private static JDateChooser tFC2 = new JDateChooser();
+    private static TextField tFC3 = new TextField();
+
     // Este método inicializa todo de la ventana
-    public void construir() {
+    public static void construir() {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
@@ -28,14 +35,8 @@ public class VVAnadir {
 
         JPanel panelC = new JPanel(new GridLayout(2, 4, 10, 5));
 
-        TextField tFC1 = new TextField();
-        TextField tFC2 = new TextField();
-        // Creo un desplegable para la fecha
-        JDateChooser tFC3 = new JDateChooser();
-        // Le asigno un formato y la fecha actual
-        tFC3.setDateFormatString("dd/MM/yyyy");
-        tFC3.setDate(new Date());
-        TextField tFC4 = new TextField(String.valueOf(LocalDateTime.now()).substring(11, 19));
+        // Le asigno un formato a la fecha
+        tFC2.setDateFormatString("dd/MM/yyyy");
 
 
         JLabel labelC1 = new JLabel();
@@ -54,9 +55,9 @@ public class VVAnadir {
         panelC.add(labelC4);
 
         panelC.add(tFC1);
+        panelC.add(cBC1);
         panelC.add(tFC2);
         panelC.add(tFC3);
-        panelC.add(tFC4);
 
         JPanel panelS = new JPanel(new GridLayout(2,1,0,5));
 
@@ -80,7 +81,7 @@ public class VVAnadir {
 
         botonAnadir.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que no hayan campos vacíos
-            if (tFC1.getText().isEmpty() || tFC2.getText().isEmpty() || tFC3.getDate()==null || tFC4.getText().isEmpty()) {
+            if (tFC1.getText().isEmpty() || tFC2.getDate()==null || tFC3.getText().isEmpty()) {
                 JFrame mensaje = new JFrame("Error de formato");
                 JOptionPane.showMessageDialog(
                         mensaje,
@@ -96,7 +97,7 @@ public class VVAnadir {
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CVisita.anadir(tFC1.getText(), tFC2.getText(), formato.format(tFC3.getDate())+"T"+tFC4.getText()),
+                        resp = CVisita.anadir(tFC1.getText(), cBC1.getSelectedItem().toString().substring(0,1), formato.format(tFC2.getDate())+"T"+tFC3.getText()),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
@@ -107,15 +108,26 @@ public class VVAnadir {
         });
     }
 
-    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo){
         // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
 
         modelo = modeloNuevo;
+
+        tFC1.setText("");
+        tFC2.setDate(new Date());
+        tFC3.setText(String.valueOf(LocalDateTime.now()).substring(11, 19));
+        // Lo vacío y le introduzco nuevas opciónes
+        cBC1.removeAllItems();
+        for (String opcion : CZonas.seleccionarTodo().stream().map(a -> a.getNumeroDeZona() + "-" + a.getNombre()).toList().toArray(new String[0])) {
+            cBC1.addItem(opcion);
+        }
+        // Selecciono la primera opción
+        cBC1.setSelectedIndex(0);
     }
 
-    public void ocultar(){
+    public static void ocultar(){
         fAnadir.dispose();
     }
 }

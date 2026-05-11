@@ -12,8 +12,10 @@ public class VZAnadir {
     // Este modelo sirve para actualizar la tabla de la vista
     private static DefaultTableModel modelo;
 
+    private static TextField tFC1 = new TextField();
+
     // Este método inicializa todo de la ventana
-    public void construir() {
+    public static void construir() {
         // Hago que no se pueda cambiar el tamaño a la ventana
         fAnadir.setResizable(false);
 
@@ -23,7 +25,6 @@ public class VZAnadir {
 
         JPanel panelC = new JPanel(new GridLayout(2, 1, 10, 5));
 
-        TextField tFC1 = new TextField();
         JLabel labelC1 = new JLabel();
         labelC1.setText("Nombre");
 
@@ -67,15 +68,17 @@ public class VZAnadir {
         });
     }
 
-    public void mostrar(Point posicion, DefaultTableModel modeloNuevo){
+    public static void mostrar(Point posicion, DefaultTableModel modeloNuevo){
         // Lo sitúo
         fAnadir.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
         fAnadir.setVisible(true);
 
         modelo = modeloNuevo;
+
+        tFC1.setText("");
     }
 
-    public void ocultar(){
+    public static void ocultar(){
         fAnadir.dispose();
     }
 }

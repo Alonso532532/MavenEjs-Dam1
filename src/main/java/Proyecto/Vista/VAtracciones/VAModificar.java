@@ -1,6 +1,7 @@
 package Proyecto.Vista.VAtracciones;
 
 import Proyecto.Controlador.CAtracciones;
+import Proyecto.Controlador.CZonas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,7 +19,8 @@ public class VAModificar {
 
     private static TextField tFC1 = new TextField();
     private static TextField tFC2 = new TextField();
-    private static TextField tFC3 = new TextField();
+    //Creo el combobox
+    private static JComboBox<String> cBC1 = new JComboBox<>();
 
     // Este método inicializa todo de la ventana
     public static void construir() {
@@ -48,7 +50,7 @@ public class VAModificar {
 
         panelC.add(tFC1);
         panelC.add(tFC2);
-        panelC.add(tFC3);
+        panelC.add(cBC1);
 
         JPanel panelS = new JPanel(new FlowLayout());
 
@@ -63,19 +65,19 @@ public class VAModificar {
 
         botonModificar.addActionListener(a -> {
             // En cuanto se active al botón se comprueba que se haya modificado almenos un campo
-            if (!tFC2.getText().equals(nombreAnterior) || !tFC3.getText().equals(numeroDeZonaAnterior)){
+            if (!tFC2.getText().equals(nombreAnterior) || !cBC1.getSelectedItem().toString().contains(numeroDeZonaAnterior)){
                 // Se mostrará el mensaje que responda la modificación, después asigno los nuevos valores "antiguos" y actualizo la tabla
                 JFrame mensaje = new JFrame("Proceso de modificación");
                 String resp;
                 JOptionPane.showMessageDialog(
                         mensaje,
-                        resp = CAtracciones.modificar(tFC1.getText(), nombreAnterior, numeroDeZonaAnterior, tFC2.getText(), tFC3.getText()),
+                        resp = CAtracciones.modificar(tFC1.getText(), nombreAnterior, numeroDeZonaAnterior, tFC2.getText(), cBC1.getSelectedItem().toString().substring(0, 1)),
                         "Información sobre la operación",
                         JOptionPane.INFORMATION_MESSAGE
                 );
                 if (resp.equals("Atraccion modificada con éxito")) {
                     nombreAnterior = tFC2.getText();
-                    numeroDeZonaAnterior = tFC3.getText();
+                    numeroDeZonaAnterior = cBC1.getSelectedItem().toString().substring(0, 1);
                     VAtracciones.actualizarTabla(modelo);
                 }
             } else {
@@ -99,7 +101,22 @@ public class VAModificar {
         // Asigno el valor de la fila seleccionada a los campos de texto
         tFC1.setText(numeroDeAtraccion);
         tFC2.setText(nombre);
-        tFC3.setText(numeroDeZona);
+
+        // Inicializo el combobox cada vez que se muestra la vista con las zonas
+        String[] opciones = CZonas.seleccionarTodo().stream().map(a -> a.getNumeroDeZona() + "-" + a.getNombre()).toList().toArray(new String[0]);
+        cBC1.removeAllItems();
+
+        for (String opcion : opciones) {
+            cBC1.addItem(opcion);
+        }
+
+        // Busco la opción para poner por defécto
+        int index = 0;
+        for (int i = 0; i < opciones.length; i++) {
+             if (opciones[i].contains(numeroDeZona)) index = i;
+        }
+
+        cBC1.setSelectedIndex(index);
 
         // Sitúo la ventana
         fModificar.setLocation((int) posicion.getX()+250, (int) posicion.getY()+265);
